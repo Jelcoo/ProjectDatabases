@@ -53,7 +53,7 @@ namespace SomerenUI
             try
             {
                 // get and display all students
-                List<Teacher> teachers = GetTeacher();
+                List<Teacher> teachers = GetTeachers();
                 DisplayTeachers(teachers);
             }
             catch (Exception e)
@@ -101,7 +101,7 @@ namespace SomerenUI
             return students;
         }
 
-        private List<Teacher> GetTeacher()
+        private List<Teacher> GetTeachers()
         {
             TeacherService teacherService = new TeacherService();
             List<Teacher> teachers = teacherService.GetTeachers();
