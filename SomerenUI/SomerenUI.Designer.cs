@@ -52,8 +52,9 @@
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
-            pnlRooms.SuspendLayout();
+            pnlTeachers.SuspendLayout();
             pnlActivities.SuspendLayout();
+            pnlRooms.SuspendLayout();
 
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlTeachers.SuspendLayout();
@@ -108,14 +109,14 @@
             // activitiesToolStripMenuItem
             // 
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
-            activitiesToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            activitiesToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
             activitiesToolStripMenuItem.Text = "Activities";
             activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
-            roomsToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
+            roomsToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
             roomsToolStripMenuItem.Text = "Rooms";
             roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
@@ -139,29 +140,15 @@
             // 
             // pnlStudents
             // 
-            pnlStudents.Controls.Add(pictureBox1);
             pnlStudents.Controls.Add(listViewStudents);
-            pnlStudents.Controls.Add(label1);
             pnlStudents.Location = new System.Drawing.Point(14, 31);
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new System.Drawing.Size(1072, 528);
             pnlStudents.TabIndex = 2;
-            //
-            // pnlRooms
-            // 
-            pnlRooms.Controls.Add(pictureBox1);
-            pnlRooms.Controls.Add(listViewRooms);
-            pnlRooms.Controls.Add(label1);
-            pnlRooms.Location = new System.Drawing.Point(14, 31);
-            pnlRooms.Name = "pnlRooms";
-            pnlRooms.Size = new System.Drawing.Size(1072, 528);
-            pnlRooms.TabIndex = 2;
             // 
             // pnlTeachers
             // 
-            pnlTeachers.Controls.Add(pictureBox1);
             pnlTeachers.Controls.Add(listViewTeachers);
-            pnlTeachers.Controls.Add(label1);
             pnlTeachers.Location = new System.Drawing.Point(14, 31);
             pnlTeachers.Name = "pnlTeachers";
             pnlTeachers.Size = new System.Drawing.Size(1072, 528);
@@ -169,18 +156,24 @@
             // 
             // pnlActivities
             // 
-            pnlActivities.Controls.Add(pictureBox1);
             pnlActivities.Controls.Add(listViewActivities);
-            pnlActivities.Controls.Add(label1);
             pnlActivities.Location = new System.Drawing.Point(14, 31);
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new System.Drawing.Size(1072, 528);
             pnlActivities.TabIndex = 2;
+            //
+            // pnlRooms
+            // 
+            pnlRooms.Controls.Add(listViewRooms);
+            pnlRooms.Location = new System.Drawing.Point(14, 31);
+            pnlRooms.Name = "pnlRooms";
+            pnlRooms.Size = new System.Drawing.Size(1072, 528);
+            pnlRooms.TabIndex = 2;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(920, 0);
+            pictureBox1.Location = new System.Drawing.Point(1200, 0);
             pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(149, 164);

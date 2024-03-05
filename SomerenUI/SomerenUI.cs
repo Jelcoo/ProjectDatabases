@@ -29,6 +29,8 @@ namespace SomerenUI
                 item.Hide();
             }
             panel.Show();
+            panel.Controls.Add(pictureBox1);
+            panel.Controls.Add(label1);
         }
 
         private void ShowStudentsPanel()
@@ -192,6 +194,8 @@ namespace SomerenUI
                 listViewRooms.Items.Add(li);
             }
 
+            label1.Text = "Rooms";
+
             // Subscribe to the ItemActivate event to show a message box with room attributes
             listViewRooms.ItemActivate += ListViewRooms_ItemActivate;
         }
@@ -303,7 +307,6 @@ namespace SomerenUI
         {
             ShowStudentsPanel();
         }
-
 
         private void teachersToolStripMenuItem_Click(object sender, EventArgs e)
         {
