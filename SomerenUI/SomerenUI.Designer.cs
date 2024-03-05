@@ -134,11 +134,12 @@
             // 
             // pnlStudents
             // 
+            pnlStudents.Controls.Add(pictureBox1);
             pnlStudents.Controls.Add(listViewStudents);
-            pnlStudents.Location = new System.Drawing.Point(14, 36);
-            pnlStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlStudents.Controls.Add(label1);
+            pnlStudents.Location = new System.Drawing.Point(14, 31);
             pnlStudents.Name = "pnlStudents";
-            pnlStudents.Size = new System.Drawing.Size(1072, 621);
+            pnlStudents.Size = new System.Drawing.Size(1072, 528);
             pnlStudents.TabIndex = 2;
             // 
             // pnlTeachers
@@ -146,10 +147,9 @@
             pnlTeachers.Controls.Add(pictureBox1);
             pnlTeachers.Controls.Add(listViewTeachers);
             pnlTeachers.Controls.Add(label1);
-            pnlTeachers.Location = new System.Drawing.Point(14, 36);
-            pnlTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlTeachers.Location = new System.Drawing.Point(14, 31);
             pnlTeachers.Name = "pnlTeachers";
-            pnlTeachers.Size = new System.Drawing.Size(1072, 621);
+            pnlTeachers.Size = new System.Drawing.Size(1072, 528);
             pnlTeachers.TabIndex = 2;
             // 
             // pnlActivities
@@ -182,10 +182,9 @@
             // 
             // listViewTeachers
             // 
-            listViewTeachers.Location = new System.Drawing.Point(18, 56);
-            listViewTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewTeachers.Location = new System.Drawing.Point(18, 48);
             listViewTeachers.Name = "listViewTeachers";
-            listViewTeachers.Size = new System.Drawing.Size(875, 408);
+            listViewTeachers.Size = new System.Drawing.Size(875, 347);
             listViewTeachers.TabIndex = 1;
             listViewTeachers.UseCompatibleStateImageBehavior = false;
             // 
@@ -205,7 +204,7 @@
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(134, 41);
             label1.TabIndex = 0;
-            label1.Text = "Students";
+            label1.Text = "";
             // 
             // SomerenUI
             // 

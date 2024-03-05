@@ -129,6 +129,8 @@ namespace SomerenUI
                 listViewTeachers.Items.Add(li);
             }
 
+            label1.Text = "Teachers";
+
             // Subscribe to the ItemActivate event to show a message box with teacher attributes
             listViewTeachers.ItemActivate += ListViewTeachers_ItemActivate;
         }
@@ -197,6 +199,8 @@ namespace SomerenUI
 
                     // Show a message box with the teacher details
                     MessageBox.Show(teacherDetails, "Teacher Details");
+                }
+            }
         }
 
         private void ListViewActivity_ItemActivate(object sender, EventArgs e)
