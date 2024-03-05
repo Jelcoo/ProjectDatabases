@@ -3,6 +3,7 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using System.Reflection.Emit;
 
 namespace SomerenUI
 {
@@ -59,6 +60,22 @@ namespace SomerenUI
             }
         }
 
+        private void ShowActivitiesPanel()
+        {
+            ShowPanel(pnlActivities);
+
+            try
+            {
+                // get and display all students
+                List<Activity> activities = GetActivities();
+                DisplayActivities(activities);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activities: " + e.Message);
+            }
+        }
+
         private List<Student> GetStudents()
         {
             StudentService studentService = new StudentService();
@@ -73,6 +90,13 @@ namespace SomerenUI
             return teachers;
         }
 
+        private List<Activity> GetActivities()
+        {
+            ActivityService activityService = new ActivityService();
+            List<Activity> activities = activityService.GetActivities();
+            return activities;
+        }
+
         private void DisplayStudents(List<Student> students)
         {
             // Clear the ListView before filling it
@@ -85,6 +109,8 @@ namespace SomerenUI
                 li.Tag = student; // Link student object to ListViewItem
                 listViewStudents.Items.Add(li);
             }
+
+            label1.Text = "Students";
 
             // Subscribe to the ItemActivate event to show a message box with student attributes
             listViewStudents.ItemActivate += ListViewStudents_ItemActivate;
@@ -105,6 +131,25 @@ namespace SomerenUI
 
             // Subscribe to the ItemActivate event to show a message box with teacher attributes
             listViewTeachers.ItemActivate += ListViewTeachers_ItemActivate;
+        }
+
+        private void DisplayActivities(List<Activity> activities)
+        {
+            // Clear the ListView before filling it
+            listViewActivities.Clear();
+            listViewActivities.Items.Clear(); // Ensure all items are removed
+
+            foreach (Activity activity in activities)
+            {
+                ListViewItem li = new ListViewItem(activity.Name);
+                li.Tag = activity; // Link student object to ListViewItem
+                listViewActivities.Items.Add(li);
+            }
+
+            label1.Text = "Activities";
+
+            // Subscribe to the ItemActivate event to show a message box with student attributes
+            listViewActivities.ItemActivate += ListViewActivity_ItemActivate;
         }
 
         private void ListViewStudents_ItemActivate(object sender, EventArgs e)
@@ -152,6 +197,26 @@ namespace SomerenUI
 
                     // Show a message box with the teacher details
                     MessageBox.Show(teacherDetails, "Teacher Details");
+        }
+
+        private void ListViewActivity_ItemActivate(object sender, EventArgs e)
+        {
+            if (listViewActivities.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listViewActivities.SelectedItems[0];
+                Activity selectedActivity = selectedItem.Tag as Activity; // Retrieve the Student object from the Tag
+
+                if (selectedActivity != null)
+                {
+                    // Construct a string to display all student attributes
+                    string activityDetails = $"Activity ID: {selectedActivity.ActivityId}\n" +
+                                            $"Name: {selectedActivity.Name}\n" +
+                                            $"Location: {selectedActivity.Location}\n" +
+                                            $"Start of activity: {selectedActivity.StartOfActivity:dd/MM/yyyy HH:mm}\n" +
+                                            $"End of activity: {selectedActivity.EndOfActivity:dd/MM/yyyy HH:mm}";
+
+                    // Show a message box with the student details
+                    MessageBox.Show(activityDetails, "Activity Details");
                 }
             }
         }
@@ -171,9 +236,15 @@ namespace SomerenUI
             ShowStudentsPanel();
         }
 
+
         private void teachersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowTeachersPanel();
+        }
+
+        private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowActivitiesPanel();
         }
 
         private void SomerenUI_Load(object sender, EventArgs e)
