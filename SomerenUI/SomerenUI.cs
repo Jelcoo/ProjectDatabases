@@ -103,7 +103,7 @@ namespace SomerenUI
                 listViewTeachers.Items.Add(li);
             }
 
-            // Subscribe to the ItemActivate event to show a message box with student attributes
+            // Subscribe to the ItemActivate event to show a message box with teacher attributes
             listViewTeachers.ItemActivate += ListViewTeachers_ItemActivate;
         }
 
@@ -137,7 +137,7 @@ namespace SomerenUI
             if (listViewTeachers.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listViewTeachers.SelectedItems[0];
-                Teacher selectedTeacher = selectedItem.Tag as Teacher; // Retrieve the Student object from the Tag
+                Teacher selectedTeacher = selectedItem.Tag as Teacher; // Retrieve the teacher object from the Tag
 
                 if (selectedTeacher != null)
                 {
