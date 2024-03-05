@@ -76,5 +76,10 @@ namespace SomerenUI
         {
             ShowStudentsPanel();
         }
+
+        private void SomerenUI_Load(object sender, EventArgs e)
+        {
+            ShowStudentsPanel();
+        }
     }
 }
