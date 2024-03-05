@@ -51,14 +51,43 @@ namespace SomerenUI
 
         private void DisplayStudents(List<Student> students)
         {
-            // clear the listview before filling it
+            // Clear the ListView before filling it
             listViewStudents.Clear();
+            listViewStudents.Items.Clear(); // Ensure all items are removed
 
             foreach (Student student in students)
             {
-                ListViewItem li = new ListViewItem(student.Name);
-                li.Tag = student;   // link student object to listview item
+                ListViewItem li = new ListViewItem(student.Name); // Assuming Name is a concatenation of FirstName and LastName
+                li.Tag = student; // Link student object to ListViewItem
                 listViewStudents.Items.Add(li);
+            }
+
+            // Subscribe to the ItemActivate event to show a message box with student attributes
+            listViewStudents.ItemActivate += ListViewStudents_ItemActivate;
+        }
+
+        private void ListViewStudents_ItemActivate(object sender, EventArgs e)
+        {
+            if (listViewStudents.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listViewStudents.SelectedItems[0];
+                Student selectedStudent = selectedItem.Tag as Student; // Retrieve the Student object from the Tag
+
+                if (selectedStudent != null)
+                {
+                    // Construct a string to display all student attributes
+                    string studentDetails = $"Student ID: {selectedStudent.StudentId}\n" +
+                                            $"Name: {selectedStudent.Name}\n" +
+                                            $"First Name: {selectedStudent.FirstName}\n" +
+                                            $"Last Name: {selectedStudent.LastName}\n" +
+                                            $"Phone Number: {selectedStudent.PhoneNumber}\n" +
+                                            $"Class: {selectedStudent.Class}\n" +
+                                            $"Vouchers: {selectedStudent.Vouchers}\n" +
+                                            $"Room ID: {selectedStudent.RoomId}";
+
+                    // Show a message box with the student details
+                    MessageBox.Show(studentDetails, "Student Details");
+                }
             }
         }
 
@@ -75,6 +104,11 @@ namespace SomerenUI
         private void studentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowStudentsPanel();
+        }
+
+        private void SomerenUI_Load(object sender, EventArgs e)
+        {
+            ShowDashboardPanel();
         }
     }
 }
