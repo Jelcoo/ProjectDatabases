@@ -141,8 +141,8 @@ namespace SomerenUI
 
                 if (selectedTeacher != null)
                 {
-                    // Construct a string to display all student attributes
-                    string teacherDetails = $"Student ID: {selectedTeacher.TeacherId}\n" +
+                    // Construct a string to display all teacher attributes
+                    string teacherDetails = $"Teacher ID: {selectedTeacher.TeacherId}\n" +
                                             $"Name: {selectedTeacher.Name}\n" +
                                             $"First Name: {selectedTeacher.FirstName}\n" +
                                             $"Last Name: {selectedTeacher.LastName}\n" +
@@ -150,7 +150,7 @@ namespace SomerenUI
                                             $"Date Of Birth: {selectedTeacher.DateOfBirth:dd/MM/yyyy}\n" +
                                             $"Room ID: {selectedTeacher.RoomId}";
 
-                    // Show a message box with the student details
+                    // Show a message box with the teacher details
                     MessageBox.Show(teacherDetails, "Teacher Details");
                 }
             }
