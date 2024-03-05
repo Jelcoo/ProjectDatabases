@@ -23,7 +23,6 @@ namespace SomerenDAL
                 Student student = new Student()
                 {
                     StudentId = (int)dr["studentId"],
-                    Name = dr["firstName"].ToString() + " " + dr["lastName"].ToString(),
                     FirstName = dr["firstName"].ToString(),
                     LastName = dr["lastName"].ToString(),
                     PhoneNumber = dr["phoneNumber"].ToString(),

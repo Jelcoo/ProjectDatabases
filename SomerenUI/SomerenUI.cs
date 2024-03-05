@@ -76,7 +76,7 @@ namespace SomerenUI
                 if (selectedStudent != null)
                 {
                     // Construct a string to display all student attributes
-                    string studentDetails = $"Student ID: {selectedStudent.StudentId}\n"  +
+                    string studentDetails = $"Student ID: {selectedStudent.StudentId}\n" +
                                             $"Name: {selectedStudent.Name}\n" +
                                             $"First Name: {selectedStudent.FirstName}\n" +
                                             $"Last Name: {selectedStudent.LastName}\n" +
