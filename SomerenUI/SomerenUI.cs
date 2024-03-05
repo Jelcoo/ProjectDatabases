@@ -8,27 +8,28 @@ namespace SomerenUI
 {
     public partial class SomerenUI : Form
     {
+        List<Panel> panelList = new List<Panel>();
+
         public SomerenUI()
         {
             InitializeComponent();
+
+            panelList.Add(pnlDashboard);
+            panelList.Add(pnlStudents);
         }
 
-        private void ShowDashboardPanel()
+        private void ShowPanel(Panel panel)
         {
-            // hide all other panels
-            pnlStudents.Hide();
-
-            // show dashboard
-            pnlDashboard.Show();
+            foreach (Panel item in panelList)
+            {
+                item.Hide();
+            }
+            panel.Show();
         }
 
         private void ShowStudentsPanel()
         {
-            // hide all other panels
-            pnlDashboard.Hide();
-
-            // show students
-            pnlStudents.Show();
+            ShowPanel(pnlStudents);
 
             try
             {
@@ -93,7 +94,7 @@ namespace SomerenUI
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
-            ShowDashboardPanel();
+            ShowPanel(pnlDashboard);
         }
 
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -108,7 +109,7 @@ namespace SomerenUI
 
         private void SomerenUI_Load(object sender, EventArgs e)
         {
-            ShowDashboardPanel();
+            ShowPanel(pnlDashboard);
         }
     }
 }
