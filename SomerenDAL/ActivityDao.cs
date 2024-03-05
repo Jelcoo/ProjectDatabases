@@ -10,7 +10,7 @@ namespace SomerenDAL
     {
         public List<Activity> GetAllActivities()
         {
-            string query = "SELECT activityId, name, location, startOfActivity, endOfActivity FROM activities";
+            string query = "SELECT activityId, name, location, startOfActivity, endOfActivity FROM [activities]";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
