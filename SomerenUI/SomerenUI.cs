@@ -55,7 +55,7 @@ namespace SomerenUI
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong while loading the Teachers: " + e.Message);
+                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
             }
         }
 
