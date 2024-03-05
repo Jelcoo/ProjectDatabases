@@ -2,9 +2,17 @@
 {
     public class Room
     {
-        public int Id { get; set; }         // database id
-        public int Number { get; set; }     // RoomNumber, e.g. 206
-        public int Capacity { get; set; }   // number of beds, either 4, 6, 8, 12 or 16
-        public bool Type { get; set; }      // student = false, teacher = true
+        public int RoomId { get; set; }
+        public string Building { get; set; }
+        public int Floor { get; set; }
+        public int AmountOfBeds { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return $"{Building}{Floor}{RoomId:00}";
+            }
+        }
     }
 }

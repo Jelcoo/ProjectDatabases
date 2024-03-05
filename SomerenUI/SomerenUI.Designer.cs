@@ -40,15 +40,19 @@
             pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
             pnlStudents = new System.Windows.Forms.Panel();
+            pnlRooms = new System.Windows.Forms.Panel();
             pnlActivities = new System.Windows.Forms.Panel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             listViewStudents = new System.Windows.Forms.ListView();
             listViewActivities = new System.Windows.Forms.ListView();
+            listViewRooms = new System.Windows.Forms.ListView();
             label1 = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
+            pnlRooms.SuspendLayout();
             pnlActivities.SuspendLayout();
+
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -109,6 +113,7 @@
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
             roomsToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
             roomsToolStripMenuItem.Text = "Rooms";
+            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
             // pnlDashboard
             // 
@@ -136,6 +141,16 @@
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new System.Drawing.Size(1072, 528);
             pnlStudents.TabIndex = 2;
+            //
+            // pnlRooms
+            // 
+            pnlRooms.Controls.Add(pictureBox1);
+            pnlRooms.Controls.Add(listViewRooms);
+            pnlRooms.Controls.Add(label1);
+            pnlRooms.Location = new System.Drawing.Point(14, 31);
+            pnlRooms.Name = "pnlRooms";
+            pnlRooms.Size = new System.Drawing.Size(1072, 528);
+            pnlRooms.TabIndex = 2;
             // 
             // pnlActivities
             // 
@@ -164,6 +179,14 @@
             listViewStudents.TabIndex = 1;
             listViewStudents.UseCompatibleStateImageBehavior = false;
             // 
+            // listViewRooms
+            // 
+            listViewRooms.Location = new System.Drawing.Point(18, 48);
+            listViewRooms.Name = "listViewRooms";
+            listViewRooms.Size = new System.Drawing.Size(875, 347);
+            listViewRooms.TabIndex = 1;
+            listViewRooms.UseCompatibleStateImageBehavior = false;
+            // 
             // listViewActivities
             // 
             listViewActivities.Location = new System.Drawing.Point(18, 48);
@@ -190,6 +213,7 @@
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
             Controls.Add(pnlStudents);
+            Controls.Add(pnlRooms);
             Controls.Add(pnlActivities);
             MainMenuStrip = menuStrip1;
             Name = "SomerenUI";
@@ -201,6 +225,8 @@
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
             pnlStudents.PerformLayout();
+            pnlRooms.ResumeLayout(false);
+            pnlRooms.PerformLayout();
             pnlActivities.ResumeLayout(false);
             pnlActivities.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -221,10 +247,12 @@
         private System.Windows.Forms.Panel pnlDashboard;
         private System.Windows.Forms.Label lblDashboard;
         private System.Windows.Forms.Panel pnlStudents;
+        private System.Windows.Forms.Panel pnlRooms;
         private System.Windows.Forms.Panel pnlActivities;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listViewStudents;
         private System.Windows.Forms.ListView listViewActivities;
+        private System.Windows.Forms.ListView listViewRooms;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
     }
 }

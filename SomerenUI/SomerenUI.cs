@@ -17,6 +17,8 @@ namespace SomerenUI
 
             panelList.Add(pnlDashboard);
             panelList.Add(pnlStudents);
+            panelList.Add(pnlRooms);
+            panelList.Add(pnlActivities);
         }
 
         private void ShowPanel(Panel panel)
@@ -44,13 +46,29 @@ namespace SomerenUI
             }
         }
 
+        private void ShowRoomsPanel()
+        {
+            ShowPanel(pnlRooms);
+
+            try
+            {
+                // get and display all rooms
+                List<Room> rooms = GetRooms();
+                DisplayRooms(rooms);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
+            }
+        }
+
         private void ShowActivitiesPanel()
         {
             ShowPanel(pnlActivities);
 
             try
             {
-                // get and display all students
+                // get and display all activities
                 List<Activity> activities = GetActivities();
                 DisplayActivities(activities);
             }
@@ -65,6 +83,13 @@ namespace SomerenUI
             StudentService studentService = new StudentService();
             List<Student> students = studentService.GetStudents();
             return students;
+        }
+
+        private List<Room> GetRooms()
+        {
+            RoomService roomService = new RoomService();
+            List<Room> rooms = roomService.GetRooms();
+            return rooms;
         }
 
         private List<Activity> GetActivities()
@@ -93,6 +118,23 @@ namespace SomerenUI
             listViewStudents.ItemActivate += ListViewStudents_ItemActivate;
         }
 
+        private void DisplayRooms(List<Room> rooms)
+        {
+            // Clear the ListView before filling it
+            listViewRooms.Clear();
+            listViewRooms.Items.Clear(); // Ensure all items are removed
+
+            foreach (Room room in rooms)
+            {
+                ListViewItem li = new ListViewItem(room.Name);
+                li.Tag = room; // Link room object to ListViewItem
+                listViewRooms.Items.Add(li);
+            }
+
+            // Subscribe to the ItemActivate event to show a message box with room attributes
+            listViewRooms.ItemActivate += ListViewRooms_ItemActivate;
+        }
+
         private void DisplayActivities(List<Activity> activities)
         {
             // Clear the ListView before filling it
@@ -102,13 +144,13 @@ namespace SomerenUI
             foreach (Activity activity in activities)
             {
                 ListViewItem li = new ListViewItem(activity.Name);
-                li.Tag = activity; // Link student object to ListViewItem
+                li.Tag = activity; // Link activity object to ListViewItem
                 listViewActivities.Items.Add(li);
             }
 
             label1.Text = "Activities";
 
-            // Subscribe to the ItemActivate event to show a message box with student attributes
+            // Subscribe to the ItemActivate event to show a message box with activity attributes
             listViewActivities.ItemActivate += ListViewActivity_ItemActivate;
         }
 
@@ -133,6 +175,28 @@ namespace SomerenUI
 
                     // Show a message box with the student details
                     MessageBox.Show(studentDetails, "Student Details");
+                }
+            }
+        }
+
+        private void ListViewRooms_ItemActivate(object sender, EventArgs e)
+        {
+            if (listViewRooms.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listViewRooms.SelectedItems[0];
+                Room selectedRoom = selectedItem.Tag as Room; // Retrieve the Room object from the Tag
+
+                if (selectedRoom != null)
+                {
+                    // Construct a string to display all student attributes
+                    string roomDetails = $"Room ID: {selectedRoom.RoomId}\n" +
+                                            $"Building: {selectedRoom.Building}\n" +
+                                            $"Floor: {selectedRoom.Floor}\n" +
+                                            $"Amount of beds: {selectedRoom.AmountOfBeds}\n" +
+                                            $"Room Name: {selectedRoom.Name}";
+
+                    // Show a message box with the student details
+                    MessageBox.Show(roomDetails, "Room Details");
                 }
             }
         }
@@ -177,6 +241,11 @@ namespace SomerenUI
         private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowActivitiesPanel();
+        }
+
+        private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowRoomsPanel();
         }
 
         private void SomerenUI_Load(object sender, EventArgs e)
