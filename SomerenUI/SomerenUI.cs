@@ -16,6 +16,7 @@ namespace SomerenUI
 
             panelList.Add(pnlDashboard);
             panelList.Add(pnlStudents);
+            panelList.Add(pnlTeachers);
         }
 
         private void ShowPanel(Panel panel)
@@ -110,6 +111,74 @@ namespace SomerenUI
         private void SomerenUI_Load(object sender, EventArgs e)
         {
             ShowPanel(pnlDashboard);
+        }
+
+        private void teachersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowTeachersPanel();
+        }
+        private void ShowTeachersPanel()
+        {
+            ShowPanel(pnlTeachers);
+
+            try
+            {
+                // get and display all students
+                List<Teacher> teachers = GetTeacher();
+                DisplayTeachers(teachers);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the Teachers: " + e.Message);
+            }
+        }
+
+        private List<Teacher> GetTeacher()
+        {
+            TeacherService teacherService = new TeacherService();
+            List<Teacher> teachers = teacherService.GetTeachers();
+            return teachers;
+        }
+
+        private void DisplayTeachers(List<Teacher> teachers)
+        {
+            // Clear the ListView before filling it
+            listViewTeachers.Clear();
+            listViewTeachers.Items.Clear(); // Ensure all items are removed
+
+            foreach (Teacher teacher in teachers)
+            {
+                ListViewItem li = new ListViewItem(teacher.Name); // Assuming Name is a concatenation of FirstName and LastName
+                li.Tag = teacher; // Link student object to ListViewItem
+                listViewTeachers.Items.Add(li);
+            }
+
+            // Subscribe to the ItemActivate event to show a message box with student attributes
+            listViewTeachers.ItemActivate += ListViewTeachers_ItemActivate;
+        }
+
+        private void ListViewTeachers_ItemActivate(object sender, EventArgs e)
+        {
+            if (listViewTeachers.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listViewTeachers.SelectedItems[0];
+                Teacher selectedTeacher = selectedItem.Tag as Teacher; // Retrieve the Student object from the Tag
+
+                if (selectedTeacher != null)
+                {
+                    // Construct a string to display all student attributes
+                    string teacherDetails = $"Student ID: {selectedTeacher.TeacherId}\n" +
+                                            $"Name: {selectedTeacher.Name}\n" +
+                                            $"First Name: {selectedTeacher.FirstName}\n" +
+                                            $"Last Name: {selectedTeacher.LastName}\n" +
+                                            $"Phone Number: {selectedTeacher.PhoneNumber}\n" +
+                                            $"Date Of Birth:{selectedTeacher.DateOfBirth:dd/MM/yyyy}\n"+
+                                            $"Room ID: {selectedTeacher.RoomId}";
+
+                    // Show a message box with the student details
+                    MessageBox.Show(teacherDetails, "Teacher Details");
+                }
+            }
         }
     }
 }
