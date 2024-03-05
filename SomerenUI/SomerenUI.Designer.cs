@@ -40,8 +40,8 @@
             pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
             pnlStudents = new System.Windows.Forms.Panel();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
             listViewStudents = new System.Windows.Forms.ListView();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
             label1 = new System.Windows.Forms.Label();
             pnlTeachers = new System.Windows.Forms.Panel();
             listViewTeachers = new System.Windows.Forms.ListView();
@@ -94,8 +94,8 @@
             // teachersToolStripMenuItem
             // 
             teachersToolStripMenuItem.Name = "teachersToolStripMenuItem";
-            teachersToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
-            teachersToolStripMenuItem.Text = "teachers";
+            teachersToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            teachersToolStripMenuItem.Text = "Teachers";
             teachersToolStripMenuItem.Click += teachersToolStripMenuItem_Click;
             // 
             // activitiesToolStripMenuItem
@@ -137,6 +137,15 @@
             pnlStudents.Size = new System.Drawing.Size(1072, 621);
             pnlStudents.TabIndex = 2;
             // 
+            // listViewStudents
+            // 
+            listViewStudents.Location = new System.Drawing.Point(18, 56);
+            listViewStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewStudents.Name = "listViewStudents";
+            listViewStudents.Size = new System.Drawing.Size(875, 408);
+            listViewStudents.TabIndex = 1;
+            listViewStudents.UseCompatibleStateImageBehavior = false;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
@@ -146,15 +155,6 @@
             pictureBox1.Size = new System.Drawing.Size(149, 164);
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
-            // 
-            // listViewStudents
-            // 
-            listViewStudents.Location = new System.Drawing.Point(18, 56);
-            listViewStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            listViewStudents.Name = "listViewStudents";
-            listViewStudents.Size = new System.Drawing.Size(875, 408);
-            listViewStudents.TabIndex = 1;
-            listViewStudents.UseCompatibleStateImageBehavior = false;
             // 
             // label1
             // 

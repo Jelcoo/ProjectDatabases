@@ -172,7 +172,7 @@ namespace SomerenUI
                                             $"First Name: {selectedTeacher.FirstName}\n" +
                                             $"Last Name: {selectedTeacher.LastName}\n" +
                                             $"Phone Number: {selectedTeacher.PhoneNumber}\n" +
-                                            $"Date Of Birth:{selectedTeacher.DateOfBirth:dd/MM/yyyy}\n"+
+                                            $"Date Of Birth: {selectedTeacher.DateOfBirth:dd/MM/yyyy}\n"+
                                             $"Room ID: {selectedTeacher.RoomId}";
 
                     // Show a message box with the student details
