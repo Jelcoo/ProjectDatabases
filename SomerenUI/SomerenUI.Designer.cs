@@ -40,12 +40,15 @@
             pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
             pnlStudents = new System.Windows.Forms.Panel();
+            pnlActivities = new System.Windows.Forms.Panel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             listViewStudents = new System.Windows.Forms.ListView();
+            listViewActivities = new System.Windows.Forms.ListView();
             label1 = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
+            pnlActivities.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -99,6 +102,7 @@
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
             activitiesToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
             activitiesToolStripMenuItem.Text = "Activities";
+            activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
@@ -133,6 +137,16 @@
             pnlStudents.Size = new System.Drawing.Size(1072, 528);
             pnlStudents.TabIndex = 2;
             // 
+            // pnlActivities
+            // 
+            pnlActivities.Controls.Add(pictureBox1);
+            pnlActivities.Controls.Add(listViewActivities);
+            pnlActivities.Controls.Add(label1);
+            pnlActivities.Location = new System.Drawing.Point(14, 31);
+            pnlActivities.Name = "pnlActivities";
+            pnlActivities.Size = new System.Drawing.Size(1072, 528);
+            pnlActivities.TabIndex = 2;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
@@ -150,6 +164,14 @@
             listViewStudents.TabIndex = 1;
             listViewStudents.UseCompatibleStateImageBehavior = false;
             // 
+            // listViewActivities
+            // 
+            listViewActivities.Location = new System.Drawing.Point(18, 48);
+            listViewActivities.Name = "listViewActivities";
+            listViewActivities.Size = new System.Drawing.Size(875, 347);
+            listViewActivities.TabIndex = 1;
+            listViewActivities.UseCompatibleStateImageBehavior = false;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -166,8 +188,9 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1099, 572);
             Controls.Add(menuStrip1);
-            Controls.Add(pnlStudents);
             Controls.Add(pnlDashboard);
+            Controls.Add(pnlStudents);
+            Controls.Add(pnlActivities);
             MainMenuStrip = menuStrip1;
             Name = "SomerenUI";
             Text = "SomerenApp";
@@ -178,6 +201,8 @@
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
             pnlStudents.PerformLayout();
+            pnlActivities.ResumeLayout(false);
+            pnlActivities.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -196,8 +221,10 @@
         private System.Windows.Forms.Panel pnlDashboard;
         private System.Windows.Forms.Label lblDashboard;
         private System.Windows.Forms.Panel pnlStudents;
+        private System.Windows.Forms.Panel pnlActivities;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listViewStudents;
+        private System.Windows.Forms.ListView listViewActivities;
         private System.Windows.Forms.Label label1;
     }
 }
