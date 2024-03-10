@@ -1,38 +1,44 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
 using SomerenModel;
 
 namespace SomerenDAL
 {
     public class StudentDao : BaseDao
     {
-        public List<Student> GetAllStudents()
+        public List<Student> GetAll()
         {
-            string query = "SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students]";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
-        }
+            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students]", OpenConnection());
 
-        private List<Student> ReadTables(DataTable dataTable)
-        {
+            SqlDataReader reader = command.ExecuteReader();
             List<Student> students = new List<Student>();
 
-            foreach (DataRow dr in dataTable.Rows)
+            while (reader.Read())
             {
-                Student student = new Student()
-                {
-                    StudentId = (int)dr["studentId"],
-                    FirstName = dr["firstName"].ToString(),
-                    LastName = dr["lastName"].ToString(),
-                    PhoneNumber = dr["phoneNumber"].ToString(),
-                    Class = dr["class"].ToString(),
-                    Vouchers = (int)dr["vouchers"],
-                    RoomId = (int)dr["roomId"]
-                };
+                Student student = ReadStudent(reader);
                 students.Add(student);
             }
+            reader.Close();
+            CloseConnection();
+
             return students;
+        }
+
+        private Student ReadStudent(SqlDataReader reader)
+        {
+
+            Student student = new Student()
+            {
+                StudentId = (int)reader["studentId"],
+                FirstName = reader["firstName"].ToString(),
+                LastName = reader["lastName"].ToString(),
+                PhoneNumber = reader["phoneNumber"].ToString(),
+                Class = reader["class"].ToString(),
+                Vouchers = (int)reader["vouchers"],
+                RoomId = (int)reader["roomId"]
+            };
+
+            return student;
         }
     }
 }

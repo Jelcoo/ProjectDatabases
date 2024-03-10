@@ -1,42 +1,43 @@
-﻿using SomerenModel;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SomerenModel;
+using System;
 
 namespace SomerenDAL
 {
-    
     public class TeacherDao : BaseDao
     {
-        public List<Teacher> GetAllTeachers()
+        public List<Teacher> GetAll()
         {
-            string query = "SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [teachers]";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
-        }
+            SqlCommand command = new SqlCommand("SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [teachers]", OpenConnection());
 
-        private List<Teacher> ReadTables(DataTable dataTable)
-        {
+            SqlDataReader reader = command.ExecuteReader();
             List<Teacher> teachers = new List<Teacher>();
 
-            foreach (DataRow dr in dataTable.Rows)
+            while (reader.Read())
             {
-                Teacher teacher = new Teacher()
-                {
-                    TeacherId = (int)dr["teacherId"],
-                    FirstName = dr["firstName"].ToString(),
-                    LastName = dr["lastName"].ToString(),
-                    DateOfBirth = DateTime.Parse(dr["dateOfBirth"].ToString()),
-                    PhoneNumber = dr["phoneNumber"].ToString(),
-                    RoomId = (int)dr["roomId"]
-                };
+                Teacher teacher = ReadTeacher(reader);
                 teachers.Add(teacher);
             }
+            reader.Close();
+            CloseConnection();
+
             return teachers;
+        }
+
+        private Teacher ReadTeacher(SqlDataReader reader)
+        {
+            Teacher teacher = new Teacher()
+            {
+                TeacherId = (int)reader["teacherId"],
+                FirstName = reader["firstName"].ToString(),
+                LastName = reader["lastName"].ToString(),
+                DateOfBirth = DateTime.Parse(reader["dateOfBirth"].ToString()),
+                PhoneNumber = reader["phoneNumber"].ToString(),
+                RoomId = (int)reader["roomId"]
+            };
+
+            return teacher;
         }
     }
 }

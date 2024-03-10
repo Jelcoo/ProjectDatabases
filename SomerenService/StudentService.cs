@@ -15,7 +15,7 @@ namespace SomerenService
 
         public List<Student> GetStudents()
         {
-            List<Student> students = studentdb.GetAllStudents();
+            List<Student> students = studentdb.GetAll();
             return students;
         }
     }

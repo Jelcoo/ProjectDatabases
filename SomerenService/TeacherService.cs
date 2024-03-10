@@ -19,7 +19,7 @@ namespace SomerenService
 
         public List<Teacher> GetTeachers()
         {
-            List<Teacher> teachers = teacherdb.GetAllTeachers();
+            List<Teacher> teachers = teacherdb.GetAll();
             return teachers;
         }
     }
