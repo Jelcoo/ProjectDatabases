@@ -44,7 +44,7 @@
             pnlActivities = new System.Windows.Forms.Panel();
             pnlRooms = new System.Windows.Forms.Panel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
-            label1 = new System.Windows.Forms.Label();
+            headerLabel = new System.Windows.Forms.Label();
             listViewTeachers = new System.Windows.Forms.ListView();
             listViewStudents = new System.Windows.Forms.ListView();
             listViewActivities = new System.Windows.Forms.ListView();
@@ -212,15 +212,15 @@
             listViewRooms.TabIndex = 1;
             listViewRooms.UseCompatibleStateImageBehavior = false;
             // 
-            // label1
+            // headerLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label1.Location = new System.Drawing.Point(15, 9);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(134, 41);
-            label1.TabIndex = 0;
-            label1.Text = "";
+            headerLabel.AutoSize = true;
+            headerLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            headerLabel.Location = new System.Drawing.Point(15, 9);
+            headerLabel.Name = "headerLabel";
+            headerLabel.Size = new System.Drawing.Size(134, 41);
+            headerLabel.TabIndex = 0;
+            headerLabel.Text = "";
             // 
             // SomerenUI
             // 
@@ -276,6 +276,6 @@
         private System.Windows.Forms.ListView listViewActivities;
         private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label headerLabel;
     }
 }

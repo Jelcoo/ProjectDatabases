@@ -30,7 +30,19 @@ namespace SomerenUI
             }
             panel.Show();
             panel.Controls.Add(pictureBox1);
-            panel.Controls.Add(label1);
+            panel.Controls.Add(headerLabel);
+        }
+
+        private void ClearListView(ListView listView)
+        {
+            listView.Clear();
+            listView.Items.Clear(); // Ensure all items are removed
+        }
+
+        private void SetHeader(string header, bool visible = true)
+        {
+            headerLabel.Text = header;
+            headerLabel.Visible = visible;
         }
 
         private void ShowStudentsPanel()
@@ -126,9 +138,7 @@ namespace SomerenUI
 
         private void DisplayStudents(List<Student> students)
         {
-            // Clear the ListView before filling it
-            listViewStudents.Clear();
-            listViewStudents.Items.Clear(); // Ensure all items are removed
+            ClearListView(listViewStudents);
 
             foreach (Student student in students)
             {
@@ -137,7 +147,7 @@ namespace SomerenUI
                 listViewStudents.Items.Add(li);
             }
 
-            label1.Text = "Students";
+            SetHeader("Students");
 
             // Subscribe to the ItemActivate event to show a message box with student attributes
             listViewStudents.ItemActivate += ListViewStudents_ItemActivate;
@@ -145,9 +155,7 @@ namespace SomerenUI
 
         private void DisplayTeachers(List<Teacher> teachers)
         {
-            // Clear the ListView before filling it
-            listViewTeachers.Clear();
-            listViewTeachers.Items.Clear(); // Ensure all items are removed
+            ClearListView(listViewTeachers);
 
             foreach (Teacher teacher in teachers)
             {
@@ -156,7 +164,7 @@ namespace SomerenUI
                 listViewTeachers.Items.Add(li);
             }
 
-            label1.Text = "Teachers";
+            SetHeader("Teachers");
 
             // Subscribe to the ItemActivate event to show a message box with teacher attributes
             listViewTeachers.ItemActivate += ListViewTeachers_ItemActivate;
@@ -164,9 +172,7 @@ namespace SomerenUI
 
         private void DisplayActivities(List<Activity> activities)
         {
-            // Clear the ListView before filling it
-            listViewActivities.Clear();
-            listViewActivities.Items.Clear(); // Ensure all items are removed
+            ClearListView(listViewActivities);
 
             foreach (Activity activity in activities)
             {
@@ -175,7 +181,7 @@ namespace SomerenUI
                 listViewActivities.Items.Add(li);
             }
 
-            label1.Text = "Activities";
+            SetHeader("Activities");
 
             // Subscribe to the ItemActivate event to show a message box with activity attributes
             listViewActivities.ItemActivate += ListViewActivity_ItemActivate;
@@ -183,9 +189,7 @@ namespace SomerenUI
 
         private void DisplayRooms(List<Room> rooms)
         {
-            // Clear the ListView before filling it
-            listViewRooms.Clear();
-            listViewRooms.Items.Clear(); // Ensure all items are removed
+            ClearListView(listViewRooms);
 
             foreach (Room room in rooms)
             {
@@ -194,7 +198,7 @@ namespace SomerenUI
                 listViewRooms.Items.Add(li);
             }
 
-            label1.Text = "Rooms";
+            SetHeader("Rooms");
 
             // Subscribe to the ItemActivate event to show a message box with room attributes
             listViewRooms.ItemActivate += ListViewRooms_ItemActivate;
@@ -295,6 +299,7 @@ namespace SomerenUI
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
+            SetHeader("Dashboard", false);
             ShowPanel(pnlDashboard);
         }
 

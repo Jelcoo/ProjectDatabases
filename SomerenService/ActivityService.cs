@@ -15,7 +15,7 @@ namespace SomerenService
 
         public List<Activity> GetActivities()
         {
-            List<Activity> activities = activitydb.GetAllActivities();
+            List<Activity> activities = activitydb.GetAll();
             return activities;
         }
     }
