@@ -16,11 +16,15 @@ namespace SomerenUI
         {
             InitializeComponent();
 
+
             panelList.Add(pnlDashboard);
             panelList.Add(pnlStudents);
             panelList.Add(pnlTeachers);
             panelList.Add(pnlActivities);
             panelList.Add(pnlRooms);
+            panelList.Add(pnlProducts);
+            listViewPanelProducts.MouseDoubleClick += ListViewPanelProducts_MouseDoubleClick;
+
         }
 
         private void ShowPanel(Panel panel)
@@ -110,6 +114,21 @@ namespace SomerenUI
                 MessageBox.Show("Something went wrong while loading the activities: " + e.Message);
             }
         }
+        private void ShowProductsPanel()
+        {
+            ShowPanel(pnlProducts);
+
+            try
+            {
+                // get and display all activities
+                List<Product> products = GetProducts("name DESC");
+                DisplayProducts(products);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the products: " + e.Message);
+            }
+        }
 
         private List<Student> GetStudents(string sortBy)
         {
@@ -137,6 +156,12 @@ namespace SomerenUI
             RoomService roomService = new RoomService();
             List<Room> rooms = roomService.GetRooms(sortBy);
             return rooms;
+        }
+        private List<Product> GetProducts(string sortBy)
+        {
+            ProductService productService = new ProductService();
+            List<Product> products = productService.GetProducts(sortBy);
+            return products;
         }
 
         private void DisplayStudents(List<Student> students)
@@ -202,6 +227,46 @@ namespace SomerenUI
 
             SetHeader("Rooms");
         }
+        private void DisplayProducts(List<Product> products)
+        {
+            listViewPanelProducts.Clear();
+
+            listViewPanelProducts.Columns.Add("ID", 50);
+            listViewPanelProducts.Columns.Add("Name", 150);
+            listViewPanelProducts.Columns.Add("Stock", 100);
+            listViewPanelProducts.Columns.Add("VATRate", 100);
+            listViewPanelProducts.Columns.Add("Price", 100);
+            listViewPanelProducts.Columns.Add("Status", 150);
+
+            foreach (Product product in products)
+            {
+                ListViewItem item = new ListViewItem(product.ProductId.ToString());
+                item.SubItems.Add(product.Name);
+                item.SubItems.Add(product.Stock.ToString());
+                item.SubItems.Add(product.VATRate.ToString());
+                item.SubItems.Add(product.Price.ToString());
+                if (product.Stock <= 0)
+                {
+                    item.SubItems.Add("stock empty");
+                }
+                else if (product.Stock <= 10)
+                {
+                    item.SubItems.Add("nearly depleted");
+                }
+                else
+                {
+                    item.SubItems.Add("stock sufficient");
+                }
+                listViewPanelProducts.Items.Add(item);
+            }
+
+            SetHeader("Products");
+
+        }
+        private void ListViewPanelProducts_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            
+        }
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
@@ -232,6 +297,11 @@ namespace SomerenUI
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowRoomsPanel();
+        }
+
+        private void productsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowProductsPanel();
         }
 
         private void SomerenUI_Load(object sender, EventArgs e)

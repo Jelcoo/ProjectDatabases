@@ -38,11 +38,40 @@ namespace SomerenDAL
                 ProductId = (int)reader["productId"],
                 Name = reader["name"].ToString(),
                 Stock = (int)reader["stock"],
-                VATRate = (float)reader["VATRate"],
+                VATRate = (double)reader["VATRate"],
                 Price = (double)reader["price"],
             };
 
             return product;
+        }
+        public void UpdateStock(int productId, int newStockAmount)
+        {
+            string query = $"UPDATE [products] SET stock = @NewStockAmount WHERE productId = @ProductId";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@NewStockAmount", newStockAmount);
+                command.Parameters.AddWithValue("@ProductId", productId);
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+        public void UpdateProduct(Product updatedProduct)
+        {
+            string query = @"UPDATE [products] 
+                    SET name = @Name, stock = @Stock, VATRate = @VATRate, price = @Price
+                    WHERE productId = @ProductId";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@Name", updatedProduct.Name);
+                command.Parameters.AddWithValue("@Stock", updatedProduct.Stock);
+                command.Parameters.AddWithValue("@VATRate", updatedProduct.VATRate);
+                command.Parameters.AddWithValue("@Price", updatedProduct.Price);
+                command.Parameters.AddWithValue("@ProductId", updatedProduct.ProductId);
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
         }
     }
 }

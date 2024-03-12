@@ -1,4 +1,6 @@
-﻿namespace SomerenUI
+﻿using System.Windows.Forms;
+
+namespace SomerenUI
 {
     partial class SomerenUI
     {
@@ -29,51 +31,53 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SomerenUI));
-            menuStrip1 = new System.Windows.Forms.MenuStrip();
-            dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            dashboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            studentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            teachersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            activitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            roomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            pnlDashboard = new System.Windows.Forms.Panel();
-            lblDashboard = new System.Windows.Forms.Label();
-            pnlStudents = new System.Windows.Forms.Panel();
-            pnlTeachers = new System.Windows.Forms.Panel();
-            pnlActivities = new System.Windows.Forms.Panel();
-            pnlRooms = new System.Windows.Forms.Panel();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
-            headerLabel = new System.Windows.Forms.Label();
-            flowLayoutPanelStudents = new System.Windows.Forms.FlowLayoutPanel();
-            flowLayoutPanelTeachers = new System.Windows.Forms.FlowLayoutPanel();
-            flowLayoutPanelActivities = new System.Windows.Forms.FlowLayoutPanel();
-            flowLayoutPanelRooms = new System.Windows.Forms.FlowLayoutPanel();
+            menuStrip1 = new MenuStrip();
+            dashboardToolStripMenuItem = new ToolStripMenuItem();
+            dashboardToolStripMenuItem1 = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            studentsToolStripMenuItem = new ToolStripMenuItem();
+            teachersToolStripMenuItem = new ToolStripMenuItem();
+            activitiesToolStripMenuItem = new ToolStripMenuItem();
+            roomsToolStripMenuItem = new ToolStripMenuItem();
+            productsToolStripMenuItem = new ToolStripMenuItem();
+            pnlDashboard = new Panel();
+            lblDashboard = new Label();
+            pnlStudents = new Panel();
+            flowLayoutPanelStudents = new FlowLayoutPanel();
+            pnlTeachers = new Panel();
+            flowLayoutPanelTeachers = new FlowLayoutPanel();
+            pnlActivities = new Panel();
+            flowLayoutPanelActivities = new FlowLayoutPanel();
+            pnlRooms = new Panel();
+            flowLayoutPanelRooms = new FlowLayoutPanel();
+            pnlProducts = new Panel();
+            listViewPanelProducts = new ListView();
+            pictureBox1 = new PictureBox();
+            headerLabel = new Label();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
             pnlTeachers.SuspendLayout();
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
-
+            pnlProducts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            pnlTeachers.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, teachersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, teachersToolStripMenuItem, activitiesToolStripMenuItem, productsToolStripMenuItem, roomsToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            menuStrip1.Padding = new Padding(7, 2, 0, 2);
             menuStrip1.Size = new System.Drawing.Size(1099, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // dashboardToolStripMenuItem
             // 
-            dashboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem1, exitToolStripMenuItem });
+            dashboardToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dashboardToolStripMenuItem1, exitToolStripMenuItem });
             dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
             dashboardToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             dashboardToolStripMenuItem.Text = "Application";
@@ -109,22 +113,29 @@
             // activitiesToolStripMenuItem
             // 
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
-            activitiesToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            activitiesToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             activitiesToolStripMenuItem.Text = "Activities";
             activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
-            roomsToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            roomsToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
             roomsToolStripMenuItem.Text = "Rooms";
             roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
+            // 
+            // productsToolStripMenuItem
+            // 
+            productsToolStripMenuItem.Name = "productsToolStripMenuItem";
+            productsToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            productsToolStripMenuItem.Text = "Products";
+            productsToolStripMenuItem.Click += productsToolStripMenuItem_Click;
             // 
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
             pnlDashboard.Location = new System.Drawing.Point(14, 36);
-            pnlDashboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlDashboard.Margin = new Padding(3, 4, 3, 4);
             pnlDashboard.Name = "pnlDashboard";
             pnlDashboard.Size = new System.Drawing.Size(1072, 621);
             pnlDashboard.TabIndex = 1;
@@ -146,6 +157,13 @@
             pnlStudents.Size = new System.Drawing.Size(1072, 528);
             pnlStudents.TabIndex = 2;
             // 
+            // flowLayoutPanelStudents
+            // 
+            flowLayoutPanelStudents.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
+            flowLayoutPanelStudents.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelStudents.TabIndex = 1;
+            // 
             // pnlTeachers
             // 
             pnlTeachers.Controls.Add(flowLayoutPanelTeachers);
@@ -154,6 +172,13 @@
             pnlTeachers.Size = new System.Drawing.Size(1072, 528);
             pnlTeachers.TabIndex = 2;
             // 
+            // flowLayoutPanelTeachers
+            // 
+            flowLayoutPanelTeachers.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
+            flowLayoutPanelTeachers.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelTeachers.TabIndex = 1;
+            // 
             // pnlActivities
             // 
             pnlActivities.Controls.Add(flowLayoutPanelActivities);
@@ -161,38 +186,6 @@
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new System.Drawing.Size(1072, 528);
             pnlActivities.TabIndex = 2;
-            //
-            // pnlRooms
-            // 
-            pnlRooms.Controls.Add(flowLayoutPanelRooms);
-            pnlRooms.Location = new System.Drawing.Point(14, 31);
-            pnlRooms.Name = "pnlRooms";
-            pnlRooms.Size = new System.Drawing.Size(1072, 528);
-            pnlRooms.TabIndex = 2;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(1200, 0);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(149, 164);
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            // 
-            // flowLayoutPanelStudents
-            // 
-            flowLayoutPanelStudents.Location = new System.Drawing.Point(18, 48);
-            flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
-            flowLayoutPanelStudents.Size = new System.Drawing.Size(875, 347);
-            flowLayoutPanelStudents.TabIndex = 1;
-            // 
-            // flowLayoutPanelTeachers
-            // 
-            flowLayoutPanelTeachers.Location = new System.Drawing.Point(18, 48);
-            flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
-            flowLayoutPanelTeachers.Size = new System.Drawing.Size(875, 347);
-            flowLayoutPanelTeachers.TabIndex = 1;
             // 
             // flowLayoutPanelActivities
             // 
@@ -201,12 +194,47 @@
             flowLayoutPanelActivities.Size = new System.Drawing.Size(875, 347);
             flowLayoutPanelActivities.TabIndex = 1;
             // 
+            // pnlRooms
+            // 
+            pnlRooms.Controls.Add(flowLayoutPanelRooms);
+            pnlRooms.Location = new System.Drawing.Point(14, 31);
+            pnlRooms.Name = "pnlRooms";
+            pnlRooms.Size = new System.Drawing.Size(1072, 528);
+            pnlRooms.TabIndex = 2;
+            // 
             // flowLayoutPanelRooms
             // 
             flowLayoutPanelRooms.Location = new System.Drawing.Point(18, 48);
             flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
             flowLayoutPanelRooms.Size = new System.Drawing.Size(875, 347);
             flowLayoutPanelRooms.TabIndex = 1;
+            // 
+            // pnlProducts
+            // 
+            pnlProducts.Controls.Add(listViewPanelProducts);
+            pnlProducts.Location = new System.Drawing.Point(14, 31);
+            pnlProducts.Name = "pnlProducts";
+            pnlProducts.Size = new System.Drawing.Size(1072, 528);
+            pnlProducts.TabIndex = 2;
+            // 
+            // listViewPanelProducts
+            // 
+            listViewPanelProducts.Location = new System.Drawing.Point(14, 60);
+            listViewPanelProducts.Name = "listViewPanelProducts";
+            listViewPanelProducts.Size = new System.Drawing.Size(700, 400);
+            listViewPanelProducts.TabIndex = 0;
+            listViewPanelProducts.UseCompatibleStateImageBehavior = false;
+            listViewPanelProducts.View = View.Details;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new System.Drawing.Point(1200, 0);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(149, 164);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
             // 
             // headerLabel
             // 
@@ -216,12 +244,11 @@
             headerLabel.Name = "headerLabel";
             headerLabel.Size = new System.Drawing.Size(134, 41);
             headerLabel.TabIndex = 0;
-            headerLabel.Text = "";
             // 
             // SomerenUI
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1099, 673);
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
@@ -229,8 +256,9 @@
             Controls.Add(pnlTeachers);
             Controls.Add(pnlActivities);
             Controls.Add(pnlRooms);
+            Controls.Add(pnlProducts);
             MainMenuStrip = menuStrip1;
-            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "SomerenUI";
             Text = "SomerenApp";
             Load += SomerenUI_Load;
@@ -239,13 +267,10 @@
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
-            pnlStudents.PerformLayout();
             pnlTeachers.ResumeLayout(false);
-            pnlTeachers.PerformLayout();
             pnlActivities.ResumeLayout(false);
-            pnlActivities.PerformLayout();
             pnlRooms.ResumeLayout(false);
-            pnlRooms.PerformLayout();
+            pnlProducts.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -261,16 +286,20 @@
         private System.Windows.Forms.ToolStripMenuItem teachersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activitiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem roomsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem productsToolStripMenuItem;
         private System.Windows.Forms.Panel pnlDashboard;
         private System.Windows.Forms.Label lblDashboard;
         private System.Windows.Forms.Panel pnlStudents;
         private System.Windows.Forms.Panel pnlTeachers;
         private System.Windows.Forms.Panel pnlActivities;
         private System.Windows.Forms.Panel pnlRooms;
+        private System.Windows.Forms.Panel pnlProducts;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStudents;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTeachers;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelActivities;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRooms;
+        private System.Windows.Forms.ListView listViewPanelProducts;
+
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label headerLabel;
     }
