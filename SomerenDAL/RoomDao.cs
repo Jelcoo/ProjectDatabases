@@ -30,7 +30,7 @@ namespace SomerenDAL
             return rooms;
         }
 
-        private Room ReadRoom(SqlDataReader reader)
+        public Room ReadRoom(SqlDataReader reader)
         {
             Room room = new Room()
             {

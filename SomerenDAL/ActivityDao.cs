@@ -2,6 +2,8 @@
 using System.Data.SqlClient;
 using SomerenModel;
 using System;
+using System.Collections;
+using System.Net;
 
 namespace SomerenDAL
 {
@@ -29,6 +31,46 @@ namespace SomerenDAL
             CloseConnection();
 
             return activities;
+        }
+
+        public List<Student> GetAllParticipants(int activityId)
+        {
+            SqlCommand command = new SqlCommand("SELECT activityId, studentId FROM [activityparticipants] WHERE activityId=@Id", OpenConnection());
+            command.Parameters.AddWithValue("@Id", activityId);
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Student> participants = new List<Student>();
+            StudentDao studentdb = new StudentDao();
+
+            while (reader.Read())
+            {
+                Student student = studentdb.GetById((int)reader["studentId"]);
+                participants.Add(student);
+            }
+            reader.Close();
+            CloseConnection();
+
+            return participants;
+        }
+
+        public List<Teacher> GetAllSupervisors(int activityId)
+        {
+            SqlCommand command = new SqlCommand("SELECT activityId, teacherId FROM [activitysupervisors] WHERE activityId=@Id", OpenConnection());
+            command.Parameters.AddWithValue("@Id", activityId);
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Teacher> supervisors = new List<Teacher>();
+            TeacherDao teacherdb = new TeacherDao();
+
+            while (reader.Read())
+            {
+                Teacher teacher = teacherdb.GetById((int)reader["teacherId"]);
+                supervisors.Add(teacher);
+            }
+            reader.Close();
+            CloseConnection();
+
+            return supervisors;
         }
 
         private Activity ReadActivity(SqlDataReader reader)
