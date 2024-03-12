@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
 using System.Drawing;
+using System.Globalization;
 
 namespace SomerenUI
 {
@@ -54,7 +55,7 @@ namespace SomerenUI
             try
             {
                 // get and display all students
-                List<Student> students = GetStudents();
+                List<Student> students = GetStudents("lastName DESC");
                 DisplayStudents(students);
             }
             catch (Exception e)
@@ -69,7 +70,7 @@ namespace SomerenUI
             try
             {
                 // get and display all students
-                List<Teacher> teachers = GetTeachers();
+                List<Teacher> teachers = GetTeachers("lastName DESC");
                 DisplayTeachers(teachers);
             }
             catch (Exception e)
@@ -85,7 +86,7 @@ namespace SomerenUI
             try
             {
                 // get and display all rooms
-                List<Room> rooms = GetRooms();
+                List<Room> rooms = GetRooms("building, floor, roomId ASC");
                 DisplayRooms(rooms);
             }
             catch (Exception e)
@@ -101,7 +102,7 @@ namespace SomerenUI
             try
             {
                 // get and display all activities
-                List<Activity> activities = GetActivities();
+                List<Activity> activities = GetActivities("name DESC");
                 DisplayActivities(activities);
             }
             catch (Exception e)
@@ -110,31 +111,31 @@ namespace SomerenUI
             }
         }
 
-        private List<Student> GetStudents()
+        private List<Student> GetStudents(string sortBy)
         {
             StudentService studentService = new StudentService();
-            List<Student> students = studentService.GetStudents();
+            List<Student> students = studentService.GetStudents(sortBy);
             return students;
         }
 
-        private List<Teacher> GetTeachers()
+        private List<Teacher> GetTeachers(string sortBy)
         {
             TeacherService teacherService = new TeacherService();
-            List<Teacher> teachers = teacherService.GetTeachers();
+            List<Teacher> teachers = teacherService.GetTeachers(sortBy);
             return teachers;
         }
 
-        private List<Activity> GetActivities()
+        private List<Activity> GetActivities(string sortBy)
         {
             ActivityService activityService = new ActivityService();
-            List<Activity> activities = activityService.GetActivities();
+            List<Activity> activities = activityService.GetActivities(sortBy);
             return activities;
         }
       
-        private List<Room> GetRooms()
+        private List<Room> GetRooms(string sortBy)
         {
             RoomService roomService = new RoomService();
-            List<Room> rooms = roomService.GetRooms();
+            List<Room> rooms = roomService.GetRooms(sortBy);
             return rooms;
         }
 

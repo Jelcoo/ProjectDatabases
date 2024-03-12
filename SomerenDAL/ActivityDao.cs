@@ -7,9 +7,15 @@ namespace SomerenDAL
 {
     public class ActivityDao : BaseDao
     {
-        public List<Activity> GetAll()
+        public List<Activity> GetAll(string sortBy = null)
         {
-            SqlCommand command = new SqlCommand("SELECT activityId, name, location, startOfActivity, endOfActivity FROM [activities]", OpenConnection());
+            string query = "SELECT activityId, name, location, startOfActivity, endOfActivity FROM [activities]";
+
+            if (sortBy != null)
+            {
+                query += $" ORDER BY {sortBy}";
+            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Activity> activities = new List<Activity>();

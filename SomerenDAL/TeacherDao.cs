@@ -2,14 +2,21 @@
 using System.Data.SqlClient;
 using SomerenModel;
 using System;
+using System.Globalization;
 
 namespace SomerenDAL
 {
     public class TeacherDao : BaseDao
     {
-        public List<Teacher> GetAll()
+        public List<Teacher> GetAll(string sortBy = null)
         {
-            SqlCommand command = new SqlCommand("SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [teachers]", OpenConnection());
+            string query = "SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [teachers]";
+
+            if (sortBy != null)
+            {
+                query += $" ORDER BY {sortBy}";
+            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Teacher> teachers = new List<Teacher>();

@@ -17,9 +17,9 @@ namespace SomerenService
             roomdb = new RoomDao();
         }
 
-        public List<Room> GetRooms()
+        public List<Room> GetRooms(string sortBy = null)
         {
-            List<Room> rooms = roomdb.GetAll();
+            List<Room> rooms = roomdb.GetAll(sortBy);
             return rooms;
         }
 

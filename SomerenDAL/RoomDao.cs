@@ -6,9 +6,15 @@ namespace SomerenDAL
 {
     public class RoomDao : BaseDao
     {
-        public List<Room> GetAll()
+        public List<Room> GetAll(string sortBy = null)
         {
-            SqlCommand command = new SqlCommand("SELECT roomId, building, floor, amountOfBeds FROM [rooms]", OpenConnection());
+            string query = "SELECT roomId, building, floor, amountOfBeds FROM [rooms]";
+
+            if (sortBy != null)
+            {
+                query += $" ORDER BY {sortBy}";
+            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Room> rooms = new List<Room>();

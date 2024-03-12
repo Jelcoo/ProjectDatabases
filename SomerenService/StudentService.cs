@@ -13,9 +13,9 @@ namespace SomerenService
             studentdb = new StudentDao();
         }
 
-        public List<Student> GetStudents()
+        public List<Student> GetStudents(string sortBy = null)
         {
-            List<Student> students = studentdb.GetAll();
+            List<Student> students = studentdb.GetAll(sortBy);
             return students;
         }
     }
