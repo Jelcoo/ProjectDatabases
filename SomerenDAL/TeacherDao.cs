@@ -32,6 +32,19 @@ namespace SomerenDAL
             return teachers;
         }
 
+        public Teacher GetById(int teacherId)
+        {
+            SqlCommand command = new SqlCommand("SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [students] WHERE teacherId=@Id", OpenConnection());
+            command.Parameters.AddWithValue("@Id", teacherId);
+
+            SqlDataReader reader = command.ExecuteReader();
+            Teacher teacher = ReadTeacher(reader);
+            reader.Close();
+            CloseConnection();
+
+            return teacher;
+        }
+
         private Teacher ReadTeacher(SqlDataReader reader)
         {
             Teacher teacher = new Teacher()
