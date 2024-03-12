@@ -11,6 +11,7 @@ namespace SomerenUI
     public partial class SomerenUI : Form
     {
         List<Panel> panelList = new List<Panel>();
+        Student selectedOrderStudent = null;
 
         public SomerenUI()
         {
@@ -111,6 +112,38 @@ namespace SomerenUI
             }
         }
 
+        private void ShowOrderStudentsPanel()
+        {
+            ShowPanel(pnlOrders);
+
+            try
+            {
+                // get and add all students
+                List<Student> students = GetStudents("lastName DESC");
+                DisplayOrderStudents(students);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the orders: " + e.Message);
+            }
+        }
+
+        private void ShowOrderProductsList()
+        {
+            pnlOrders.Controls.Add(flowLayoutPanelOrderProducts);
+
+            try
+            {
+                // get and display all products
+                List<Product> products = GetProducts("name ASC");
+                DisplayOrderProducts(products);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the order for student: " + e.Message);
+            }
+        }
+
         private List<Student> GetStudents(string sortBy)
         {
             StudentService studentService = new StudentService();
@@ -131,12 +164,19 @@ namespace SomerenUI
             List<Activity> activities = activityService.GetActivities(sortBy);
             return activities;
         }
-      
+
         private List<Room> GetRooms(string sortBy)
         {
             RoomService roomService = new RoomService();
             List<Room> rooms = roomService.GetRooms(sortBy);
             return rooms;
+        }
+
+        private List<Product> GetProducts(string sortBy)
+        {
+            ProductService productService = new ProductService();
+            List<Product> products = productService.GetProducts(sortBy);
+            return products;
         }
 
         private void DisplayStudents(List<Student> students)
@@ -203,6 +243,29 @@ namespace SomerenUI
             SetHeader("Rooms");
         }
 
+        private void DisplayOrderStudents(List<Student> students)
+        {
+            foreach (Student student in students)
+            {
+                ordersComboBox.Items.Add(student);
+            }
+
+            SetHeader("Order");
+        }
+
+        private void DisplayOrderProducts(List<Product> products)
+        {
+            flowLayoutPanelOrderProducts.Controls.Clear();
+            foreach (Product product in products)
+            {
+                Button btn = new Button();
+                btn.Size = new Size(150, 75);
+                btn.Text = product.Name;
+                btn.Tag = product;
+                flowLayoutPanelOrderProducts.Controls.Add(btn);
+            }
+        }
+
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
             SetHeader("Dashboard", false);
@@ -232,6 +295,17 @@ namespace SomerenUI
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowRoomsPanel();
+        }
+
+        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowOrderStudentsPanel();
+        }
+
+        private void ordersComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedOrderStudent = (Student)ordersComboBox.SelectedItem;
+            ShowOrderProductsList();
         }
 
         private void SomerenUI_Load(object sender, EventArgs e)

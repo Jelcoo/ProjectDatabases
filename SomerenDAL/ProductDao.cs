@@ -38,7 +38,7 @@ namespace SomerenDAL
                 ProductId = (int)reader["productId"],
                 Name = reader["name"].ToString(),
                 Stock = (int)reader["stock"],
-                VATRate = (float)reader["VATRate"],
+                VATRate = (double)reader["VATRate"],
                 Price = (double)reader["price"],
             };
 
