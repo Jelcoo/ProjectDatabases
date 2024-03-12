@@ -21,13 +21,18 @@ namespace SomerenUI
             panelList.Add(pnlTeachers);
             panelList.Add(pnlActivities);
             panelList.Add(pnlRooms);
+            panelList.Add(pnlVat);
         }
 
         private void ShowPanel(Panel panel)
         {
             foreach (Panel item in panelList)
             {
-                item.Hide();
+                try
+                {
+                    item.Hide();
+                }
+                catch { }
             }
             panel.Show();
             panel.Controls.Add(pictureBox1);
@@ -111,6 +116,22 @@ namespace SomerenUI
             }
         }
 
+        private void ShowVatPanel()
+        {
+            ShowPanel(pnlVat);
+
+            try
+            {
+                // get and display all VAT
+
+                DisplayVat();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the VAT: " + e.Message);
+            }
+        }
+
         private List<Student> GetStudents(string sortBy)
         {
             StudentService studentService = new StudentService();
@@ -131,7 +152,7 @@ namespace SomerenUI
             List<Activity> activities = activityService.GetActivities(sortBy);
             return activities;
         }
-      
+
         private List<Room> GetRooms(string sortBy)
         {
             RoomService roomService = new RoomService();
@@ -203,6 +224,24 @@ namespace SomerenUI
             SetHeader("Rooms");
         }
 
+        private void DisplayVat()
+        {
+            flowLayoutPanelVat.Controls.Clear();
+            flowLayoutPanelVat.Controls.Add(lblTotalToPayValue);
+            flowLayoutPanelVat.Controls.Add(lblTotalToPay);
+            flowLayoutPanelVat.Controls.Add(lblRecordTotal);
+            flowLayoutPanelVat.Controls.Add(lblRecordPercentage);
+            flowLayoutPanelVat.Controls.Add(lblRecordTypeVat);
+            flowLayoutPanelVat.Controls.Add(lblTotal);
+            flowLayoutPanelVat.Controls.Add(lblPercentage);
+            flowLayoutPanelVat.Controls.Add(blbVatType);
+            flowLayoutPanelVat.Controls.Add(gbKwartaal);
+            flowLayoutPanelVat.Controls.Add(txtJaartal);
+            flowLayoutPanelVat.Controls.Add(lblJaartal);
+            flowLayoutPanelVat.Controls.Add(lblDates);
+            SetHeader("VAT");
+        }
+
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
             SetHeader("Dashboard", false);
@@ -237,6 +276,11 @@ namespace SomerenUI
         private void SomerenUI_Load(object sender, EventArgs e)
         {
             ShowPanel(pnlDashboard);
+        }
+
+        private void vATToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowVatPanel();
         }
     }
 }
