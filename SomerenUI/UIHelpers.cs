@@ -15,14 +15,14 @@ namespace SomerenUI
             int hash = input.GetHashCode();
 
             // Convert the hash code to RGB values
-            int red = Math.Abs(hash % 256);
-            int green = Math.Abs((hash / 256) % 256);
-            int blue = Math.Abs((hash / (256 * 256)) % 256);
+            int red = Math.Abs(hash % 156);
+            int green = Math.Abs((hash / 156) % 156);
+            int blue = Math.Abs((hash / (156 * 156)) % 156);
 
             // Ensure the RGB values are above the minimum threshold
-            red = Math.Max(red, 100);
-            green = Math.Max(green, 100);
-            blue = Math.Max(blue, 100);
+            red += 100;
+            green += 100;
+            blue += 100;
 
             // Create and return the Color object
             return Color.FromArgb(red, green, blue);
