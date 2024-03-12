@@ -1,4 +1,6 @@
-﻿namespace SomerenUI
+﻿using System.Drawing;
+
+namespace SomerenUI
 {
     partial class SomerenUI
     {
@@ -50,16 +52,19 @@
             flowLayoutPanelRooms = new System.Windows.Forms.FlowLayoutPanel();
             flowLayoutPanelOrderProducts = new System.Windows.Forms.FlowLayoutPanel();
             pnlOrders = new System.Windows.Forms.Panel();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
-            headerLabel = new System.Windows.Forms.Label();
             ordersComboBoxLabel = new System.Windows.Forms.Label();
             ordersComboBox = new System.Windows.Forms.ComboBox();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            headerLabel = new System.Windows.Forms.Label();
+            orderDetailsLabel = new System.Windows.Forms.Label();
+            orderProcessButton = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
             pnlTeachers.SuspendLayout();
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
+            pnlOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -153,7 +158,7 @@
             // 
             pnlStudents.Controls.Add(flowLayoutPanelStudents);
             pnlStudents.Location = new System.Drawing.Point(18, 39);
-            pnlStudents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            pnlStudents.Margin = new System.Windows.Forms.Padding(4);
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new System.Drawing.Size(1340, 660);
             pnlStudents.TabIndex = 2;
@@ -161,7 +166,7 @@
             // flowLayoutPanelStudents
             // 
             flowLayoutPanelStudents.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelStudents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            flowLayoutPanelStudents.Margin = new System.Windows.Forms.Padding(4);
             flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
             flowLayoutPanelStudents.Size = new System.Drawing.Size(1094, 434);
             flowLayoutPanelStudents.TabIndex = 1;
@@ -170,7 +175,7 @@
             // 
             pnlTeachers.Controls.Add(flowLayoutPanelTeachers);
             pnlTeachers.Location = new System.Drawing.Point(18, 39);
-            pnlTeachers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            pnlTeachers.Margin = new System.Windows.Forms.Padding(4);
             pnlTeachers.Name = "pnlTeachers";
             pnlTeachers.Size = new System.Drawing.Size(1340, 660);
             pnlTeachers.TabIndex = 2;
@@ -178,7 +183,7 @@
             // flowLayoutPanelTeachers
             // 
             flowLayoutPanelTeachers.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelTeachers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            flowLayoutPanelTeachers.Margin = new System.Windows.Forms.Padding(4);
             flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
             flowLayoutPanelTeachers.Size = new System.Drawing.Size(1094, 434);
             flowLayoutPanelTeachers.TabIndex = 1;
@@ -187,7 +192,7 @@
             // 
             pnlActivities.Controls.Add(flowLayoutPanelActivities);
             pnlActivities.Location = new System.Drawing.Point(18, 39);
-            pnlActivities.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            pnlActivities.Margin = new System.Windows.Forms.Padding(4);
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new System.Drawing.Size(1340, 660);
             pnlActivities.TabIndex = 2;
@@ -195,7 +200,7 @@
             // flowLayoutPanelActivities
             // 
             flowLayoutPanelActivities.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelActivities.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            flowLayoutPanelActivities.Margin = new System.Windows.Forms.Padding(4);
             flowLayoutPanelActivities.Name = "flowLayoutPanelActivities";
             flowLayoutPanelActivities.Size = new System.Drawing.Size(1094, 434);
             flowLayoutPanelActivities.TabIndex = 1;
@@ -204,7 +209,7 @@
             // 
             pnlRooms.Controls.Add(flowLayoutPanelRooms);
             pnlRooms.Location = new System.Drawing.Point(18, 39);
-            pnlRooms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            pnlRooms.Margin = new System.Windows.Forms.Padding(4);
             pnlRooms.Name = "pnlRooms";
             pnlRooms.Size = new System.Drawing.Size(1340, 660);
             pnlRooms.TabIndex = 2;
@@ -212,46 +217,49 @@
             // flowLayoutPanelRooms
             // 
             flowLayoutPanelRooms.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelRooms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            flowLayoutPanelRooms.Margin = new System.Windows.Forms.Padding(4);
             flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
             flowLayoutPanelRooms.Size = new System.Drawing.Size(1094, 434);
             flowLayoutPanelRooms.TabIndex = 1;
             // 
             // flowLayoutPanelOrderProducts
-            //
+            // 
             flowLayoutPanelOrderProducts.Location = new System.Drawing.Point(22, 140);
-            flowLayoutPanelOrderProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            flowLayoutPanelOrderProducts.Margin = new System.Windows.Forms.Padding(4);
             flowLayoutPanelOrderProducts.Name = "flowLayoutPanelOrderProducts";
             flowLayoutPanelOrderProducts.Size = new System.Drawing.Size(600, 434);
             flowLayoutPanelOrderProducts.TabIndex = 1;
-            // 
-            // ordersComboBox
-            // 
-            ordersComboBox.Location = new System.Drawing.Point(190, 80);
-            ordersComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            ordersComboBox.Name = "ordersComboBox";
-            ordersComboBox.Size = new System.Drawing.Size(400, 50);
-            ordersComboBox.SelectedIndexChanged += ordersComboBox_SelectedIndexChanged; 
-            //
-            // ordersComboBoxLabel
-            //
-            ordersComboBoxLabel.AutoSize = true;
-            ordersComboBoxLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            ordersComboBoxLabel.Location = new System.Drawing.Point(22, 80);
-            ordersComboBoxLabel.Name = "headerLabel";
-            ordersComboBoxLabel.Size = new System.Drawing.Size(134, 41);
-            ordersComboBoxLabel.TabIndex = 0;
-            ordersComboBoxLabel.Text = "Selecteer leerling";
             // 
             // pnlOrders
             // 
             pnlOrders.Controls.Add(ordersComboBoxLabel);
             pnlOrders.Controls.Add(ordersComboBox);
+            pnlOrders.Controls.Add(orderDetailsLabel);
+            pnlOrders.Controls.Add(orderProcessButton);
             pnlOrders.Location = new System.Drawing.Point(18, 39);
-            pnlOrders.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            pnlOrders.Margin = new System.Windows.Forms.Padding(4);
             pnlOrders.Name = "pnlOrders";
             pnlOrders.Size = new System.Drawing.Size(1340, 660);
             pnlOrders.TabIndex = 2;
+            // 
+            // ordersComboBoxLabel
+            // 
+            ordersComboBoxLabel.AutoSize = true;
+            ordersComboBoxLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ordersComboBoxLabel.Location = new System.Drawing.Point(22, 80);
+            ordersComboBoxLabel.Name = "ordersComboBoxLabel";
+            ordersComboBoxLabel.Size = new System.Drawing.Size(161, 28);
+            ordersComboBoxLabel.TabIndex = 0;
+            ordersComboBoxLabel.Text = "Selecteer leerling";
+            // 
+            // ordersComboBox
+            // 
+            ordersComboBox.Location = new System.Drawing.Point(190, 80);
+            ordersComboBox.Margin = new System.Windows.Forms.Padding(4);
+            ordersComboBox.Name = "ordersComboBox";
+            ordersComboBox.Size = new System.Drawing.Size(400, 33);
+            ordersComboBox.TabIndex = 1;
+            ordersComboBox.SelectedIndexChanged += ordersComboBox_SelectedIndexChanged;
             // 
             // pictureBox1
             // 
@@ -271,6 +279,22 @@
             headerLabel.Name = "headerLabel";
             headerLabel.Size = new System.Drawing.Size(134, 41);
             headerLabel.TabIndex = 0;
+            // 
+            // orderDetailsLabel
+            //
+            orderDetailsLabel.AutoSize = true;
+            orderDetailsLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            orderDetailsLabel.Location = new System.Drawing.Point(650, 80);
+            orderDetailsLabel.Name = "orderDetailsLabel";
+            orderDetailsLabel.TabIndex = 0;
+            // 
+            // orderProcessButton
+            //
+            orderProcessButton.Text = "Process Order";
+            orderProcessButton.MouseClick += orderProcessButton_Click;
+            orderProcessButton.Size = new Size(200, 40);
+            orderProcessButton.Location = new System.Drawing.Point(650, 400);
+            orderProcessButton.Visible = false;
             // 
             // SomerenUI
             // 
@@ -297,6 +321,8 @@
             pnlTeachers.ResumeLayout(false);
             pnlActivities.ResumeLayout(false);
             pnlRooms.ResumeLayout(false);
+            pnlOrders.ResumeLayout(false);
+            pnlOrders.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -329,5 +355,7 @@
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.Label ordersComboBoxLabel;
         private System.Windows.Forms.ComboBox ordersComboBox;
+        private System.Windows.Forms.Label orderDetailsLabel;
+        private System.Windows.Forms.Button orderProcessButton;
     }
 }

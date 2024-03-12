@@ -12,6 +12,7 @@ namespace SomerenUI
     {
         List<Panel> panelList = new List<Panel>();
         Student selectedOrderStudent = null;
+        Order unprocessedOrder = null;
 
         public SomerenUI()
         {
@@ -26,7 +27,7 @@ namespace SomerenUI
 
         private void ShowPanel(Panel panel)
         {
-            foreach (Panel item in panelList)
+            foreach (Panel item in this.panelList)
             {
                 item.Hide();
             }
@@ -262,17 +263,75 @@ namespace SomerenUI
                 btn.Size = new Size(150, 75);
                 btn.Text = product.Name;
                 btn.Tag = product;
+                btn.MouseClick += orderProduct_Click;
                 flowLayoutPanelOrderProducts.Controls.Add(btn);
+            }
+
+            this.unprocessedOrder = new Order();
+            this.unprocessedOrder.Student = this.selectedOrderStudent;
+            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+        }
+
+        private void orderProduct_Click(object sender, EventArgs e)
+        {
+            Product product = (Product)((Button)sender).Tag;
+
+            bool alreadyInOrder = false;
+            foreach (OrderLine orderLine in this.unprocessedOrder.OrderLines)
+            {
+                if (orderLine.Product.ProductId == product.ProductId)
+                {
+                    alreadyInOrder = true;
+                    orderLine.Quantity++;
+                }
+            }
+
+            if (!alreadyInOrder)
+            {
+                OrderLine orderLine = new OrderLine();
+                orderLine.Order = this.unprocessedOrder;
+                orderLine.Product = product;
+                orderLine.Quantity = 1;
+
+                this.unprocessedOrder.OrderLines.Add(orderLine);
+            }
+
+            UpdateOrderDetailsLabel();
+
+            if (!orderProcessButton.Visible)
+            {
+                orderProcessButton.Visible = true;
             }
         }
 
-        private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
+        private void orderProcessButton_Click(object sender, EventArgs e)
+        {
+            OrderService orderService = new OrderService();
+            orderService.StoreOrder(this.unprocessedOrder);
+            this.unprocessedOrder = new Order();
+            this.unprocessedOrder.Student = this.selectedOrderStudent;
+            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+            orderDetailsLabel.Text = "";
+            orderProcessButton.Visible = false;
+        }
+
+        private void UpdateOrderDetailsLabel()
+        {
+            string orderDetails = "";
+            orderDetails += this.unprocessedOrder.ToString();
+            orderDetails += "\n";
+            orderDetails += $"Total price: €{this.unprocessedOrder.TotalPrice:0.00}";
+
+            orderDetailsLabel.Text = orderDetails;
+        }
+
+        private void dashboardToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             SetHeader("Dashboard", false);
             ShowPanel(pnlDashboard);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -304,7 +363,12 @@ namespace SomerenUI
 
         private void ordersComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedOrderStudent = (Student)ordersComboBox.SelectedItem;
+            this.selectedOrderStudent = (Student)ordersComboBox.SelectedItem;
+            this.unprocessedOrder = new Order();
+            this.unprocessedOrder.Student = this.selectedOrderStudent;
+            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+            orderDetailsLabel.Text = "";
+            orderProcessButton.Visible = false;
             ShowOrderProductsList();
         }
 
