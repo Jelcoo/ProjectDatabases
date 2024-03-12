@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace SomerenUI
 {
-<<<<<<< HEAD
     public class Helpers
     {
         public (DateTime startDate, DateTime endDate) GetQuarterDates(int year, string quarter)
@@ -17,9 +16,7 @@ namespace SomerenUI
             DateTime endDate = startDate.AddMonths(3).AddDays(-1);
             return (startDate, endDate);
         }
-=======
-    public class UIHelpers
-    {
+
         public static Color StringToColor(string input)
         {
             // Use the GetHashCode method to get a hash code for the string
@@ -39,6 +36,5 @@ namespace SomerenUI
             return Color.FromArgb(red, green, blue);
         }
 
->>>>>>> dev
     }
 }
