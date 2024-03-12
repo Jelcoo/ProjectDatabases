@@ -45,10 +45,10 @@
             pnlRooms = new System.Windows.Forms.Panel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             headerLabel = new System.Windows.Forms.Label();
-            listViewTeachers = new System.Windows.Forms.ListView();
-            listViewStudents = new System.Windows.Forms.ListView();
-            listViewActivities = new System.Windows.Forms.ListView();
-            listViewRooms = new System.Windows.Forms.ListView();
+            flowLayoutPanelStudents = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanelTeachers = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanelActivities = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanelRooms = new System.Windows.Forms.FlowLayoutPanel();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -140,7 +140,7 @@
             // 
             // pnlStudents
             // 
-            pnlStudents.Controls.Add(listViewStudents);
+            pnlStudents.Controls.Add(flowLayoutPanelStudents);
             pnlStudents.Location = new System.Drawing.Point(14, 31);
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new System.Drawing.Size(1072, 528);
@@ -148,7 +148,7 @@
             // 
             // pnlTeachers
             // 
-            pnlTeachers.Controls.Add(listViewTeachers);
+            pnlTeachers.Controls.Add(flowLayoutPanelTeachers);
             pnlTeachers.Location = new System.Drawing.Point(14, 31);
             pnlTeachers.Name = "pnlTeachers";
             pnlTeachers.Size = new System.Drawing.Size(1072, 528);
@@ -156,7 +156,7 @@
             // 
             // pnlActivities
             // 
-            pnlActivities.Controls.Add(listViewActivities);
+            pnlActivities.Controls.Add(flowLayoutPanelActivities);
             pnlActivities.Location = new System.Drawing.Point(14, 31);
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new System.Drawing.Size(1072, 528);
@@ -164,7 +164,7 @@
             //
             // pnlRooms
             // 
-            pnlRooms.Controls.Add(listViewRooms);
+            pnlRooms.Controls.Add(flowLayoutPanelRooms);
             pnlRooms.Location = new System.Drawing.Point(14, 31);
             pnlRooms.Name = "pnlRooms";
             pnlRooms.Size = new System.Drawing.Size(1072, 528);
@@ -180,37 +180,33 @@
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
-            // listViewStudents
+            // flowLayoutPanelStudents
             // 
-            listViewStudents.Location = new System.Drawing.Point(18, 48);
-            listViewStudents.Name = "listViewStudents";
-            listViewStudents.Size = new System.Drawing.Size(875, 347);
-            listViewStudents.TabIndex = 1;
-            listViewStudents.UseCompatibleStateImageBehavior = false;
+            flowLayoutPanelStudents.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
+            flowLayoutPanelStudents.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelStudents.TabIndex = 1;
             // 
-            // listViewTeachers
+            // flowLayoutPanelTeachers
             // 
-            listViewTeachers.Location = new System.Drawing.Point(18, 48);
-            listViewTeachers.Name = "listViewTeachers";
-            listViewTeachers.Size = new System.Drawing.Size(875, 347);
-            listViewTeachers.TabIndex = 1;
-            listViewTeachers.UseCompatibleStateImageBehavior = false;
+            flowLayoutPanelTeachers.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
+            flowLayoutPanelTeachers.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelTeachers.TabIndex = 1;
             // 
-            // listViewActivities
+            // flowLayoutPanelActivities
             // 
-            listViewActivities.Location = new System.Drawing.Point(18, 48);
-            listViewActivities.Name = "listViewActivities";
-            listViewActivities.Size = new System.Drawing.Size(875, 347);
-            listViewActivities.TabIndex = 1;
-            listViewActivities.UseCompatibleStateImageBehavior = false;
+            flowLayoutPanelActivities.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelActivities.Name = "flowLayoutPanelActivities";
+            flowLayoutPanelActivities.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelActivities.TabIndex = 1;
             // 
-            // listViewRooms
+            // flowLayoutPanelRooms
             // 
-            listViewRooms.Location = new System.Drawing.Point(18, 48);
-            listViewRooms.Name = "listViewRooms";
-            listViewRooms.Size = new System.Drawing.Size(875, 347);
-            listViewRooms.TabIndex = 1;
-            listViewRooms.UseCompatibleStateImageBehavior = false;
+            flowLayoutPanelRooms.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
+            flowLayoutPanelRooms.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelRooms.TabIndex = 1;
             // 
             // headerLabel
             // 
@@ -271,10 +267,10 @@
         private System.Windows.Forms.Panel pnlTeachers;
         private System.Windows.Forms.Panel pnlActivities;
         private System.Windows.Forms.Panel pnlRooms;
-        private System.Windows.Forms.ListView listViewStudents;
-        private System.Windows.Forms.ListView listViewTeachers;
-        private System.Windows.Forms.ListView listViewActivities;
-        private System.Windows.Forms.ListView listViewRooms;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStudents;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTeachers;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelActivities;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRooms;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label headerLabel;
     }
