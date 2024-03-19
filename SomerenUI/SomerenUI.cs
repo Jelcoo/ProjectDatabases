@@ -360,6 +360,8 @@ namespace SomerenUI
             {
                 MessageBox.Show("Please select a product to delete.");
             }
+
+            ProductFormSetEmpty();
         }
 
         private void DisplayRevenue(DateTime start, DateTime end)
@@ -526,7 +528,7 @@ namespace SomerenUI
         {
             productEditButton.Text = "Edit";
             productEditNameInput.Text = product.Name;
-            productEditStockInput.Value = product.Stock;
+            productEditStockInput.Value = Math.Max(product.Stock, 0);
             productEditAlcoholInput.Checked = product.IsAlcoholic;
             productEditPriceInput.Value = (decimal)product.Price;
         }
