@@ -261,6 +261,8 @@ namespace SomerenUI
 
         private void DisplayOrderStudents(List<Student> students)
         {
+            ordersComboBox.Items.Clear();
+
             foreach (Student student in students)
             {
                 ordersComboBox.Items.Add(student);
