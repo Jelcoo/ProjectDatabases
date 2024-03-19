@@ -497,7 +497,7 @@ namespace SomerenUI
         {
             ShowProductsPanel();
         }
-        
+
         private void revenueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowRevenuePanel();

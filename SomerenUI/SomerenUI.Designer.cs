@@ -34,11 +34,16 @@ namespace SomerenUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SomerenUI));
             menuStrip1 = new MenuStrip();
+            dashboardToolStripMenuItem = new ToolStripMenuItem();
+            dashboardToolStripMenuItem1 = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            studentsToolStripMenuItem = new ToolStripMenuItem();
+            teachersToolStripMenuItem = new ToolStripMenuItem();
+            activitiesToolStripMenuItem = new ToolStripMenuItem();
+            roomsToolStripMenuItem = new ToolStripMenuItem();
             productsToolStripMenuItem = new ToolStripMenuItem();
-            flowLayoutPanelStudents = new FlowLayoutPanel();
-            flowLayoutPanelTeachers = new FlowLayoutPanel();
-            flowLayoutPanelActivities = new FlowLayoutPanel();
-            flowLayoutPanelRooms = new FlowLayoutPanel();
+            ordersToolStripMenuItem = new ToolStripMenuItem();
+            revenueToolStripMenuItem = new ToolStripMenuItem();
             pnlProducts = new Panel();
             productEditButton = new Button();
             productEditPriceInput = new NumericUpDown();
@@ -50,42 +55,33 @@ namespace SomerenUI
             productEditNameLabel = new Label();
             listViewPanelProducts = new ListView();
             productDeleteButton = new Button();
-            dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            dashboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            studentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            teachersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            activitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            roomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            revenueToolStripMenuItem = new ToolStripMenuItem();
-            pnlDashboard = new System.Windows.Forms.Panel();
-            lblDashboard = new System.Windows.Forms.Label();
-            pnlStudents = new System.Windows.Forms.Panel();
-            listViewGeneral = new System.Windows.Forms.ListView();
-            pnlTeachers = new System.Windows.Forms.Panel();
-            pnlActivities = new System.Windows.Forms.Panel();
-            pnlRooms = new System.Windows.Forms.Panel();
-            pnlOrders = new System.Windows.Forms.Panel();
+            pnlDashboard = new Panel();
+            lblDashboard = new Label();
+            pnlStudents = new Panel();
+            listViewGeneral = new ListView();
+            pnlTeachers = new Panel();
+            pnlActivities = new Panel();
+            pnlRooms = new Panel();
+            pnlOrders = new Panel();
+            ordersComboBoxLabel = new Label();
+            ordersComboBox = new ComboBox();
+            orderDetailsLabel = new Label();
+            orderProcessButton = new Button();
             pnlRevenue = new Panel();
-            ordersComboBoxLabel = new System.Windows.Forms.Label();
-            ordersComboBox = new System.Windows.Forms.ComboBox();
-            orderDetailsLabel = new System.Windows.Forms.Label();
-            orderProcessButton = new System.Windows.Forms.Button();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
-            headerLabel = new System.Windows.Forms.Label();
             OutputRevenue = new Label();
             EndDatePickerLabel1 = new Label();
             StartDatePickerLabel1 = new Label();
             revenueDateStart = new DateTimePicker();
             revenueDateEnd = new DateTimePicker();
-            flowLayoutPanelOrderProducts = new System.Windows.Forms.FlowLayoutPanel();
+            pictureBox1 = new PictureBox();
+            headerLabel = new Label();
+            flowLayoutPanelOrderProducts = new FlowLayoutPanel();
             menuStrip1.SuspendLayout();
-            pnlDashboard.SuspendLayout();
-            pnlRooms.SuspendLayout();
             pnlProducts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)productEditPriceInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)productEditStockInput).BeginInit();
+            pnlDashboard.SuspendLayout();
+            pnlRooms.SuspendLayout();
             pnlOrders.SuspendLayout();
             pnlRevenue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -94,11 +90,11 @@ namespace SomerenUI
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, teachersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem, productsToolStripMenuItem, ordersToolStripMenuItem, revenueToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, teachersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem, productsToolStripMenuItem, ordersToolStripMenuItem, revenueToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 2, 0, 2);
-            menuStrip1.Size = new System.Drawing.Size(1099, 28);
+            menuStrip1.Size = new Size(1374, 33);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -140,16 +136,9 @@ namespace SomerenUI
             // activitiesToolStripMenuItem
             // 
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
-            activitiesToolStripMenuItem.Size = new Size(83, 24);
+            activitiesToolStripMenuItem.Size = new Size(98, 29);
             activitiesToolStripMenuItem.Text = "Activities";
             activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
-            // 
-            // productsToolStripMenuItem
-            // 
-            productsToolStripMenuItem.Name = "productsToolStripMenuItem";
-            productsToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
-            productsToolStripMenuItem.Text = "Products";
-            productsToolStripMenuItem.Click += productsToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
@@ -157,6 +146,13 @@ namespace SomerenUI
             roomsToolStripMenuItem.Size = new Size(84, 29);
             roomsToolStripMenuItem.Text = "Rooms";
             roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
+            // 
+            // productsToolStripMenuItem
+            // 
+            productsToolStripMenuItem.Name = "productsToolStripMenuItem";
+            productsToolStripMenuItem.Size = new Size(98, 29);
+            productsToolStripMenuItem.Text = "Products";
+            productsToolStripMenuItem.Click += productsToolStripMenuItem_Click;
             // 
             // ordersToolStripMenuItem
             // 
@@ -168,95 +164,9 @@ namespace SomerenUI
             // revenueToolStripMenuItem
             // 
             revenueToolStripMenuItem.Name = "revenueToolStripMenuItem";
-            ordersToolStripMenuItem.Size = new Size(82, 29);
+            revenueToolStripMenuItem.Size = new Size(94, 29);
             revenueToolStripMenuItem.Text = "Revenue";
             revenueToolStripMenuItem.Click += revenueToolStripMenuItem_Click;
-            // 
-            // pnlDashboard
-            // 
-            pnlDashboard.Controls.Add(lblDashboard);
-            pnlDashboard.Location = new Point(15, 45);
-            pnlDashboard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            pnlDashboard.Name = "pnlDashboard";
-            pnlDashboard.Size = new Size(1340, 776);
-            pnlDashboard.TabIndex = 1;
-            // 
-            // lblDashboard
-            // 
-            lblDashboard.AutoSize = true;
-            lblDashboard.Location = new Point(15, 22);
-            lblDashboard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblDashboard.Name = "lblDashboard";
-            lblDashboard.Size = new Size(313, 25);
-            lblDashboard.TabIndex = 0;
-            lblDashboard.Text = "Welcome to the Someren Application!";
-            // 
-            // pnlStudents
-            // 
-            pnlStudents.Location = new Point(15, 31);
-            pnlStudents.Name = "pnlStudents";
-            pnlStudents.Size = new Size(1340, 660);
-            pnlStudents.TabIndex = 2;
-            // 
-            // flowLayoutPanelStudents
-            // 
-            flowLayoutPanelStudents.Location = new System.Drawing.Point(15, 48);
-            flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
-            flowLayoutPanelStudents.Size = new System.Drawing.Size(875, 347);
-            flowLayoutPanelStudents.TabIndex = 1;
-            // 
-            // listViewGeneral
-            // 
-            listViewGeneral.GridLines = true;
-            listViewGeneral.Location = new Point(15, 70);
-            listViewGeneral.Name = "listViewGeneral";
-            listViewGeneral.Size = new Size(875, 347);
-            listViewGeneral.TabIndex = 1;
-            listViewGeneral.UseCompatibleStateImageBehavior = false;
-            listViewGeneral.View = System.Windows.Forms.View.Details;
-            // 
-            // pnlTeachers
-            // 
-            pnlTeachers.Location = new Point(15, 31);
-            pnlTeachers.Name = "pnlTeachers";
-            pnlTeachers.Size = new Size(1340, 660);
-            pnlTeachers.TabIndex = 2;
-            // 
-            // flowLayoutPanelTeachers
-            // 
-            flowLayoutPanelTeachers.Location = new System.Drawing.Point(15, 48);
-            flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
-            flowLayoutPanelTeachers.Size = new System.Drawing.Size(875, 347);
-            flowLayoutPanelTeachers.TabIndex = 1;
-            // 
-            // pnlActivities
-            // 
-            pnlActivities.Location = new Point(15, 31);
-            pnlActivities.Name = "pnlActivities";
-            pnlActivities.Size = new Size(1340, 660);
-            pnlActivities.TabIndex = 2;
-            // 
-            // flowLayoutPanelActivities
-            // 
-            flowLayoutPanelActivities.Location = new System.Drawing.Point(15, 48);
-            flowLayoutPanelActivities.Name = "flowLayoutPanelActivities";
-            flowLayoutPanelActivities.Size = new System.Drawing.Size(875, 347);
-            flowLayoutPanelActivities.TabIndex = 1;
-            // 
-            // pnlRooms
-            // 
-            pnlRooms.Controls.Add(flowLayoutPanelRooms);
-            pnlRooms.Location = new System.Drawing.Point(15, 31);
-            pnlRooms.Name = "pnlRooms";
-            pnlRooms.Size = new System.Drawing.Size(1072, 528);
-            pnlRooms.TabIndex = 2;
-            // 
-            // flowLayoutPanelRooms
-            // 
-            flowLayoutPanelRooms.Location = new System.Drawing.Point(15, 48);
-            flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
-            flowLayoutPanelRooms.Size = new System.Drawing.Size(875, 347);
-            flowLayoutPanelRooms.TabIndex = 1;
             // 
             // pnlProducts
             // 
@@ -270,16 +180,16 @@ namespace SomerenUI
             pnlProducts.Controls.Add(productEditNameLabel);
             pnlProducts.Controls.Add(listViewPanelProducts);
             pnlProducts.Controls.Add(productDeleteButton);
-            pnlProducts.Location = new System.Drawing.Point(15, 31);
+            pnlProducts.Location = new Point(15, 31);
             pnlProducts.Name = "pnlProducts";
-            pnlProducts.Size = new System.Drawing.Size(1072, 528);
+            pnlProducts.Size = new Size(1072, 528);
             pnlProducts.TabIndex = 2;
             // 
             // productEditButton
             // 
-            productEditButton.Location = new System.Drawing.Point(745, 249);
+            productEditButton.Location = new Point(745, 249);
             productEditButton.Name = "productEditButton";
-            productEditButton.Size = new System.Drawing.Size(94, 35);
+            productEditButton.Size = new Size(94, 35);
             productEditButton.TabIndex = 10;
             productEditButton.Text = "Create";
             productEditButton.UseVisualStyleBackColor = true;
@@ -289,68 +199,68 @@ namespace SomerenUI
             // 
             productEditPriceInput.DecimalPlaces = 2;
             productEditPriceInput.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            productEditPriceInput.Location = new System.Drawing.Point(800, 193);
+            productEditPriceInput.Location = new Point(800, 193);
             productEditPriceInput.Name = "productEditPriceInput";
-            productEditPriceInput.Size = new System.Drawing.Size(125, 27);
+            productEditPriceInput.Size = new Size(125, 31);
             productEditPriceInput.TabIndex = 9;
             // 
             // productEditPriceLabel
             // 
             productEditPriceLabel.AutoSize = true;
-            productEditPriceLabel.Location = new System.Drawing.Point(745, 195);
+            productEditPriceLabel.Location = new Point(745, 195);
             productEditPriceLabel.Name = "productEditPriceLabel";
-            productEditPriceLabel.Size = new System.Drawing.Size(41, 20);
+            productEditPriceLabel.Size = new Size(49, 25);
             productEditPriceLabel.TabIndex = 8;
             productEditPriceLabel.Text = "Price";
             // 
             // productEditAlcoholInput
             // 
             productEditAlcoholInput.AutoSize = true;
-            productEditAlcoholInput.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            productEditAlcoholInput.Location = new System.Drawing.Point(745, 157);
+            productEditAlcoholInput.CheckAlign = ContentAlignment.MiddleRight;
+            productEditAlcoholInput.Location = new Point(745, 157);
             productEditAlcoholInput.Name = "productEditAlcoholInput";
-            productEditAlcoholInput.Size = new System.Drawing.Size(93, 24);
+            productEditAlcoholInput.Size = new Size(110, 29);
             productEditAlcoholInput.TabIndex = 7;
             productEditAlcoholInput.Text = "Alcoholic";
             productEditAlcoholInput.UseVisualStyleBackColor = true;
             // 
             // productEditStockInput
             // 
-            productEditStockInput.Location = new System.Drawing.Point(800, 107);
+            productEditStockInput.Location = new Point(800, 107);
             productEditStockInput.Name = "productEditStockInput";
-            productEditStockInput.Size = new System.Drawing.Size(125, 27);
+            productEditStockInput.Size = new Size(125, 31);
             productEditStockInput.TabIndex = 5;
             // 
             // productEditStockLabel
             // 
             productEditStockLabel.AutoSize = true;
-            productEditStockLabel.Location = new System.Drawing.Point(745, 109);
+            productEditStockLabel.Location = new Point(745, 109);
             productEditStockLabel.Name = "productEditStockLabel";
-            productEditStockLabel.Size = new System.Drawing.Size(45, 20);
+            productEditStockLabel.Size = new Size(55, 25);
             productEditStockLabel.TabIndex = 4;
             productEditStockLabel.Text = "Stock";
             // 
             // productEditNameInput
             // 
-            productEditNameInput.Location = new System.Drawing.Point(800, 57);
+            productEditNameInput.Location = new Point(800, 57);
             productEditNameInput.Name = "productEditNameInput";
-            productEditNameInput.Size = new System.Drawing.Size(125, 27);
+            productEditNameInput.Size = new Size(125, 31);
             productEditNameInput.TabIndex = 3;
             // 
             // productEditNameLabel
             // 
             productEditNameLabel.AutoSize = true;
-            productEditNameLabel.Location = new System.Drawing.Point(745, 60);
+            productEditNameLabel.Location = new Point(745, 60);
             productEditNameLabel.Name = "productEditNameLabel";
-            productEditNameLabel.Size = new System.Drawing.Size(49, 20);
+            productEditNameLabel.Size = new Size(59, 25);
             productEditNameLabel.TabIndex = 2;
             productEditNameLabel.Text = "Name";
             // 
             // listViewPanelProducts
             // 
-            listViewPanelProducts.Location = new System.Drawing.Point(15, 60);
+            listViewPanelProducts.Location = new Point(15, 60);
             listViewPanelProducts.Name = "listViewPanelProducts";
-            listViewPanelProducts.Size = new System.Drawing.Size(700, 400);
+            listViewPanelProducts.Size = new Size(700, 400);
             listViewPanelProducts.TabIndex = 0;
             listViewPanelProducts.UseCompatibleStateImageBehavior = false;
             listViewPanelProducts.View = View.Details;
@@ -358,13 +268,63 @@ namespace SomerenUI
             // 
             // productDeleteButton
             // 
-            productDeleteButton.Location = new System.Drawing.Point(859, 249);
+            productDeleteButton.Location = new Point(859, 249);
             productDeleteButton.Name = "productDeleteButton";
-            productDeleteButton.Size = new System.Drawing.Size(94, 35);
+            productDeleteButton.Size = new Size(94, 35);
             productDeleteButton.TabIndex = 1;
             productDeleteButton.Text = "Delete";
-            productDeleteButton.Click += DeleteProductButton_Click;
             productDeleteButton.Visible = false;
+            productDeleteButton.Click += DeleteProductButton_Click;
+            // 
+            // pnlDashboard
+            // 
+            pnlDashboard.Controls.Add(lblDashboard);
+            pnlDashboard.Location = new Point(15, 45);
+            pnlDashboard.Margin = new Padding(4, 5, 4, 5);
+            pnlDashboard.Name = "pnlDashboard";
+            pnlDashboard.Size = new Size(1340, 776);
+            pnlDashboard.TabIndex = 1;
+            // 
+            // lblDashboard
+            // 
+            lblDashboard.AutoSize = true;
+            lblDashboard.Location = new Point(15, 22);
+            lblDashboard.Margin = new Padding(4, 0, 4, 0);
+            lblDashboard.Name = "lblDashboard";
+            lblDashboard.Size = new Size(313, 25);
+            lblDashboard.TabIndex = 0;
+            lblDashboard.Text = "Welcome to the Someren Application!";
+            // 
+            // pnlStudents
+            // 
+            pnlStudents.Location = new Point(15, 31);
+            pnlStudents.Name = "pnlStudents";
+            pnlStudents.Size = new Size(1340, 660);
+            pnlStudents.TabIndex = 2;
+            // 
+            // listViewGeneral
+            // 
+            listViewGeneral.GridLines = true;
+            listViewGeneral.Location = new Point(15, 70);
+            listViewGeneral.Name = "listViewGeneral";
+            listViewGeneral.Size = new Size(875, 347);
+            listViewGeneral.TabIndex = 1;
+            listViewGeneral.UseCompatibleStateImageBehavior = false;
+            listViewGeneral.View = View.Details;
+            // 
+            // pnlTeachers
+            // 
+            pnlTeachers.Location = new Point(15, 31);
+            pnlTeachers.Name = "pnlTeachers";
+            pnlTeachers.Size = new Size(1340, 660);
+            pnlTeachers.TabIndex = 2;
+            // 
+            // pnlActivities
+            // 
+            pnlActivities.Location = new Point(15, 31);
+            pnlActivities.Name = "pnlActivities";
+            pnlActivities.Size = new Size(1340, 660);
+            pnlActivities.TabIndex = 2;
             // 
             // pnlRooms
             // 
@@ -374,66 +334,6 @@ namespace SomerenUI
             pnlRooms.Size = new Size(1340, 660);
             pnlRooms.TabIndex = 2;
             // 
-            // pnlRevenue
-            // 
-            pnlRevenue.Controls.Add(OutputRevenue);
-            pnlRevenue.Controls.Add(EndDatePickerLabel1);
-            pnlRevenue.Controls.Add(StartDatePickerLabel1);
-            pnlRevenue.Controls.Add(revenueDateStart);
-            pnlRevenue.Controls.Add(revenueDateEnd);
-            pnlRevenue.Location = new System.Drawing.Point(15, 31);
-            pnlRevenue.Name = "pnlRevenue";
-            pnlRevenue.Size = new System.Drawing.Size(1072, 528);
-            pnlRevenue.TabIndex = 2;
-            // 
-            // OutputRevenue
-            // 
-            OutputRevenue.AutoSize = true;
-            OutputRevenue.Location = new System.Drawing.Point(15, 184);
-            OutputRevenue.Name = "OutputRevenue";
-            OutputRevenue.Size = new System.Drawing.Size(0, 20);
-            OutputRevenue.TabIndex = 3;
-            // 
-            // EndDatePickerLabel1
-            // 
-            EndDatePickerLabel1.AutoSize = true;
-            EndDatePickerLabel1.Location = new System.Drawing.Point(398, 68);
-            EndDatePickerLabel1.Name = "EndDatePickerLabel1";
-            EndDatePickerLabel1.Size = new System.Drawing.Size(69, 20);
-            EndDatePickerLabel1.TabIndex = 2;
-            EndDatePickerLabel1.Text = "End date:";
-            // 
-            // StartDatePickerLabel1
-            // 
-            StartDatePickerLabel1.AutoSize = true;
-            StartDatePickerLabel1.Location = new System.Drawing.Point(15, 68);
-            StartDatePickerLabel1.Name = "StartDatePickerLabel1";
-            StartDatePickerLabel1.Size = new System.Drawing.Size(75, 20);
-            StartDatePickerLabel1.TabIndex = 1;
-            StartDatePickerLabel1.Text = "Start date:";
-            // 
-            // revenueDateStart
-            // 
-            revenueDateStart.Location = new System.Drawing.Point(15, 100);
-            revenueDateStart.MaxDate = DateTime.Now;
-            revenueDateStart.Name = "revenueDateStart";
-            revenueDateStart.Size = new System.Drawing.Size(200, 27);
-            revenueDateStart.TabIndex = 0;
-            revenueDateStart.ValueChanged += updateRevenueSelector;
-            revenueDateStart.Format = DateTimePickerFormat.Custom;
-            revenueDateStart.CustomFormat = "dd MMM yyyy";
-            // 
-            // revenueDateEnd
-            // 
-            revenueDateEnd.Location = new System.Drawing.Point(400, 100);
-            revenueDateEnd.MaxDate = DateTime.Now;
-            revenueDateEnd.Name = "revenueDateEnd";
-            revenueDateEnd.Size = new System.Drawing.Size(200, 27);
-            revenueDateEnd.TabIndex = 0;
-            revenueDateEnd.ValueChanged += updateRevenueSelector;
-            revenueDateEnd.Format = DateTimePickerFormat.Custom;
-            revenueDateEnd.CustomFormat = "dd MMM yyyy";
-            // 
             // pnlOrders
             // 
             pnlOrders.Controls.Add(ordersComboBoxLabel);
@@ -441,7 +341,7 @@ namespace SomerenUI
             pnlOrders.Controls.Add(orderDetailsLabel);
             pnlOrders.Controls.Add(orderProcessButton);
             pnlOrders.Location = new Point(18, 39);
-            pnlOrders.Margin = new System.Windows.Forms.Padding(4);
+            pnlOrders.Margin = new Padding(4);
             pnlOrders.Name = "pnlOrders";
             pnlOrders.Size = new Size(1340, 660);
             pnlOrders.TabIndex = 2;
@@ -459,7 +359,7 @@ namespace SomerenUI
             // ordersComboBox
             // 
             ordersComboBox.Location = new Point(190, 80);
-            ordersComboBox.Margin = new System.Windows.Forms.Padding(4);
+            ordersComboBox.Margin = new Padding(4);
             ordersComboBox.Name = "ordersComboBox";
             ordersComboBox.Size = new Size(400, 33);
             ordersComboBox.TabIndex = 1;
@@ -484,11 +384,73 @@ namespace SomerenUI
             orderProcessButton.Visible = false;
             orderProcessButton.MouseClick += orderProcessButton_Click;
             // 
+            // pnlRevenue
+            // 
+            pnlRevenue.Controls.Add(OutputRevenue);
+            pnlRevenue.Controls.Add(EndDatePickerLabel1);
+            pnlRevenue.Controls.Add(StartDatePickerLabel1);
+            pnlRevenue.Controls.Add(revenueDateStart);
+            pnlRevenue.Controls.Add(revenueDateEnd);
+            pnlRevenue.Location = new Point(15, 31);
+            pnlRevenue.Name = "pnlRevenue";
+            pnlRevenue.Size = new Size(1072, 528);
+            pnlRevenue.TabIndex = 2;
+            // 
+            // OutputRevenue
+            // 
+            OutputRevenue.AutoSize = true;
+            OutputRevenue.Location = new Point(15, 184);
+            OutputRevenue.Name = "OutputRevenue";
+            OutputRevenue.Size = new Size(0, 25);
+            OutputRevenue.TabIndex = 3;
+            // 
+            // EndDatePickerLabel1
+            // 
+            EndDatePickerLabel1.AutoSize = true;
+            EndDatePickerLabel1.Location = new Point(398, 68);
+            EndDatePickerLabel1.Name = "EndDatePickerLabel1";
+            EndDatePickerLabel1.Size = new Size(86, 25);
+            EndDatePickerLabel1.TabIndex = 2;
+            EndDatePickerLabel1.Text = "End date:";
+            // 
+            // StartDatePickerLabel1
+            // 
+            StartDatePickerLabel1.AutoSize = true;
+            StartDatePickerLabel1.Location = new Point(15, 68);
+            StartDatePickerLabel1.Name = "StartDatePickerLabel1";
+            StartDatePickerLabel1.Size = new Size(92, 25);
+            StartDatePickerLabel1.TabIndex = 1;
+            StartDatePickerLabel1.Text = "Start date:";
+            // 
+            // revenueDateStart
+            // 
+            revenueDateStart.CustomFormat = "dd MMM yyyy";
+            revenueDateStart.Format = DateTimePickerFormat.Custom;
+            revenueDateStart.Location = new Point(15, 100);
+            revenueDateStart.MaxDate = new DateTime(2024, 3, 19, 15, 17, 16, 450);
+            revenueDateStart.Name = "revenueDateStart";
+            revenueDateStart.Size = new Size(200, 31);
+            revenueDateStart.TabIndex = 0;
+            revenueDateStart.Value = new DateTime(2024, 3, 19, 15, 17, 16, 450);
+            revenueDateStart.ValueChanged += updateRevenueSelector;
+            // 
+            // revenueDateEnd
+            // 
+            revenueDateEnd.CustomFormat = "dd MMM yyyy";
+            revenueDateEnd.Format = DateTimePickerFormat.Custom;
+            revenueDateEnd.Location = new Point(400, 100);
+            revenueDateEnd.MaxDate = new DateTime(2024, 3, 19, 15, 17, 16, 454);
+            revenueDateEnd.Name = "revenueDateEnd";
+            revenueDateEnd.Size = new Size(200, 31);
+            revenueDateEnd.TabIndex = 0;
+            revenueDateEnd.Value = new DateTime(2024, 3, 19, 15, 17, 16, 454);
+            revenueDateEnd.ValueChanged += updateRevenueSelector;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(1200, 0);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(149, 164);
             pictureBox1.TabIndex = 2;
@@ -503,16 +465,10 @@ namespace SomerenUI
             headerLabel.Size = new Size(134, 41);
             headerLabel.TabIndex = 0;
             // 
-            // SomerenUI
-            // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1099, 673);
-            // 
             // flowLayoutPanelOrderProducts
             // 
             flowLayoutPanelOrderProducts.Location = new Point(15, 140);
-            flowLayoutPanelOrderProducts.Margin = new System.Windows.Forms.Padding(4);
+            flowLayoutPanelOrderProducts.Margin = new Padding(4);
             flowLayoutPanelOrderProducts.Name = "flowLayoutPanelOrderProducts";
             flowLayoutPanelOrderProducts.Size = new Size(600, 434);
             flowLayoutPanelOrderProducts.TabIndex = 1;
@@ -520,17 +476,17 @@ namespace SomerenUI
             // SomerenUI
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1374, 841);
-            Controls.Add(pnlProducts);
-            Controls.Add(pnlRevenue);
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
             Controls.Add(pnlStudents);
             Controls.Add(pnlTeachers);
             Controls.Add(pnlActivities);
             Controls.Add(pnlRooms);
+            Controls.Add(pnlProducts);
             Controls.Add(pnlOrders);
+            Controls.Add(pnlRevenue);
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 5, 4, 5);
             Name = "SomerenUI";
@@ -538,16 +494,12 @@ namespace SomerenUI
             Load += SomerenUI_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            pnlDashboard.ResumeLayout(false);
-            pnlDashboard.PerformLayout();
-            pnlStudents.ResumeLayout(false);
-            pnlTeachers.ResumeLayout(false);
-            pnlActivities.ResumeLayout(false);
-            pnlRooms.ResumeLayout(false);
             pnlProducts.ResumeLayout(false);
             pnlProducts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)productEditPriceInput).EndInit();
             ((System.ComponentModel.ISupportInitialize)productEditStockInput).EndInit();
+            pnlDashboard.ResumeLayout(false);
+            pnlDashboard.PerformLayout();
             pnlRooms.ResumeLayout(false);
             pnlOrders.ResumeLayout(false);
             pnlOrders.PerformLayout();
@@ -560,32 +512,28 @@ namespace SomerenUI
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem dashboardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dashboardToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem studentsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem teachersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem activitiesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem roomsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem productsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ordersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem revenueToolStripMenuItem;
-        private System.Windows.Forms.Panel pnlDashboard;
-        private System.Windows.Forms.Label lblDashboard;
-        private System.Windows.Forms.Panel pnlStudents;
-        private System.Windows.Forms.Panel pnlTeachers;
-        private System.Windows.Forms.Panel pnlActivities;
-        private System.Windows.Forms.Panel pnlRooms;
-        private System.Windows.Forms.Panel pnlProducts;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStudents;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTeachers;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelActivities;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRooms;
-        private System.Windows.Forms.ListView listViewPanelProducts;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label headerLabel;
-        private System.Windows.Forms.Button productDeleteButton;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem dashboardToolStripMenuItem;
+        private ToolStripMenuItem dashboardToolStripMenuItem1;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem studentsToolStripMenuItem;
+        private ToolStripMenuItem teachersToolStripMenuItem;
+        private ToolStripMenuItem activitiesToolStripMenuItem;
+        private ToolStripMenuItem roomsToolStripMenuItem;
+        private ToolStripMenuItem productsToolStripMenuItem;
+        private ToolStripMenuItem ordersToolStripMenuItem;
+        private ToolStripMenuItem revenueToolStripMenuItem;
+        private Panel pnlDashboard;
+        private Label lblDashboard;
+        private Panel pnlStudents;
+        private Panel pnlTeachers;
+        private Panel pnlActivities;
+        private Panel pnlRooms;
+        private Panel pnlProducts;
+        private ListView listViewPanelProducts;
+        private PictureBox pictureBox1;
+        private Label headerLabel;
+        private Button productDeleteButton;
         private Label productEditNameLabel;
         private TextBox productEditNameInput;
         private Label productEditStockLabel;
@@ -594,16 +542,16 @@ namespace SomerenUI
         private Label productEditPriceLabel;
         private CheckBox productEditAlcoholInput;
         private Button productEditButton;
-        private System.Windows.Forms.Panel pnlOrders;
-        private System.Windows.Forms.Panel pnlRevenue;
-        private System.Windows.Forms.ListView listViewGeneral;
-        private System.Windows.Forms.Label ordersComboBoxLabel;
-        private System.Windows.Forms.ComboBox ordersComboBox;
-        private System.Windows.Forms.Label orderDetailsLabel;
-        private System.Windows.Forms.Button orderProcessButton;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelOrderProducts;
-        private System.Windows.Forms.DateTimePicker revenueDateStart;
-        private System.Windows.Forms.DateTimePicker revenueDateEnd;
+        private Panel pnlOrders;
+        private Panel pnlRevenue;
+        private ListView listViewGeneral;
+        private Label ordersComboBoxLabel;
+        private ComboBox ordersComboBox;
+        private Label orderDetailsLabel;
+        private Button orderProcessButton;
+        private FlowLayoutPanel flowLayoutPanelOrderProducts;
+        private DateTimePicker revenueDateStart;
+        private DateTimePicker revenueDateEnd;
         private Label StartDatePickerLabel1;
         private Label EndDatePickerLabel1;
         private Label OutputRevenue;
