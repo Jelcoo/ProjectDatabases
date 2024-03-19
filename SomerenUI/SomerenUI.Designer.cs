@@ -52,7 +52,6 @@ namespace SomerenUI
             pnlRooms = new System.Windows.Forms.Panel();
             flowLayoutPanelRooms = new System.Windows.Forms.FlowLayoutPanel();
             pnlVat = new System.Windows.Forms.Panel();
-            flowLayoutPanelVat = new System.Windows.Forms.FlowLayoutPanel();
             lblTotalToPay = new System.Windows.Forms.Label();
             lblRecordTotal = new System.Windows.Forms.Label();
             lblRecordPercentage = new System.Windows.Forms.Label();
@@ -78,7 +77,6 @@ namespace SomerenUI
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
             pnlVat.SuspendLayout();
-            flowLayoutPanelVat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             gbKwartaal.SuspendLayout();
             SuspendLayout();
@@ -230,30 +228,26 @@ namespace SomerenUI
             // 
             // pnlVat
             // 
-            pnlVat.Controls.Add(flowLayoutPanelVat);
             pnlVat.Location = new Point(14, 31);
             pnlVat.Name = "pnlVat";
             pnlVat.Size = new Size(1072, 528);
             pnlVat.TabIndex = 2;
-            // 
-            // flowLayoutPanelVat
-            // 
-            flowLayoutPanelVat.Controls.Add(lblTotalToPayValue);
-            flowLayoutPanelVat.Controls.Add(lblTotalToPay);
-            flowLayoutPanelVat.Controls.Add(lblRecordTotal);
-            flowLayoutPanelVat.Controls.Add(lblRecordPercentage);
-            flowLayoutPanelVat.Controls.Add(lblRecordTypeVat);
-            flowLayoutPanelVat.Controls.Add(lblTotal);
-            flowLayoutPanelVat.Controls.Add(lblPercentage);
-            flowLayoutPanelVat.Controls.Add(blbVatType);
-            flowLayoutPanelVat.Controls.Add(gbKwartaal);
-            flowLayoutPanelVat.Controls.Add(lblJaartal);
-            flowLayoutPanelVat.Controls.Add(txtJaartal);
-            flowLayoutPanelVat.Controls.Add(lblDates);
-            flowLayoutPanelVat.Location = new Point(18, 48);
-            flowLayoutPanelVat.Name = "flowLayoutPanelVat";
-            flowLayoutPanelVat.Size = new Size(875, 347);
-            flowLayoutPanelVat.TabIndex = 1;
+            pnlVat.Controls.Add(lblTotalToPayValue);
+            pnlVat.Controls.Add(lblTotalToPay);
+            pnlVat.Controls.Add(lblRecordTotal);
+            pnlVat.Controls.Add(lblRecordPercentage);
+            pnlVat.Controls.Add(lblRecordTypeVat);
+            pnlVat.Controls.Add(lblTotal);
+            pnlVat.Controls.Add(lblPercentage);
+            pnlVat.Controls.Add(blbVatType);
+            pnlVat.Controls.Add(gbKwartaal);
+            pnlVat.Controls.Add(lblJaartal);
+            pnlVat.Controls.Add(txtJaartal);
+            pnlVat.Controls.Add(lblDates);
+            pnlVat.Location = new Point(18, 48);
+            pnlVat.Name = "pnlVat";
+            pnlVat.Size = new Size(875, 347);
+            pnlVat.TabIndex = 1;
             // 
             // lblTotalToPay
             // 
@@ -475,8 +469,8 @@ namespace SomerenUI
             pnlActivities.ResumeLayout(false);
             pnlRooms.ResumeLayout(false);
             pnlVat.ResumeLayout(false);
-            flowLayoutPanelVat.ResumeLayout(false);
-            flowLayoutPanelVat.PerformLayout();
+            pnlVat.ResumeLayout(false);
+            pnlVat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             gbKwartaal.ResumeLayout(false);
             ResumeLayout(false);
@@ -504,7 +498,6 @@ namespace SomerenUI
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTeachers;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelActivities;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRooms;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelVat;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.Label lblDates;
