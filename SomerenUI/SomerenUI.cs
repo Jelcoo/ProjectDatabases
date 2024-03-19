@@ -42,6 +42,13 @@ namespace SomerenUI
             headerLabel.Visible = visible;
         }
 
+        private void ShowListView(Panel pnl, ListView list)
+        {
+            pnl.Controls.Add(list);
+            list.Items.Clear();
+            list.Columns.Clear();
+        }
+
         private Button NewButton()
         {
             Button btn = new Button();
@@ -182,15 +189,17 @@ namespace SomerenUI
 
         private void DisplayStudents(List<Student> students)
         {
-            flowLayoutPanelStudents.Controls.Clear();
+            ShowListView(pnlStudents, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Student student in students)
             {
-                Button btn = NewButton();
-                btn.Text = student.Name;
-                btn.Tag = student;
-                btn.BackColor = UIHelpers.StringToColor(student.Name);
-                flowLayoutPanelStudents.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
+                listViewItem.Tag = student;
+                listViewItem.SubItems.Add(student.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Students");
@@ -198,15 +207,17 @@ namespace SomerenUI
 
         private void DisplayTeachers(List<Teacher> teachers)
         {
-            flowLayoutPanelTeachers.Controls.Clear();
+            ShowListView(pnlTeachers, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Teacher teacher in teachers)
             {
-                Button btn = NewButton();
-                btn.Text = teacher.Name;
-                btn.Tag = teacher;
-                btn.BackColor = UIHelpers.StringToColor(teacher.Name);
-                flowLayoutPanelTeachers.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
+                listViewItem.Tag = teacher;
+                listViewItem.SubItems.Add(teacher.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Teachers");
@@ -214,15 +225,17 @@ namespace SomerenUI
 
         private void DisplayActivities(List<Activity> activities)
         {
-            flowLayoutPanelActivities.Controls.Clear();
+            ShowListView(pnlActivities, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Activity activity in activities)
             {
-                Button btn = NewButton();
-                btn.Text = activity.Name;
-                btn.Tag = activity;
-                btn.BackColor = UIHelpers.StringToColor(activity.Name);
-                flowLayoutPanelActivities.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
+                listViewItem.Tag = activities;
+                listViewItem.SubItems.Add(activity.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Activities");
@@ -230,15 +243,17 @@ namespace SomerenUI
 
         private void DisplayRooms(List<Room> rooms)
         {
-            flowLayoutPanelRooms.Controls.Clear();
+            ShowListView(pnlRooms, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Room room in rooms)
             {
-                Button btn = NewButton();
-                btn.Text = room.Name;
-                btn.Tag = room;
-                btn.BackColor = UIHelpers.StringToColor(room.Name);
-                flowLayoutPanelRooms.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(room.RoomId.ToString());
+                listViewItem.Tag = room;
+                listViewItem.SubItems.Add(room.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Rooms");

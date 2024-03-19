@@ -43,14 +43,9 @@ namespace SomerenUI
             pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
             pnlStudents = new System.Windows.Forms.Panel();
-            flowLayoutPanelStudents = new System.Windows.Forms.FlowLayoutPanel();
             pnlTeachers = new System.Windows.Forms.Panel();
-            flowLayoutPanelTeachers = new System.Windows.Forms.FlowLayoutPanel();
             pnlActivities = new System.Windows.Forms.Panel();
-            flowLayoutPanelActivities = new System.Windows.Forms.FlowLayoutPanel();
             pnlRooms = new System.Windows.Forms.Panel();
-            flowLayoutPanelRooms = new System.Windows.Forms.FlowLayoutPanel();
-            flowLayoutPanelOrderProducts = new System.Windows.Forms.FlowLayoutPanel();
             pnlOrders = new System.Windows.Forms.Panel();
             ordersComboBoxLabel = new System.Windows.Forms.Label();
             ordersComboBox = new System.Windows.Forms.ComboBox();
@@ -58,6 +53,7 @@ namespace SomerenUI
             headerLabel = new System.Windows.Forms.Label();
             orderDetailsLabel = new System.Windows.Forms.Label();
             orderProcessButton = new System.Windows.Forms.Button();
+            listViewGeneral = new System.Windows.Forms.ListView();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -156,79 +152,35 @@ namespace SomerenUI
             // 
             // pnlStudents
             // 
-            pnlStudents.Controls.Add(flowLayoutPanelStudents);
-            pnlStudents.Location = new System.Drawing.Point(18, 39);
-            pnlStudents.Margin = new System.Windows.Forms.Padding(4);
+            pnlStudents.Controls.Add(listViewGeneral);
+            pnlStudents.Location = new System.Drawing.Point(14, 31);
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new System.Drawing.Size(1340, 660);
             pnlStudents.TabIndex = 2;
             // 
-            // flowLayoutPanelStudents
-            // 
-            flowLayoutPanelStudents.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelStudents.Margin = new System.Windows.Forms.Padding(4);
-            flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
-            flowLayoutPanelStudents.Size = new System.Drawing.Size(1094, 434);
-            flowLayoutPanelStudents.TabIndex = 1;
-            // 
             // pnlTeachers
             // 
-            pnlTeachers.Controls.Add(flowLayoutPanelTeachers);
-            pnlTeachers.Location = new System.Drawing.Point(18, 39);
-            pnlTeachers.Margin = new System.Windows.Forms.Padding(4);
+            pnlTeachers.Controls.Add(listViewGeneral);
+            pnlTeachers.Location = new System.Drawing.Point(14, 31);
             pnlTeachers.Name = "pnlTeachers";
             pnlTeachers.Size = new System.Drawing.Size(1340, 660);
             pnlTeachers.TabIndex = 2;
             // 
-            // flowLayoutPanelTeachers
-            // 
-            flowLayoutPanelTeachers.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelTeachers.Margin = new System.Windows.Forms.Padding(4);
-            flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
-            flowLayoutPanelTeachers.Size = new System.Drawing.Size(1094, 434);
-            flowLayoutPanelTeachers.TabIndex = 1;
-            // 
             // pnlActivities
             // 
-            pnlActivities.Controls.Add(flowLayoutPanelActivities);
-            pnlActivities.Location = new System.Drawing.Point(18, 39);
-            pnlActivities.Margin = new System.Windows.Forms.Padding(4);
+            pnlActivities.Controls.Add(listViewGeneral);
+            pnlActivities.Location = new System.Drawing.Point(14, 31);
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new System.Drawing.Size(1340, 660);
             pnlActivities.TabIndex = 2;
             // 
-            // flowLayoutPanelActivities
-            // 
-            flowLayoutPanelActivities.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelActivities.Margin = new System.Windows.Forms.Padding(4);
-            flowLayoutPanelActivities.Name = "flowLayoutPanelActivities";
-            flowLayoutPanelActivities.Size = new System.Drawing.Size(1094, 434);
-            flowLayoutPanelActivities.TabIndex = 1;
-            // 
             // pnlRooms
             // 
-            pnlRooms.Controls.Add(flowLayoutPanelRooms);
-            pnlRooms.Location = new System.Drawing.Point(18, 39);
-            pnlRooms.Margin = new System.Windows.Forms.Padding(4);
+            pnlRooms.Controls.Add(listViewGeneral);
+            pnlRooms.Location = new System.Drawing.Point(14, 31);
             pnlRooms.Name = "pnlRooms";
             pnlRooms.Size = new System.Drawing.Size(1340, 660);
             pnlRooms.TabIndex = 2;
-            // 
-            // flowLayoutPanelRooms
-            // 
-            flowLayoutPanelRooms.Location = new System.Drawing.Point(22, 60);
-            flowLayoutPanelRooms.Margin = new System.Windows.Forms.Padding(4);
-            flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
-            flowLayoutPanelRooms.Size = new System.Drawing.Size(1094, 434);
-            flowLayoutPanelRooms.TabIndex = 1;
-            // 
-            // flowLayoutPanelOrderProducts
-            // 
-            flowLayoutPanelOrderProducts.Location = new System.Drawing.Point(22, 140);
-            flowLayoutPanelOrderProducts.Margin = new System.Windows.Forms.Padding(4);
-            flowLayoutPanelOrderProducts.Name = "flowLayoutPanelOrderProducts";
-            flowLayoutPanelOrderProducts.Size = new System.Drawing.Size(600, 434);
-            flowLayoutPanelOrderProducts.TabIndex = 1;
             // 
             // pnlOrders
             // 
@@ -270,6 +222,15 @@ namespace SomerenUI
             pictureBox1.Size = new System.Drawing.Size(149, 164);
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
+            // 
+            // listViewGeneral
+            // 
+            listViewGeneral.Location = new System.Drawing.Point(18, 48);
+            listViewGeneral.Name = "listViewGeneral";
+            listViewGeneral.Size = new System.Drawing.Size(875, 347);
+            listViewGeneral.TabIndex = 1;
+            listViewGeneral.View = System.Windows.Forms.View.Details;
+            listViewGeneral.GridLines = true;
             // 
             // headerLabel
             // 
@@ -346,11 +307,7 @@ namespace SomerenUI
         private System.Windows.Forms.Panel pnlActivities;
         private System.Windows.Forms.Panel pnlRooms;
         private System.Windows.Forms.Panel pnlOrders;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStudents;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTeachers;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelActivities;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRooms;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelOrderProducts;
+        private System.Windows.Forms.ListView listViewGeneral;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.Label ordersComboBoxLabel;
