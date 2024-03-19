@@ -54,6 +54,7 @@ namespace SomerenUI
             orderDetailsLabel = new System.Windows.Forms.Label();
             orderProcessButton = new System.Windows.Forms.Button();
             listViewGeneral = new System.Windows.Forms.ListView();
+            flowLayoutPanelOrderProducts = new System.Windows.Forms.FlowLayoutPanel();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -129,7 +130,14 @@ namespace SomerenUI
             ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
             ordersToolStripMenuItem.Size = new System.Drawing.Size(82, 29);
             ordersToolStripMenuItem.Text = "Orders";
-            ordersToolStripMenuItem.Click += ordersToolStripMenuItem_Click;
+            ordersToolStripMenuItem.Click += ordersToolStripMenuItem_Click;            // 
+            // flowLayoutPanelOrderProducts
+            // 
+            flowLayoutPanelOrderProducts.Location = new System.Drawing.Point(22, 140);
+            flowLayoutPanelOrderProducts.Margin = new System.Windows.Forms.Padding(4);
+            flowLayoutPanelOrderProducts.Name = "flowLayoutPanelOrderProducts";
+            flowLayoutPanelOrderProducts.Size = new System.Drawing.Size(600, 434);
+            flowLayoutPanelOrderProducts.TabIndex = 1;
             // 
             // pnlDashboard
             // 
@@ -314,5 +322,6 @@ namespace SomerenUI
         private System.Windows.Forms.ComboBox ordersComboBox;
         private System.Windows.Forms.Label orderDetailsLabel;
         private System.Windows.Forms.Button orderProcessButton;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelOrderProducts;
     }
 }
