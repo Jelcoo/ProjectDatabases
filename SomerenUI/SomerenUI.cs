@@ -25,6 +25,7 @@ namespace SomerenUI
             panelList.Add(pnlActivities);
             panelList.Add(pnlRooms);
             panelList.Add(pnlProducts);
+            panelList.Add(pnlOrders);
             panelList.Add(pnlRevenue);
         }
 
