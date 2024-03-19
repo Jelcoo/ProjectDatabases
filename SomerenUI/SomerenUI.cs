@@ -226,19 +226,6 @@ namespace SomerenUI
 
         private void DisplayVat()
         {
-            flowLayoutPanelVat.Controls.Clear();
-            flowLayoutPanelVat.Controls.Add(lblTotalToPayValue);
-            flowLayoutPanelVat.Controls.Add(lblTotalToPay);
-            flowLayoutPanelVat.Controls.Add(lblRecordTotal);
-            flowLayoutPanelVat.Controls.Add(lblRecordPercentage);
-            flowLayoutPanelVat.Controls.Add(lblRecordTypeVat);
-            flowLayoutPanelVat.Controls.Add(lblTotal);
-            flowLayoutPanelVat.Controls.Add(lblPercentage);
-            flowLayoutPanelVat.Controls.Add(blbVatType);
-            flowLayoutPanelVat.Controls.Add(gbKwartaal);
-            flowLayoutPanelVat.Controls.Add(txtJaartal);
-            flowLayoutPanelVat.Controls.Add(lblJaartal);
-            flowLayoutPanelVat.Controls.Add(lblDates);
             SetHeader("VAT");
         }
 

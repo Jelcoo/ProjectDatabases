@@ -53,24 +53,24 @@ namespace SomerenUI
             flowLayoutPanelRooms = new System.Windows.Forms.FlowLayoutPanel();
             pnlVat = new System.Windows.Forms.Panel();
             flowLayoutPanelVat = new System.Windows.Forms.FlowLayoutPanel();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
-            headerLabel = new System.Windows.Forms.Label();
-            lblDates = new System.Windows.Forms.Label();
-            lblJaartal = new System.Windows.Forms.Label();
-            txtJaartal = new System.Windows.Forms.TextBox();
-            btnQ1 = new System.Windows.Forms.Button();
-            btnQ2 = new System.Windows.Forms.Button();
-            btnQ3 = new System.Windows.Forms.Button();
-            btnQ4 = new System.Windows.Forms.Button();
-            gbKwartaal = new System.Windows.Forms.GroupBox();
-            blbVatType = new System.Windows.Forms.Label();
-            lblPercentage = new System.Windows.Forms.Label();
-            lblTotal = new System.Windows.Forms.Label();
+            lblTotalToPay = new System.Windows.Forms.Label();
             lblRecordTotal = new System.Windows.Forms.Label();
             lblRecordPercentage = new System.Windows.Forms.Label();
             lblRecordTypeVat = new System.Windows.Forms.Label();
-            lblTotalToPay = new System.Windows.Forms.Label();
+            lblTotal = new System.Windows.Forms.Label();
+            lblPercentage = new System.Windows.Forms.Label();
+            blbVatType = new System.Windows.Forms.Label();
+            txtJaartal = new System.Windows.Forms.TextBox();
+            lblJaartal = new System.Windows.Forms.Label();
+            lblDates = new System.Windows.Forms.Label();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            headerLabel = new System.Windows.Forms.Label();
             lblTotalToPayValue = new System.Windows.Forms.Label();
+            btnQ3 = new System.Windows.Forms.Button();
+            btnQ2 = new System.Windows.Forms.Button();
+            btnQ4 = new System.Windows.Forms.Button();
+            btnQ1 = new System.Windows.Forms.Button();
+            gbKwartaal = new System.Windows.Forms.GroupBox();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -78,17 +78,19 @@ namespace SomerenUI
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
             pnlVat.SuspendLayout();
+            flowLayoutPanelVat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            gbKwartaal.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, teachersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem, vATToolStripMenuItem });
-            menuStrip1.Location = new System.Drawing.Point(0, 0);
+            menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            menuStrip1.Size = new System.Drawing.Size(1099, 25);
+            menuStrip1.Size = new Size(1099, 25);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -96,222 +98,290 @@ namespace SomerenUI
             // 
             dashboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem1, exitToolStripMenuItem });
             dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
-            dashboardToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
+            dashboardToolStripMenuItem.Size = new Size(94, 21);
             dashboardToolStripMenuItem.Text = "Application";
             // 
             // dashboardToolStripMenuItem1
             // 
             dashboardToolStripMenuItem1.Name = "dashboardToolStripMenuItem1";
-            dashboardToolStripMenuItem1.Size = new System.Drawing.Size(160, 26);
+            dashboardToolStripMenuItem1.Size = new Size(160, 26);
             dashboardToolStripMenuItem1.Text = "Dashboard";
             dashboardToolStripMenuItem1.Click += dashboardToolStripMenuItem1_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            exitToolStripMenuItem.Size = new Size(160, 26);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // studentsToolStripMenuItem
             // 
             studentsToolStripMenuItem.Name = "studentsToolStripMenuItem";
-            studentsToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
+            studentsToolStripMenuItem.Size = new Size(82, 21);
             studentsToolStripMenuItem.Text = "Students";
             studentsToolStripMenuItem.Click += studentsToolStripMenuItem_Click;
             // 
             // teachersToolStripMenuItem
             // 
             teachersToolStripMenuItem.Name = "teachersToolStripMenuItem";
-            teachersToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
+            teachersToolStripMenuItem.Size = new Size(83, 21);
             teachersToolStripMenuItem.Text = "Teachers";
             teachersToolStripMenuItem.Click += teachersToolStripMenuItem_Click;
             // 
             // activitiesToolStripMenuItem
             // 
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
-            activitiesToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
+            activitiesToolStripMenuItem.Size = new Size(82, 21);
             activitiesToolStripMenuItem.Text = "Activities";
             activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
-            roomsToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            roomsToolStripMenuItem.Size = new Size(66, 21);
             roomsToolStripMenuItem.Text = "Rooms";
             roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
             // vATToolStripMenuItem
             // 
             vATToolStripMenuItem.Name = "vATToolStripMenuItem";
-            vATToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
+            vATToolStripMenuItem.Size = new Size(47, 21);
             vATToolStripMenuItem.Text = "VAT";
             vATToolStripMenuItem.Click += vATToolStripMenuItem_Click;
             // 
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
-            pnlDashboard.Location = new System.Drawing.Point(14, 36);
+            pnlDashboard.Location = new Point(14, 36);
             pnlDashboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pnlDashboard.Name = "pnlDashboard";
-            pnlDashboard.Size = new System.Drawing.Size(1072, 621);
+            pnlDashboard.Size = new Size(1072, 621);
             pnlDashboard.TabIndex = 1;
             // 
             // lblDashboard
             // 
             lblDashboard.AutoSize = true;
-            lblDashboard.Location = new System.Drawing.Point(15, 18);
+            lblDashboard.Location = new Point(15, 18);
             lblDashboard.Name = "lblDashboard";
-            lblDashboard.Size = new System.Drawing.Size(258, 17);
+            lblDashboard.Size = new Size(258, 17);
             lblDashboard.TabIndex = 0;
             lblDashboard.Text = "Welcome to the Someren Application!";
             // 
             // pnlStudents
             // 
             pnlStudents.Controls.Add(flowLayoutPanelStudents);
-            pnlStudents.Location = new System.Drawing.Point(14, 31);
+            pnlStudents.Location = new Point(14, 31);
             pnlStudents.Name = "pnlStudents";
-            pnlStudents.Size = new System.Drawing.Size(1072, 528);
+            pnlStudents.Size = new Size(1072, 528);
             pnlStudents.TabIndex = 2;
             // 
             // flowLayoutPanelStudents
             // 
-            flowLayoutPanelStudents.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelStudents.Location = new Point(18, 48);
             flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
-            flowLayoutPanelStudents.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelStudents.Size = new Size(875, 347);
             flowLayoutPanelStudents.TabIndex = 1;
             // 
             // pnlTeachers
             // 
             pnlTeachers.Controls.Add(flowLayoutPanelTeachers);
-            pnlTeachers.Location = new System.Drawing.Point(14, 31);
+            pnlTeachers.Location = new Point(14, 31);
             pnlTeachers.Name = "pnlTeachers";
-            pnlTeachers.Size = new System.Drawing.Size(1072, 528);
+            pnlTeachers.Size = new Size(1072, 528);
             pnlTeachers.TabIndex = 2;
             // 
             // flowLayoutPanelTeachers
             // 
-            flowLayoutPanelTeachers.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelTeachers.Location = new Point(18, 48);
             flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
-            flowLayoutPanelTeachers.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelTeachers.Size = new Size(875, 347);
             flowLayoutPanelTeachers.TabIndex = 1;
             // 
             // pnlActivities
             // 
             pnlActivities.Controls.Add(flowLayoutPanelActivities);
-            pnlActivities.Location = new System.Drawing.Point(14, 31);
+            pnlActivities.Location = new Point(14, 31);
             pnlActivities.Name = "pnlActivities";
-            pnlActivities.Size = new System.Drawing.Size(1072, 528);
+            pnlActivities.Size = new Size(1072, 528);
             pnlActivities.TabIndex = 2;
             // 
             // flowLayoutPanelActivities
             // 
-            flowLayoutPanelActivities.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelActivities.Location = new Point(18, 48);
             flowLayoutPanelActivities.Name = "flowLayoutPanelActivities";
-            flowLayoutPanelActivities.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelActivities.Size = new Size(875, 347);
             flowLayoutPanelActivities.TabIndex = 1;
             // 
             // pnlRooms
             // 
             pnlRooms.Controls.Add(flowLayoutPanelRooms);
-            pnlRooms.Location = new System.Drawing.Point(14, 31);
+            pnlRooms.Location = new Point(14, 31);
             pnlRooms.Name = "pnlRooms";
-            pnlRooms.Size = new System.Drawing.Size(1072, 528);
+            pnlRooms.Size = new Size(1072, 528);
             pnlRooms.TabIndex = 2;
             // 
             // flowLayoutPanelRooms
             // 
-            flowLayoutPanelRooms.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelRooms.Location = new Point(18, 48);
             flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
-            flowLayoutPanelRooms.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelRooms.Size = new Size(875, 347);
             flowLayoutPanelRooms.TabIndex = 1;
             // 
             // pnlVat
             // 
             pnlVat.Controls.Add(flowLayoutPanelVat);
-            pnlVat.Location = new System.Drawing.Point(14, 31);
+            pnlVat.Location = new Point(14, 31);
             pnlVat.Name = "pnlVat";
-            pnlVat.Size = new System.Drawing.Size(1072, 528);
+            pnlVat.Size = new Size(1072, 528);
             pnlVat.TabIndex = 2;
             // 
             // flowLayoutPanelVat
             // 
-            flowLayoutPanelVat.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelVat.Controls.Add(lblTotalToPayValue);
+            flowLayoutPanelVat.Controls.Add(lblTotalToPay);
+            flowLayoutPanelVat.Controls.Add(lblRecordTotal);
+            flowLayoutPanelVat.Controls.Add(lblRecordPercentage);
+            flowLayoutPanelVat.Controls.Add(lblRecordTypeVat);
+            flowLayoutPanelVat.Controls.Add(lblTotal);
+            flowLayoutPanelVat.Controls.Add(lblPercentage);
+            flowLayoutPanelVat.Controls.Add(blbVatType);
+            flowLayoutPanelVat.Controls.Add(gbKwartaal);
+            flowLayoutPanelVat.Controls.Add(lblJaartal);
+            flowLayoutPanelVat.Controls.Add(txtJaartal);
+            flowLayoutPanelVat.Controls.Add(lblDates);
+            flowLayoutPanelVat.Location = new Point(18, 48);
             flowLayoutPanelVat.Name = "flowLayoutPanelVat";
-            flowLayoutPanelVat.Size = new System.Drawing.Size(875, 347);
+            flowLayoutPanelVat.Size = new Size(875, 347);
             flowLayoutPanelVat.TabIndex = 1;
+            // 
+            // lblTotalToPay
+            // 
+            lblTotalToPay.AutoSize = true;
+            lblTotalToPay.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTotalToPay.Location = new Point(64, 0);
+            lblTotalToPay.Name = "lblTotalToPay";
+            lblTotalToPay.Size = new Size(160, 23);
+            lblTotalToPay.TabIndex = 15;
+            lblTotalToPay.Text = "Totaal af te rekenen:";
+            // 
+            // lblRecordTotal
+            // 
+            lblRecordTotal.AutoSize = true;
+            lblRecordTotal.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblRecordTotal.Location = new Point(230, 0);
+            lblRecordTotal.Name = "lblRecordTotal";
+            lblRecordTotal.Size = new Size(50, 23);
+            lblRecordTotal.TabIndex = 14;
+            lblRecordTotal.Text = "€0.00";
+            // 
+            // lblRecordPercentage
+            // 
+            lblRecordPercentage.AutoSize = true;
+            lblRecordPercentage.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblRecordPercentage.Location = new Point(286, 0);
+            lblRecordPercentage.Name = "lblRecordPercentage";
+            lblRecordPercentage.Size = new Size(33, 23);
+            lblRecordPercentage.TabIndex = 13;
+            lblRecordPercentage.Text = "0%";
+            // 
+            // lblRecordTypeVat
+            // 
+            lblRecordTypeVat.AutoSize = true;
+            lblRecordTypeVat.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblRecordTypeVat.Location = new Point(325, 0);
+            lblRecordTypeVat.Name = "lblRecordTypeVat";
+            lblRecordTypeVat.Size = new Size(60, 23);
+            lblRecordTypeVat.TabIndex = 12;
+            lblRecordTypeVat.Text = "Overig";
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTotal.Location = new Point(391, 0);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(58, 23);
+            lblTotal.TabIndex = 11;
+            lblTotal.Text = "Totaal:";
+            // 
+            // lblPercentage
+            // 
+            lblPercentage.AutoSize = true;
+            lblPercentage.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblPercentage.Location = new Point(455, 0);
+            lblPercentage.Name = "lblPercentage";
+            lblPercentage.Size = new Size(96, 23);
+            lblPercentage.TabIndex = 10;
+            lblPercentage.Text = "Percentage:";
+            // 
+            // blbVatType
+            // 
+            blbVatType.AutoSize = true;
+            blbVatType.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            blbVatType.Location = new Point(557, 0);
+            blbVatType.Name = "blbVatType";
+            blbVatType.Size = new Size(87, 23);
+            blbVatType.TabIndex = 9;
+            blbVatType.Text = "Type BTW:";
+            // 
+            // txtJaartal
+            // 
+            txtJaartal.Location = new Point(93, 187);
+            txtJaartal.Name = "txtJaartal";
+            txtJaartal.Size = new Size(125, 27);
+            txtJaartal.TabIndex = 2;
+            // 
+            // lblJaartal
+            // 
+            lblJaartal.AutoSize = true;
+            lblJaartal.Font = new Font("Segoe UI Semilight", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            lblJaartal.Location = new Point(3, 184);
+            lblJaartal.Name = "lblJaartal";
+            lblJaartal.Size = new Size(84, 31);
+            lblJaartal.TabIndex = 1;
+            lblJaartal.Text = "Jaartal:";
+            // 
+            // lblDates
+            // 
+            lblDates.AutoSize = true;
+            lblDates.Font = new Font("Segoe UI Semilight", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDates.Location = new Point(224, 184);
+            lblDates.Name = "lblDates";
+            lblDates.Size = new Size(412, 54);
+            lblDates.TabIndex = 0;
+            lblDates.Text = "Selecteer een kwartaal";
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(1200, 0);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(1200, 0);
             pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(149, 164);
+            pictureBox1.Size = new Size(149, 164);
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
             // headerLabel
             // 
             headerLabel.AutoSize = true;
-            headerLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            headerLabel.Location = new System.Drawing.Point(15, 9);
+            headerLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            headerLabel.Location = new Point(15, 9);
             headerLabel.Name = "headerLabel";
-            headerLabel.Size = new System.Drawing.Size(134, 41);
+            headerLabel.Size = new Size(134, 41);
             headerLabel.TabIndex = 0;
             // 
-            // lblDates
+            // lblTotalToPayValue
             // 
-            lblDates.AutoSize = true;
-            lblDates.Font = new Font("Segoe UI Semilight", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            lblDates.Location = new Point(12, 46);
-            lblDates.Name = "lblDates";
-            lblDates.Size = new Size(412, 54);
-            lblDates.TabIndex = 0;
-            lblDates.Text = "Selecteer een kwartaal";
-            // 
-            // lblJaartal
-            // 
-            lblJaartal.AutoSize = true;
-            lblJaartal.Font = new Font("Segoe UI Semilight", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            lblJaartal.Location = new Point(579, 64);
-            lblJaartal.Name = "lblJaartal";
-            lblJaartal.Size = new Size(84, 31);
-            lblJaartal.TabIndex = 1;
-            lblJaartal.Text = "Jaartal:";
-            // 
-            // txtJaartal
-            // 
-            txtJaartal.Location = new Point(582, 98);
-            txtJaartal.Name = "txtJaartal";
-            txtJaartal.Size = new Size(125, 27);
-            txtJaartal.TabIndex = 2;
-            // 
-            // btnQ1
-            // 
-            btnQ1.BackColor = Color.IndianRed;
-            btnQ1.Font = new Font("Segoe UI Semilight", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            btnQ1.ForeColor = SystemColors.ControlText;
-            btnQ1.Location = new Point(6, 46);
-            btnQ1.Name = "btnQ1";
-            btnQ1.Size = new Size(68, 59);
-            btnQ1.TabIndex = 4;
-            btnQ1.Tag = "Q1";
-            btnQ1.Text = "Q1";
-            btnQ1.UseVisualStyleBackColor = false;
-            // 
-            // btnQ2
-            // 
-            btnQ2.BackColor = Color.Orange;
-            btnQ2.Font = new Font("Segoe UI Semilight", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            btnQ2.ForeColor = SystemColors.ControlText;
-            btnQ2.Location = new Point(80, 46);
-            btnQ2.Name = "btnQ2";
-            btnQ2.Size = new Size(68, 59);
-            btnQ2.TabIndex = 5;
-            btnQ2.Tag = "Q2";
-            btnQ2.Text = "Q2";
-            btnQ2.UseVisualStyleBackColor = false;
+            lblTotalToPayValue.AutoSize = true;
+            lblTotalToPayValue.BackColor = SystemColors.Control;
+            lblTotalToPayValue.Font = new Font("Segoe UI Black", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTotalToPayValue.ForeColor = SystemColors.ControlText;
+            lblTotalToPayValue.Location = new Point(3, 0);
+            lblTotalToPayValue.Name = "lblTotalToPayValue";
+            lblTotalToPayValue.Size = new Size(55, 23);
+            lblTotalToPayValue.TabIndex = 16;
+            lblTotalToPayValue.Text = "€0.00";
             // 
             // btnQ3
             // 
@@ -326,6 +396,19 @@ namespace SomerenUI
             btnQ3.Text = "Q3";
             btnQ3.UseVisualStyleBackColor = false;
             // 
+            // btnQ2
+            // 
+            btnQ2.BackColor = Color.Orange;
+            btnQ2.Font = new Font("Segoe UI Semilight", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
+            btnQ2.ForeColor = SystemColors.ControlText;
+            btnQ2.Location = new Point(80, 46);
+            btnQ2.Name = "btnQ2";
+            btnQ2.Size = new Size(68, 59);
+            btnQ2.TabIndex = 5;
+            btnQ2.Tag = "Q2";
+            btnQ2.Text = "Q2";
+            btnQ2.UseVisualStyleBackColor = false;
+            // 
             // btnQ4
             // 
             btnQ4.BackColor = Color.SlateBlue;
@@ -339,6 +422,19 @@ namespace SomerenUI
             btnQ4.Text = "Q4";
             btnQ4.UseVisualStyleBackColor = false;
             // 
+            // btnQ1
+            // 
+            btnQ1.BackColor = Color.IndianRed;
+            btnQ1.Font = new Font("Segoe UI Semilight", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
+            btnQ1.ForeColor = SystemColors.ControlText;
+            btnQ1.Location = new Point(6, 46);
+            btnQ1.Name = "btnQ1";
+            btnQ1.Size = new Size(68, 59);
+            btnQ1.TabIndex = 4;
+            btnQ1.Tag = "Q1";
+            btnQ1.Text = "Q1";
+            btnQ1.UseVisualStyleBackColor = false;
+            // 
             // gbKwartaal
             // 
             gbKwartaal.Controls.Add(btnQ1);
@@ -346,107 +442,25 @@ namespace SomerenUI
             gbKwartaal.Controls.Add(btnQ2);
             gbKwartaal.Controls.Add(btnQ3);
             gbKwartaal.Font = new Font("Segoe UI Semilight", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            gbKwartaal.Location = new Point(579, 154);
+            gbKwartaal.Location = new Point(650, 3);
             gbKwartaal.Name = "gbKwartaal";
             gbKwartaal.Size = new Size(165, 178);
             gbKwartaal.TabIndex = 8;
             gbKwartaal.TabStop = false;
             gbKwartaal.Text = "Kwartaal:";
             // 
-            // blbVatType
-            // 
-            blbVatType.AutoSize = true;
-            blbVatType.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            blbVatType.Location = new Point(23, 111);
-            blbVatType.Name = "blbVatType";
-            blbVatType.Size = new Size(87, 23);
-            blbVatType.TabIndex = 9;
-            blbVatType.Text = "Type BTW:";
-            // 
-            // lblPercentage
-            // 
-            lblPercentage.AutoSize = true;
-            lblPercentage.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblPercentage.Location = new Point(116, 111);
-            lblPercentage.Name = "lblPercentage";
-            lblPercentage.Size = new Size(96, 23);
-            lblPercentage.TabIndex = 10;
-            lblPercentage.Text = "Percentage:";
-            // 
-            // lblTotal
-            // 
-            lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTotal.Location = new Point(218, 111);
-            lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(58, 23);
-            lblTotal.TabIndex = 11;
-            lblTotal.Text = "Totaal:";
-            // 
-            // lblRecordTotal
-            // 
-            lblRecordTotal.AutoSize = true;
-            lblRecordTotal.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRecordTotal.Location = new Point(226, 154);
-            lblRecordTotal.Name = "lblRecordTotal";
-            lblRecordTotal.Size = new Size(50, 23);
-            lblRecordTotal.TabIndex = 14;
-            lblRecordTotal.Text = "€0.00";
-            // 
-            // lblRecordPercentage
-            // 
-            lblRecordPercentage.AutoSize = true;
-            lblRecordPercentage.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRecordPercentage.Location = new Point(116, 154);
-            lblRecordPercentage.Name = "lblRecordPercentage";
-            lblRecordPercentage.Size = new Size(33, 23);
-            lblRecordPercentage.TabIndex = 13;
-            lblRecordPercentage.Text = "0%";
-            // 
-            // lblRecordTypeVat
-            // 
-            lblRecordTypeVat.AutoSize = true;
-            lblRecordTypeVat.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRecordTypeVat.Location = new Point(23, 154);
-            lblRecordTypeVat.Name = "lblRecordTypeVat";
-            lblRecordTypeVat.Size = new Size(60, 23);
-            lblRecordTypeVat.TabIndex = 12;
-            lblRecordTypeVat.Text = "Overig";
-            // 
-            // lblTotalToPay
-            // 
-            lblTotalToPay.AutoSize = true;
-            lblTotalToPay.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTotalToPay.Location = new Point(23, 380);
-            lblTotalToPay.Name = "lblTotalToPay";
-            lblTotalToPay.Size = new Size(160, 23);
-            lblTotalToPay.TabIndex = 15;
-            lblTotalToPay.Text = "Totaal af te rekenen:";
-            // 
-            // lblTotalToPayValue
-            // 
-            lblTotalToPayValue.AutoSize = true;
-            lblTotalToPayValue.BackColor = SystemColors.Control;
-            lblTotalToPayValue.Font = new Font("Segoe UI Black", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotalToPayValue.ForeColor = SystemColors.ControlText;
-            lblTotalToPayValue.Location = new Point(218, 380);
-            lblTotalToPayValue.Name = "lblTotalToPayValue";
-            lblTotalToPayValue.Size = new Size(55, 23);
-            lblTotalToPayValue.TabIndex = 16;
-            lblTotalToPayValue.Text = "€0.00";
-            // 
             // SomerenUI
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1099, 673);
+            ClientSize = new Size(1099, 673);
+            Controls.Add(pnlVat);
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
             Controls.Add(pnlStudents);
             Controls.Add(pnlTeachers);
             Controls.Add(pnlActivities);
             Controls.Add(pnlRooms);
-            Controls.Add(pnlVat);
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "SomerenUI";
@@ -461,7 +475,10 @@ namespace SomerenUI
             pnlActivities.ResumeLayout(false);
             pnlRooms.ResumeLayout(false);
             pnlVat.ResumeLayout(false);
+            flowLayoutPanelVat.ResumeLayout(false);
+            flowLayoutPanelVat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            gbKwartaal.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -493,11 +510,6 @@ namespace SomerenUI
         private System.Windows.Forms.Label lblDates;
         private System.Windows.Forms.Label lblJaartal;
         private System.Windows.Forms.TextBox txtJaartal;
-        private System.Windows.Forms.Button btnQ1;
-        private System.Windows.Forms.Button btnQ2;
-        private System.Windows.Forms.Button btnQ3;
-        private System.Windows.Forms.Button btnQ4;
-        private System.Windows.Forms.GroupBox gbKwartaal;
         private System.Windows.Forms.Label blbVatType;
         private System.Windows.Forms.Label lblPercentage;
         private System.Windows.Forms.Label lblTotal;
@@ -505,7 +517,12 @@ namespace SomerenUI
         private System.Windows.Forms.Label lblRecordPercentage;
         private System.Windows.Forms.Label lblRecordTypeVat;
         private System.Windows.Forms.Label lblTotalToPay;
-        private System.Windows.Forms.Label lblTotalToPayValue;
         private System.Windows.Forms.ToolStripMenuItem vATToolStripMenuItem;
+        private System.Windows.Forms.Label lblTotalToPayValue;
+        private System.Windows.Forms.GroupBox gbKwartaal;
+        private System.Windows.Forms.Button btnQ1;
+        private System.Windows.Forms.Button btnQ4;
+        private System.Windows.Forms.Button btnQ2;
+        private System.Windows.Forms.Button btnQ3;
     }
 }
