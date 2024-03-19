@@ -132,7 +132,7 @@ namespace SomerenDAL
 
             return vatSummaries;
         }
-        public decimal GetTotalTaxNeeded(DateTime startDate, DateTime endDate)
+        public double GetTotalTaxNeeded(DateTime startDate, DateTime endDate)
         {
             string query = @"
         SELECT 
@@ -150,7 +150,7 @@ namespace SomerenDAL
             command.Parameters.AddWithValue("@startDate", startDate);
             command.Parameters.AddWithValue("@endDate", endDate);
 
-            decimal totalTaxNeeded = (decimal)command.ExecuteScalar();
+            double totalTaxNeeded = (double)command.ExecuteScalar();
 
             CloseConnection();
 

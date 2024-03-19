@@ -13,14 +13,18 @@ namespace SomerenService
             orderDao = new OrderDao();
         }
 
-        public List<Dictionary<string, object>> GetVatSummary(DateTime startDate, DateTime endDate)
+        public List<Dictionary<string, object>> GetVatSummary(DateTime[] dateRanges)
         {
-            return orderDao.GetVatSummary(startDate, endDate);
+            if (dateRanges.Length > 2 || dateRanges.Length == 0)
+                return null;
+            return orderDao.GetVatSummary(dateRanges[0], dateRanges[1]);
         }
 
-        public decimal GetTotalTaxNeeded(DateTime startDate, DateTime endDate)
+        public double GetTotalTaxNeeded(DateTime[] dateRanges)
         {
-            return orderDao.GetTotalTaxNeeded(startDate, endDate);
+            if(dateRanges.Length > 2 || dateRanges.Length == 0)
+                return 0;
+            return orderDao.GetTotalTaxNeeded(dateRanges[0], dateRanges[1]);
         }
     }
 }

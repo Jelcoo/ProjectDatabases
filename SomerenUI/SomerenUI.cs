@@ -227,7 +227,40 @@ namespace SomerenUI
         private void DisplayVat()
         {
             SetHeader("VAT");
+            VATService vatService = new VATService();
+
+            List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates());
+            if (vatSummary != null)
+            {
+                string message = "";
+                foreach (var summary in vatSummary)
+                    message += $"VAT Rate: {summary["VATRate"]}, VAT Amount: {summary["VATAmount"]}, Total Products Sold: {summary["TotalProductsSold"]}, Number of Orders: {summary["NumberOfOrders"]}\n";
+                MessageBox.Show(message);
+            }
+
+            foreach (var summary in vatSummary)
+            {
+                Label vatType = Helpers.CopyAndCloneLabel(lblRecordTypeVat, Helpers.GetVatType((double)summary["VATRate"]).ToString());
+                pnlVat.Controls.Add(vatType);
+
+                Label vatPercentage = Helpers.CopyAndCloneLabel(lblRecordPercentage, ((double)summary["VATRate"] * 100).ToString() + "%");
+                pnlVat.Controls.Add(vatPercentage);
+
+                Label orders = Helpers.CopyAndCloneLabel(lblRecordOrders, summary["NumberOfOrders"].ToString());
+                pnlVat.Controls.Add(orders);
+
+                Label products = Helpers.CopyAndCloneLabel(lblRecordProducts, summary["TotalProductsSold"].ToString());
+                pnlVat.Controls.Add(products);
+
+                Label total = Helpers.CopyAndCloneLabel(lblRecordTotal, "€" + summary["VATAmount"].ToString());
+                pnlVat.Controls.Add(total);
+            }
+
+            // Display total tax needed
+            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates());
+            lblTotalToPayValue.Text = $"€{Math.Round(totalTaxNeeded, 2)}";
         }
+
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
@@ -268,6 +301,11 @@ namespace SomerenUI
         private void vATToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowVatPanel();
+        }
+
+        private void txtYear_TextChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hello world");
         }
     }
 }
