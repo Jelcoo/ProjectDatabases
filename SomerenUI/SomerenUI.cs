@@ -4,13 +4,15 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
 using System.Drawing;
-using System.Globalization;
 
 namespace SomerenUI
 {
     public partial class SomerenUI : Form
     {
-        List<Panel> panelList = new List<Panel>();
+        private List<Panel> panelList = new List<Panel>();
+        private Student selectedOrderStudent = null;
+        private Order unprocessedOrder = null;
+        private Product selectedProduct;
 
         public SomerenUI()
         {
@@ -23,12 +25,12 @@ namespace SomerenUI
             panelList.Add(pnlActivities);
             panelList.Add(pnlRooms);
             panelList.Add(pnlProducts);
-
+            panelList.Add(pnlRevenue);
         }
 
         private void ShowPanel(Panel panel)
         {
-            foreach (Panel item in panelList)
+            foreach (Panel item in this.panelList)
             {
                 item.Hide();
             }
@@ -41,6 +43,13 @@ namespace SomerenUI
         {
             headerLabel.Text = header;
             headerLabel.Visible = visible;
+        }
+
+        private void ShowListView(Panel pnl, ListView list)
+        {
+            pnl.Controls.Add(list);
+            list.Items.Clear();
+            list.Columns.Clear();
         }
 
         private Button NewButton()
@@ -98,6 +107,12 @@ namespace SomerenUI
             }
         }
 
+        private void ShowRevenuePanel()
+        {
+            ShowPanel(pnlRevenue);
+            SetHeader("Revenue");
+        }
+
         private void ShowActivitiesPanel()
         {
             ShowPanel(pnlActivities);
@@ -126,6 +141,38 @@ namespace SomerenUI
             catch (Exception e)
             {
                 MessageBox.Show("Something went wrong while loading the products: " + e.Message);
+            }
+        }
+
+        private void ShowOrderStudentsPanel()
+        {
+            ShowPanel(pnlOrders);
+
+            try
+            {
+                // get and add all students
+                List<Student> students = GetStudents("lastName DESC");
+                DisplayOrderStudents(students);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the orders: " + e.Message);
+            }
+        }
+
+        private void ShowOrderProductsList()
+        {
+            pnlOrders.Controls.Add(flowLayoutPanelOrderProducts);
+
+            try
+            {
+                // get and display all products
+                List<Product> products = GetProducts("name ASC");
+                DisplayOrderProducts(products);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the order for student: " + e.Message);
             }
         }
 
@@ -163,17 +210,34 @@ namespace SomerenUI
             return products;
         }
 
+        private Revenue GetRevenue(DateTime startDate, DateTime endDate)
+        {
+            RevenueService revenueService = new RevenueService();
+            Revenue revenue = revenueService.GetRevenue(startDate, endDate);
+            return revenue;
+        }
+
+
+        private List<Product> GetProducts(string sortBy)
+        {
+            ProductService productService = new ProductService();
+            List<Product> products = productService.GetProducts(sortBy);
+            return products;
+        }
+
         private void DisplayStudents(List<Student> students)
         {
-            flowLayoutPanelStudents.Controls.Clear();
+            ShowListView(pnlStudents, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Student student in students)
             {
-                Button btn = NewButton();
-                btn.Text = student.Name;
-                btn.Tag = student;
-                btn.BackColor = UIHelpers.StringToColor(student.Name);
-                flowLayoutPanelStudents.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
+                listViewItem.Tag = student;
+                listViewItem.SubItems.Add(student.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Students");
@@ -181,15 +245,17 @@ namespace SomerenUI
 
         private void DisplayTeachers(List<Teacher> teachers)
         {
-            flowLayoutPanelTeachers.Controls.Clear();
+            ShowListView(pnlTeachers, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Teacher teacher in teachers)
             {
-                Button btn = NewButton();
-                btn.Text = teacher.Name;
-                btn.Tag = teacher;
-                btn.BackColor = UIHelpers.StringToColor(teacher.Name);
-                flowLayoutPanelTeachers.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
+                listViewItem.Tag = teacher;
+                listViewItem.SubItems.Add(teacher.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Teachers");
@@ -197,15 +263,17 @@ namespace SomerenUI
 
         private void DisplayActivities(List<Activity> activities)
         {
-            flowLayoutPanelActivities.Controls.Clear();
+            ShowListView(pnlActivities, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Activity activity in activities)
             {
-                Button btn = NewButton();
-                btn.Text = activity.Name;
-                btn.Tag = activity;
-                btn.BackColor = UIHelpers.StringToColor(activity.Name);
-                flowLayoutPanelActivities.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
+                listViewItem.Tag = activities;
+                listViewItem.SubItems.Add(activity.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Activities");
@@ -213,15 +281,17 @@ namespace SomerenUI
 
         private void DisplayRooms(List<Room> rooms)
         {
-            flowLayoutPanelRooms.Controls.Clear();
+            ShowListView(pnlRooms, listViewGeneral);
+
+            listViewGeneral.Columns.Add("ID");
+            listViewGeneral.Columns.Add("Name", 200);
 
             foreach (Room room in rooms)
             {
-                Button btn = NewButton();
-                btn.Text = room.Name;
-                btn.Tag = room;
-                btn.BackColor = UIHelpers.StringToColor(room.Name);
-                flowLayoutPanelRooms.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(room.RoomId.ToString());
+                listViewItem.Tag = room;
+                listViewItem.SubItems.Add(room.Name);
+                listViewGeneral.Items.Add(listViewItem);
             }
 
             SetHeader("Rooms");
@@ -293,12 +363,111 @@ namespace SomerenUI
         }
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
+        private void DisplayRevenue(DateTime start, DateTime end)
+        {
+            try
+            {
+                // get and display revenue
+                Revenue revenue = GetRevenue(start, end);
+
+                OutputRevenue.Text = $"Turnover: {revenue.Turnover}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the revenue: " + e.Message);
+            }
+        }
+
+        private void DisplayOrderStudents(List<Student> students)
+        {
+            ordersComboBox.Items.Clear();
+
+            foreach (Student student in students)
+            {
+                ordersComboBox.Items.Add(student);
+            }
+
+            SetHeader("Order");
+        }
+
+        private void DisplayOrderProducts(List<Product> products)
+        {
+            flowLayoutPanelOrderProducts.Controls.Clear();
+            foreach (Product product in products)
+            {
+                Button btn = new Button();
+                btn.Size = new Size(150, 75);
+                btn.Text = product.Name;
+                btn.Tag = product;
+                btn.MouseClick += orderProduct_Click;
+                flowLayoutPanelOrderProducts.Controls.Add(btn);
+            }
+
+            this.unprocessedOrder = new Order();
+            this.unprocessedOrder.Student = this.selectedOrderStudent;
+            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+        }
+
+        private void orderProduct_Click(object sender, EventArgs e)
+        {
+            Product product = (Product)((Button)sender).Tag;
+
+            bool alreadyInOrder = false;
+            foreach (OrderLine orderLine in this.unprocessedOrder.OrderLines)
+            {
+                if (orderLine.Product.ProductId == product.ProductId)
+                {
+                    alreadyInOrder = true;
+                    orderLine.Quantity++;
+                }
+            }
+
+            if (!alreadyInOrder)
+            {
+                OrderLine orderLine = new OrderLine();
+                orderLine.Order = this.unprocessedOrder;
+                orderLine.Product = product;
+                orderLine.Quantity = 1;
+
+                this.unprocessedOrder.OrderLines.Add(orderLine);
+            }
+
+            UpdateOrderDetailsLabel();
+
+            if (!orderProcessButton.Visible)
+            {
+                orderProcessButton.Visible = true;
+            }
+        }
+
+        private void orderProcessButton_Click(object sender, EventArgs e)
+        {
+            OrderService orderService = new OrderService();
+            orderService.StoreOrder(this.unprocessedOrder);
+            this.unprocessedOrder = new Order();
+            this.unprocessedOrder.Student = this.selectedOrderStudent;
+            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+            orderDetailsLabel.Text = "";
+            orderProcessButton.Visible = false;
+        }
+
+        private void UpdateOrderDetailsLabel()
+        {
+            string orderDetails = "";
+            orderDetails += this.unprocessedOrder.ToString();
+            orderDetails += "\n";
+            orderDetails += $"Total price: €{this.unprocessedOrder.TotalPrice:0.00}";
+
+            orderDetailsLabel.Text = orderDetails;
+        }
+
+        private void dashboardToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             SetHeader("Dashboard", false);
             ShowPanel(pnlDashboard);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -327,13 +496,32 @@ namespace SomerenUI
         {
             ShowProductsPanel();
         }
+        
+        private void revenueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowRevenuePanel();
+        }
+
+        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowOrderStudentsPanel();
+        }
+
+        private void ordersComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.selectedOrderStudent = (Student)ordersComboBox.SelectedItem;
+            this.unprocessedOrder = new Order();
+            this.unprocessedOrder.Student = this.selectedOrderStudent;
+            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+            orderDetailsLabel.Text = "";
+            orderProcessButton.Visible = false;
+            ShowOrderProductsList();
+        }
 
         private void SomerenUI_Load(object sender, EventArgs e)
         {
             ShowPanel(pnlDashboard);
         }
-
-        private Product selectedProduct; // Declare a private field to store the selected product
 
         private void ProductFormSetProduct(Product product)
         {
@@ -417,6 +605,17 @@ namespace SomerenUI
 
             ProductFormSetEmpty();
             ShowProductsPanel();
+        }
+
+        private void updateRevenueSelector(object sender, EventArgs e)
+        {
+            DateTime startDate = revenueDateStart.Value;
+            DateTime endDate = revenueDateEnd.Value;
+
+            revenueDateStart.MaxDate = endDate;
+            revenueDateEnd.MinDate = startDate;
+
+            DisplayRevenue(startDate, endDate);
         }
     }
 }

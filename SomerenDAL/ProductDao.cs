@@ -33,6 +33,7 @@ namespace SomerenDAL
 
             return products;
         }
+
         public Product GetByIdProduct(int productId)
         {
             string query = "SELECT * FROM Products WHERE Id = @Id";
@@ -50,6 +51,16 @@ namespace SomerenDAL
             CloseConnection();
             return product;
         }
+
+        public void DecreaseStock(Product product, int quantity)
+        {
+            SqlCommand command = new SqlCommand("UPDATE products SET stock = stock - @quantity WHERE productId = @productId", OpenConnection());
+            command.Parameters.AddWithValue("@quantity", quantity);
+            command.Parameters.AddWithValue("@productId", product.ProductId);
+
+            command.ExecuteNonQuery();
+        }
+
         public Product ReadProduct(SqlDataReader reader)
         {
             Product product = new Product()
@@ -63,6 +74,7 @@ namespace SomerenDAL
 
             return product;
         }
+
         public void UpdateProduct(Product product)
         {
             string query = @"UPDATE [products] 
@@ -80,6 +92,7 @@ namespace SomerenDAL
             }
             CloseConnection();
         }
+
         public Product CreateProduct(Product product)
         {
             string query = $"INSERT INTO products (name, stock, VATRate, price) VALUES (@Name, @Stock, @VATRate, @Price); SELECT SCOPE_IDENTITY();";
