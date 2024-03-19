@@ -31,6 +31,15 @@ namespace SomerenDAL
             return products;
         }
 
+        public void DecreaseStock(Product product, int quantity)
+        {
+            SqlCommand command = new SqlCommand("UPDATE products SET stock = stock - @quantity WHERE productId = @productId", OpenConnection());
+            command.Parameters.AddWithValue("@quantity", quantity);
+            command.Parameters.AddWithValue("@productId", product.ProductId);
+
+            command.ExecuteNonQuery();
+        }
+
         public Product ReadProduct(SqlDataReader reader)
         {
             Product product = new Product()
@@ -38,7 +47,7 @@ namespace SomerenDAL
                 ProductId = (int)reader["productId"],
                 Name = reader["name"].ToString(),
                 Stock = (int)reader["stock"],
-                VATRate = (float)reader["VATRate"],
+                VATRate = (double)reader["VATRate"],
                 Price = (double)reader["price"],
             };
 

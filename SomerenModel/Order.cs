@@ -14,5 +14,29 @@ namespace SomerenModel
 
         public Student Student { get; set; }
         public List<OrderLine> OrderLines { get; set; }
+
+        public double TotalPrice {
+            get
+            {
+                double price = 0;
+                foreach (OrderLine line in OrderLines)
+                {
+                    price += line.Product.Price * line.Quantity;
+                }
+
+                return price;
+            }
+        }
+
+        public override string ToString()
+        {
+            string orderString = "";
+            foreach (OrderLine line in OrderLines)
+            {
+                orderString += $"{line.ToString()}\n";
+            }
+
+            return orderString;
+        }
     }
 }
