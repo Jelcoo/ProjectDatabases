@@ -53,14 +53,6 @@ namespace SomerenUI
             list.Columns.Clear();
         }
 
-        private Button NewButton()
-        {
-            Button btn = new Button();
-            btn.Size = new Size(200, 75);
-
-            return btn;
-        }
-
         private void ShowStudentsPanel()
         {
             ShowPanel(pnlStudents);
@@ -76,6 +68,7 @@ namespace SomerenUI
                 MessageBox.Show("Something went wrong while loading the students: " + e.Message);
             }
         }
+
         private void ShowTeachersPanel()
         {
             ShowPanel(pnlTeachers);
@@ -129,6 +122,7 @@ namespace SomerenUI
                 MessageBox.Show("Something went wrong while loading the activities: " + e.Message);
             }
         }
+
         private void ShowProductsPanel()
         {
             ShowPanel(pnlProducts);
