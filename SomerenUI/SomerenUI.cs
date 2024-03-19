@@ -299,7 +299,7 @@ namespace SomerenUI
             item.SubItems.Add(product.Name);
             item.SubItems.Add(product.Stock.ToString());
             item.SubItems.Add($"{product.VATRate * 100}%");
-            item.SubItems.Add($"{product.Price:0.00}");
+            item.SubItems.Add($"€{product.Price:0.00}");
             if (product.Stock <= 0)
             {
                 item.SubItems.Add("stock empty");
@@ -366,7 +366,7 @@ namespace SomerenUI
                 // get and display revenue
                 Revenue revenue = GetRevenue(start, end);
 
-                OutputRevenue.Text = $"Turnover: {revenue.Turnover}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
+                OutputRevenue.Text = $"Turnover: €{revenue.Turnover:0.00}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
             }
             catch (Exception e)
             {
@@ -579,7 +579,7 @@ namespace SomerenUI
                     Price = price
                 };
 
-                Product createdProduct = productService.CreateProduct(newProduct);
+                productService.CreateProduct(newProduct);
 
                 MessageBox.Show("Product added successfully!");
             }
