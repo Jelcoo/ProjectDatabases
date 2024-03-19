@@ -23,7 +23,6 @@ namespace SomerenUI
             panelList.Add(pnlActivities);
             panelList.Add(pnlRooms);
             panelList.Add(pnlProducts);
-            listViewPanelProducts.MouseDoubleClick += ListViewPanelProducts_MouseDoubleClick;
 
         }
 
@@ -106,7 +105,7 @@ namespace SomerenUI
             try
             {
                 // get and display all activities
-                List<Activity> activities = GetActivities("name DESC");
+                List<Activity> activities = GetActivities();
                 DisplayActivities(activities);
             }
             catch (Exception e)
@@ -121,7 +120,7 @@ namespace SomerenUI
             try
             {
                 // get and display all activities
-                List<Product> products = GetProducts("name DESC");
+                List<Product> products = GetProducts();
                 DisplayProducts(products);
             }
             catch (Exception e)
@@ -144,23 +143,23 @@ namespace SomerenUI
             return teachers;
         }
 
-        private List<Activity> GetActivities(string sortBy)
+        private List<Activity> GetActivities()
         {
             ActivityService activityService = new ActivityService();
-            List<Activity> activities = activityService.GetActivities(sortBy);
+            List<Activity> activities = activityService.GetActivities();
             return activities;
         }
-      
+
         private List<Room> GetRooms(string sortBy)
         {
             RoomService roomService = new RoomService();
             List<Room> rooms = roomService.GetRooms(sortBy);
             return rooms;
         }
-        private List<Product> GetProducts(string sortBy)
+        private List<Product> GetProducts()
         {
             ProductService productService = new ProductService();
-            List<Product> products = productService.GetProducts(sortBy);
+            List<Product> products = productService.GetProducts();
             return products;
         }
 
@@ -227,6 +226,31 @@ namespace SomerenUI
 
             SetHeader("Rooms");
         }
+
+        private ListViewItem AddProductListView(Product product)
+        {
+            ListViewItem item = new ListViewItem(product.ProductId.ToString());
+            item.Tag = product;
+            item.SubItems.Add(product.Name);
+            item.SubItems.Add(product.Stock.ToString());
+            item.SubItems.Add($"{product.VATRate * 100}%");
+            item.SubItems.Add($"{product.Price:0.00}");
+            if (product.Stock <= 0)
+            {
+                item.SubItems.Add("stock empty");
+            }
+            else if (product.Stock <= 10)
+            {
+                item.SubItems.Add("nearly depleted");
+            }
+            else
+            {
+                item.SubItems.Add("stock sufficient");
+            }
+
+            return item;
+        }
+
         private void DisplayProducts(List<Product> products)
         {
             listViewPanelProducts.Clear();
@@ -240,32 +264,32 @@ namespace SomerenUI
 
             foreach (Product product in products)
             {
-                ListViewItem item = new ListViewItem(product.ProductId.ToString());
-                item.SubItems.Add(product.Name);
-                item.SubItems.Add(product.Stock.ToString());
-                item.SubItems.Add(product.VATRate.ToString());
-                item.SubItems.Add(product.Price.ToString());
-                if (product.Stock <= 0)
-                {
-                    item.SubItems.Add("stock empty");
-                }
-                else if (product.Stock <= 10)
-                {
-                    item.SubItems.Add("nearly depleted");
-                }
-                else
-                {
-                    item.SubItems.Add("stock sufficient");
-                }
+                ListViewItem item = AddProductListView(product);
                 listViewPanelProducts.Items.Add(item);
             }
 
             SetHeader("Products");
 
         }
-        private void ListViewPanelProducts_MouseDoubleClick(object sender, MouseEventArgs e)
+
+        private void DeleteProductButton_Click(object sender, EventArgs e)
         {
-            
+            // Logic to delete a product
+            // Assuming you have a way to select one for deletion
+            // For example, if you have a list view, you can get the selected product from there
+
+            if (this.selectedProduct != null)
+            {
+                ProductService productService = new ProductService();
+                productService.DeleteProduct(this.selectedProduct);
+
+                //    MessageBox.Show("Product deleted successfully!");
+                ShowProductsPanel(); // Refresh products panel
+            }
+            else
+            {
+                MessageBox.Show("Please select a product to delete.");
+            }
         }
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
@@ -307,6 +331,92 @@ namespace SomerenUI
         private void SomerenUI_Load(object sender, EventArgs e)
         {
             ShowPanel(pnlDashboard);
+        }
+
+        private Product selectedProduct; // Declare a private field to store the selected product
+
+        private void ProductFormSetProduct(Product product)
+        {
+            productEditButton.Text = "Edit";
+            productEditNameInput.Text = product.Name;
+            productEditStockInput.Value = product.Stock;
+            productEditAlcoholInput.Checked = product.IsAlcoholic;
+            productEditPriceInput.Value = (decimal)product.Price;
+        }
+
+        private void ProductFormSetEmpty()
+        {
+            productEditButton.Text = "Create";
+            productEditNameInput.Text = "";
+            productEditStockInput.Value = 0;
+            productEditAlcoholInput.Checked = false;
+            productEditPriceInput.Value = 0.00M;
+        }
+
+        private void listViewPanelProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Check if any item is selected in the listViewPanelProducts
+            if (listViewPanelProducts.SelectedItems.Count > 0)
+            {
+                // Retrieve the selected item from the listView
+                ListViewItem selectedItem = listViewPanelProducts.SelectedItems[0];
+
+                // Update the selectedProduct field with the selected product details
+                this.selectedProduct = (Product)selectedItem.Tag;
+
+                ProductFormSetProduct(this.selectedProduct);
+                productDeleteButton.Visible = true;
+            }
+            else
+            {
+                // If no item is selected, set selectedProduct to null
+                selectedProduct = null;
+                ProductFormSetEmpty();
+                productDeleteButton.Visible = false;
+            }
+        }
+
+        private void productEditButton_Click(object sender, EventArgs e)
+        {
+            string name = productEditNameInput.Text;
+            int stock = (int)productEditStockInput.Value;
+            bool isAlcoholic = productEditAlcoholInput.Checked;
+            double price = decimal.ToDouble(productEditPriceInput.Value);
+
+            ProductService productService = new ProductService();
+
+            if (selectedProduct == null)
+            {
+                Product newProduct = new Product()
+                {
+                    Name = name,
+                    Stock = stock,
+                    VATRate = isAlcoholic ? 0.21 : 0.09,
+                    Price = price
+                };
+
+                Product createdProduct = productService.CreateProduct(newProduct);
+
+                MessageBox.Show("Product added successfully!");
+            }
+            else
+            {
+                Product newProduct = new Product()
+                {
+                    ProductId = selectedProduct.ProductId,
+                    Name = name,
+                    Stock = stock,
+                    VATRate = isAlcoholic ? 0.21 : 0.09,
+                    Price = price
+                };
+
+                productService.UpdateProduct(newProduct);
+
+                MessageBox.Show("Product updated successfully!");
+            }
+
+            ProductFormSetEmpty();
+            ShowProductsPanel();
         }
     }
 }

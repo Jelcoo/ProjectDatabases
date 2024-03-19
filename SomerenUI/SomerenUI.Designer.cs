@@ -38,8 +38,8 @@ namespace SomerenUI
             studentsToolStripMenuItem = new ToolStripMenuItem();
             teachersToolStripMenuItem = new ToolStripMenuItem();
             activitiesToolStripMenuItem = new ToolStripMenuItem();
-            roomsToolStripMenuItem = new ToolStripMenuItem();
             productsToolStripMenuItem = new ToolStripMenuItem();
+            roomsToolStripMenuItem = new ToolStripMenuItem();
             pnlDashboard = new Panel();
             lblDashboard = new Label();
             pnlStudents = new Panel();
@@ -51,7 +51,16 @@ namespace SomerenUI
             pnlRooms = new Panel();
             flowLayoutPanelRooms = new FlowLayoutPanel();
             pnlProducts = new Panel();
+            productEditButton = new Button();
+            productEditPriceInput = new NumericUpDown();
+            productEditPriceLabel = new Label();
+            productEditAlcoholInput = new CheckBox();
+            productEditStockInput = new NumericUpDown();
+            productEditStockLabel = new Label();
+            productEditNameInput = new TextBox();
+            productEditNameLabel = new Label();
             listViewPanelProducts = new ListView();
+            productDeleteButton = new Button();
             pictureBox1 = new PictureBox();
             headerLabel = new Label();
             menuStrip1.SuspendLayout();
@@ -61,6 +70,8 @@ namespace SomerenUI
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
             pnlProducts.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)productEditPriceInput).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)productEditStockInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -117,13 +128,6 @@ namespace SomerenUI
             activitiesToolStripMenuItem.Text = "Activities";
             activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
             // 
-            // roomsToolStripMenuItem
-            // 
-            roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
-            roomsToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
-            roomsToolStripMenuItem.Text = "Rooms";
-            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
-            // 
             // productsToolStripMenuItem
             // 
             productsToolStripMenuItem.Name = "productsToolStripMenuItem";
@@ -131,10 +135,17 @@ namespace SomerenUI
             productsToolStripMenuItem.Text = "Products";
             productsToolStripMenuItem.Click += productsToolStripMenuItem_Click;
             // 
+            // roomsToolStripMenuItem
+            // 
+            roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
+            roomsToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
+            roomsToolStripMenuItem.Text = "Rooms";
+            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
+            // 
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
-            pnlDashboard.Location = new System.Drawing.Point(14, 36);
+            pnlDashboard.Location = new System.Drawing.Point(3, 4);
             pnlDashboard.Margin = new Padding(3, 4, 3, 4);
             pnlDashboard.Name = "pnlDashboard";
             pnlDashboard.Size = new System.Drawing.Size(1072, 621);
@@ -211,11 +222,91 @@ namespace SomerenUI
             // 
             // pnlProducts
             // 
+            pnlProducts.Controls.Add(productEditButton);
+            pnlProducts.Controls.Add(productEditPriceInput);
+            pnlProducts.Controls.Add(productEditPriceLabel);
+            pnlProducts.Controls.Add(productEditAlcoholInput);
+            pnlProducts.Controls.Add(productEditStockInput);
+            pnlProducts.Controls.Add(productEditStockLabel);
+            pnlProducts.Controls.Add(productEditNameInput);
+            pnlProducts.Controls.Add(productEditNameLabel);
             pnlProducts.Controls.Add(listViewPanelProducts);
+            pnlProducts.Controls.Add(productDeleteButton);
             pnlProducts.Location = new System.Drawing.Point(14, 31);
             pnlProducts.Name = "pnlProducts";
             pnlProducts.Size = new System.Drawing.Size(1072, 528);
             pnlProducts.TabIndex = 2;
+            // 
+            // productEditButton
+            // 
+            productEditButton.Location = new System.Drawing.Point(745, 249);
+            productEditButton.Name = "productEditButton";
+            productEditButton.Size = new System.Drawing.Size(94, 29);
+            productEditButton.TabIndex = 10;
+            productEditButton.Text = "Create";
+            productEditButton.UseVisualStyleBackColor = true;
+            productEditButton.Click += productEditButton_Click;
+            // 
+            // productEditPriceInput
+            // 
+            productEditPriceInput.DecimalPlaces = 2;
+            productEditPriceInput.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            productEditPriceInput.Location = new System.Drawing.Point(800, 193);
+            productEditPriceInput.Name = "productEditPriceInput";
+            productEditPriceInput.Size = new System.Drawing.Size(125, 27);
+            productEditPriceInput.TabIndex = 9;
+            // 
+            // productEditPriceLabel
+            // 
+            productEditPriceLabel.AutoSize = true;
+            productEditPriceLabel.Location = new System.Drawing.Point(745, 195);
+            productEditPriceLabel.Name = "productEditPriceLabel";
+            productEditPriceLabel.Size = new System.Drawing.Size(41, 20);
+            productEditPriceLabel.TabIndex = 8;
+            productEditPriceLabel.Text = "Price";
+            // 
+            // productEditAlcoholInput
+            // 
+            productEditAlcoholInput.AutoSize = true;
+            productEditAlcoholInput.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            productEditAlcoholInput.Location = new System.Drawing.Point(745, 157);
+            productEditAlcoholInput.Name = "productEditAlcoholInput";
+            productEditAlcoholInput.Size = new System.Drawing.Size(93, 24);
+            productEditAlcoholInput.TabIndex = 7;
+            productEditAlcoholInput.Text = "Alcoholic";
+            productEditAlcoholInput.UseVisualStyleBackColor = true;
+            // 
+            // productEditStockInput
+            // 
+            productEditStockInput.Location = new System.Drawing.Point(800, 107);
+            productEditStockInput.Name = "productEditStockInput";
+            productEditStockInput.Size = new System.Drawing.Size(125, 27);
+            productEditStockInput.TabIndex = 5;
+            // 
+            // productEditStockLabel
+            // 
+            productEditStockLabel.AutoSize = true;
+            productEditStockLabel.Location = new System.Drawing.Point(745, 109);
+            productEditStockLabel.Name = "productEditStockLabel";
+            productEditStockLabel.Size = new System.Drawing.Size(45, 20);
+            productEditStockLabel.TabIndex = 4;
+            productEditStockLabel.Text = "Stock";
+            // 
+            // productEditNameInput
+            // 
+            productEditNameInput.Location = new System.Drawing.Point(800, 57);
+            productEditNameInput.Name = "productEditNameInput";
+            productEditNameInput.Size = new System.Drawing.Size(125, 27);
+            productEditNameInput.TabIndex = 3;
+            // 
+            // productEditNameLabel
+            // 
+            productEditNameLabel.AutoSize = true;
+            productEditNameLabel.Location = new System.Drawing.Point(745, 60);
+            productEditNameLabel.Name = "productEditNameLabel";
+            productEditNameLabel.Size = new System.Drawing.Size(49, 20);
+            productEditNameLabel.TabIndex = 2;
+            productEditNameLabel.Text = "Name";
             // 
             // listViewPanelProducts
             // 
@@ -225,6 +316,17 @@ namespace SomerenUI
             listViewPanelProducts.TabIndex = 0;
             listViewPanelProducts.UseCompatibleStateImageBehavior = false;
             listViewPanelProducts.View = View.Details;
+            listViewPanelProducts.SelectedIndexChanged += listViewPanelProducts_SelectedIndexChanged;
+            // 
+            // productDeleteButton
+            // 
+            productDeleteButton.Location = new System.Drawing.Point(859, 249);
+            productDeleteButton.Name = "productDeleteButton";
+            productDeleteButton.Size = new System.Drawing.Size(94, 29);
+            productDeleteButton.TabIndex = 1;
+            productDeleteButton.Text = "Delete";
+            productDeleteButton.Click += DeleteProductButton_Click;
+            productDeleteButton.Visible = false;
             // 
             // pictureBox1
             // 
@@ -250,13 +352,13 @@ namespace SomerenUI
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1099, 673);
+            Controls.Add(pnlProducts);
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
             Controls.Add(pnlStudents);
             Controls.Add(pnlTeachers);
             Controls.Add(pnlActivities);
             Controls.Add(pnlRooms);
-            Controls.Add(pnlProducts);
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 4, 3, 4);
             Name = "SomerenUI";
@@ -271,6 +373,9 @@ namespace SomerenUI
             pnlActivities.ResumeLayout(false);
             pnlRooms.ResumeLayout(false);
             pnlProducts.ResumeLayout(false);
+            pnlProducts.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)productEditPriceInput).EndInit();
+            ((System.ComponentModel.ISupportInitialize)productEditStockInput).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -299,8 +404,16 @@ namespace SomerenUI
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelActivities;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRooms;
         private System.Windows.Forms.ListView listViewPanelProducts;
-
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label headerLabel;
+        private System.Windows.Forms.Button productDeleteButton;
+        private Label productEditNameLabel;
+        private TextBox productEditNameInput;
+        private Label productEditStockLabel;
+        private NumericUpDown productEditStockInput;
+        private NumericUpDown productEditPriceInput;
+        private Label productEditPriceLabel;
+        private CheckBox productEditAlcoholInput;
+        private Button productEditButton;
     }
 }

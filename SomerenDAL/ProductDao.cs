@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
+using System.Globalization;
 using SomerenModel;
 
 namespace SomerenDAL
@@ -30,7 +33,23 @@ namespace SomerenDAL
 
             return products;
         }
+        public Product GetByIdProduct(int productId)
+        {
+            string query = "SELECT * FROM Products WHERE Id = @Id";
 
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@Id", productId);
+
+            SqlDataReader reader = command.ExecuteReader();
+            Product product = null;
+            if (reader.Read())
+            {
+                product = ReadProduct(reader);
+            }
+            reader.Close();
+            CloseConnection();
+            return product;
+        }
         public Product ReadProduct(SqlDataReader reader)
         {
             Product product = new Product()
@@ -44,19 +63,7 @@ namespace SomerenDAL
 
             return product;
         }
-        public void UpdateStock(int productId, int newStockAmount)
-        {
-            string query = $"UPDATE [products] SET stock = @NewStockAmount WHERE productId = @ProductId";
-
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@NewStockAmount", newStockAmount);
-                command.Parameters.AddWithValue("@ProductId", productId);
-                command.ExecuteNonQuery();
-            }
-            CloseConnection();
-        }
-        public void UpdateProduct(Product updatedProduct)
+        public void UpdateProduct(Product product)
         {
             string query = @"UPDATE [products] 
                     SET name = @Name, stock = @Stock, VATRate = @VATRate, price = @Price
@@ -64,12 +71,41 @@ namespace SomerenDAL
 
             using (SqlCommand command = new SqlCommand(query, OpenConnection()))
             {
-                command.Parameters.AddWithValue("@Name", updatedProduct.Name);
-                command.Parameters.AddWithValue("@Stock", updatedProduct.Stock);
-                command.Parameters.AddWithValue("@VATRate", updatedProduct.VATRate);
-                command.Parameters.AddWithValue("@Price", updatedProduct.Price);
-                command.Parameters.AddWithValue("@ProductId", updatedProduct.ProductId);
+                command.Parameters.AddWithValue("@Name", product.Name);
+                command.Parameters.AddWithValue("@Stock", product.Stock);
+                command.Parameters.AddWithValue("@VATRate", product.VATRate);
+                command.Parameters.AddWithValue("@Price", product.Price);
+                command.Parameters.AddWithValue("@ProductId", product.ProductId);
                 command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+        public Product CreateProduct(Product product)
+        {
+            string query = $"INSERT INTO products (name, stock, VATRate, price) VALUES (@Name, @Stock, @VATRate, @Price); SELECT SCOPE_IDENTITY();";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@Name", product.Name);
+                command.Parameters.AddWithValue("@Stock", product.Stock);
+                command.Parameters.AddWithValue("@VATRate", product.VATRate);
+                command.Parameters.AddWithValue("@Price", product.Price);
+                command.ExecuteNonQuery();
+
+                int id = Convert.ToInt32(command.ExecuteScalar());
+                product.ProductId = id;
+            }
+            CloseConnection();
+            return product;
+        }
+        public void DeleteProduct(Product product)
+        {
+            string query = $"DELETE FROM Products WHERE ProductId = @Id";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@Id", product.ProductId);
+                int nrOfRowsAffected = command.ExecuteNonQuery();
             }
             CloseConnection();
         }

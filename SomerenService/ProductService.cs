@@ -12,6 +12,7 @@ namespace SomerenService
     public class ProductService
     {
         private ProductDao productdb;
+        private Product selectedProduct; // Declare a private field to store the selected product
 
         public ProductService()
         {
@@ -23,14 +24,28 @@ namespace SomerenService
             List<Product> products = productdb.GetAll(sortBy);
             return products;
         }
-        public void UpdateProductStock(int productId, int newStockAmount)
-        {
-            productdb.UpdateStock(productId, newStockAmount);
-        }
 
-        public void UpdateProduct(Product updatedProduct)
+        public void UpdateProduct(Product product)
         {
-            productdb.UpdateProduct(updatedProduct);
+            productdb.UpdateProduct(product);
+        }
+        public void DeleteProduct(Product product)
+        {
+            productdb.DeleteProduct(product);
+        }
+        public Product GetByIdProduct(Product product)
+        {
+            productdb.GetByIdProduct(product.ProductId); 
+            return product;
+        }
+        public Product CreateProduct(Product product)
+        {
+            productdb.CreateProduct(product);
+            return product;
+        }
+        public Product GetSelectedProduct()
+        {
+            return selectedProduct;
         }
     }
 }
