@@ -141,6 +141,13 @@ namespace SomerenUI
             ordersToolStripMenuItem.Text = "Orders";
             ordersToolStripMenuItem.Click += ordersToolStripMenuItem_Click;
             // 
+            // revenueToolStripMenuItem
+            // 
+            revenueToolStripMenuItem.Name = "revenueToolStripMenuItem";
+            ordersToolStripMenuItem.Size = new Size(82, 29);
+            revenueToolStripMenuItem.Text = "Revenue";
+            revenueToolStripMenuItem.Click += revenueToolStripMenuItem_Click;
+            // 
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
