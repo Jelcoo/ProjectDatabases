@@ -362,7 +362,6 @@ namespace SomerenUI
             }
         }
 
-        private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         private void DisplayRevenue(DateTime start, DateTime end)
         {
             try
@@ -607,13 +606,21 @@ namespace SomerenUI
             ShowProductsPanel();
         }
 
+        private string FormatDate(DateTime date)
+        {
+            return date.ToString("dd-MM-yyyy");
+        }
+
         private void updateRevenueSelector(object sender, EventArgs e)
         {
             DateTime startDate = revenueDateStart.Value;
             DateTime endDate = revenueDateEnd.Value;
 
-            revenueDateStart.MaxDate = endDate;
-            revenueDateEnd.MinDate = startDate;
+            if (FormatDate(startDate) != FormatDate(endDate))
+            {
+                revenueDateStart.MaxDate = endDate;
+                revenueDateEnd.MinDate = startDate;
+            }
 
             DisplayRevenue(startDate, endDate);
         }

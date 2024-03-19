@@ -50,6 +50,7 @@ namespace SomerenUI
             productEditNameLabel = new Label();
             listViewPanelProducts = new ListView();
             productDeleteButton = new Button();
+            dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             dashboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             studentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +94,7 @@ namespace SomerenUI
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, teachersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem, ordersToolStripMenuItem, revenueToolStripMenuItem });
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, teachersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem, productsToolStripMenuItem, ordersToolStripMenuItem, revenueToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 2, 0, 2);
@@ -174,7 +175,7 @@ namespace SomerenUI
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
-            pnlDashboard.Location = new Point(18, 45);
+            pnlDashboard.Location = new Point(15, 45);
             pnlDashboard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pnlDashboard.Name = "pnlDashboard";
             pnlDashboard.Size = new Size(1340, 776);
@@ -183,7 +184,7 @@ namespace SomerenUI
             // lblDashboard
             // 
             lblDashboard.AutoSize = true;
-            lblDashboard.Location = new Point(19, 22);
+            lblDashboard.Location = new Point(15, 22);
             lblDashboard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblDashboard.Name = "lblDashboard";
             lblDashboard.Size = new Size(313, 25);
@@ -192,14 +193,14 @@ namespace SomerenUI
             // 
             // pnlStudents
             // 
-            pnlStudents.Location = new Point(14, 31);
+            pnlStudents.Location = new Point(15, 31);
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new Size(1340, 660);
             pnlStudents.TabIndex = 2;
             // 
             // flowLayoutPanelStudents
             // 
-            flowLayoutPanelStudents.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelStudents.Location = new System.Drawing.Point(15, 48);
             flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
             flowLayoutPanelStudents.Size = new System.Drawing.Size(875, 347);
             flowLayoutPanelStudents.TabIndex = 1;
@@ -216,28 +217,28 @@ namespace SomerenUI
             // 
             // pnlTeachers
             // 
-            pnlTeachers.Location = new Point(14, 31);
+            pnlTeachers.Location = new Point(15, 31);
             pnlTeachers.Name = "pnlTeachers";
             pnlTeachers.Size = new Size(1340, 660);
             pnlTeachers.TabIndex = 2;
             // 
             // flowLayoutPanelTeachers
             // 
-            flowLayoutPanelTeachers.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelTeachers.Location = new System.Drawing.Point(15, 48);
             flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
             flowLayoutPanelTeachers.Size = new System.Drawing.Size(875, 347);
             flowLayoutPanelTeachers.TabIndex = 1;
             // 
             // pnlActivities
             // 
-            pnlActivities.Location = new Point(14, 31);
+            pnlActivities.Location = new Point(15, 31);
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new Size(1340, 660);
             pnlActivities.TabIndex = 2;
             // 
             // flowLayoutPanelActivities
             // 
-            flowLayoutPanelActivities.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelActivities.Location = new System.Drawing.Point(15, 48);
             flowLayoutPanelActivities.Name = "flowLayoutPanelActivities";
             flowLayoutPanelActivities.Size = new System.Drawing.Size(875, 347);
             flowLayoutPanelActivities.TabIndex = 1;
@@ -245,14 +246,14 @@ namespace SomerenUI
             // pnlRooms
             // 
             pnlRooms.Controls.Add(flowLayoutPanelRooms);
-            pnlRooms.Location = new System.Drawing.Point(14, 31);
+            pnlRooms.Location = new System.Drawing.Point(15, 31);
             pnlRooms.Name = "pnlRooms";
             pnlRooms.Size = new System.Drawing.Size(1072, 528);
             pnlRooms.TabIndex = 2;
             // 
             // flowLayoutPanelRooms
             // 
-            flowLayoutPanelRooms.Location = new System.Drawing.Point(18, 48);
+            flowLayoutPanelRooms.Location = new System.Drawing.Point(15, 48);
             flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
             flowLayoutPanelRooms.Size = new System.Drawing.Size(875, 347);
             flowLayoutPanelRooms.TabIndex = 1;
@@ -269,7 +270,7 @@ namespace SomerenUI
             pnlProducts.Controls.Add(productEditNameLabel);
             pnlProducts.Controls.Add(listViewPanelProducts);
             pnlProducts.Controls.Add(productDeleteButton);
-            pnlProducts.Location = new System.Drawing.Point(14, 31);
+            pnlProducts.Location = new System.Drawing.Point(15, 31);
             pnlProducts.Name = "pnlProducts";
             pnlProducts.Size = new System.Drawing.Size(1072, 528);
             pnlProducts.TabIndex = 2;
@@ -278,7 +279,7 @@ namespace SomerenUI
             // 
             productEditButton.Location = new System.Drawing.Point(745, 249);
             productEditButton.Name = "productEditButton";
-            productEditButton.Size = new System.Drawing.Size(94, 29);
+            productEditButton.Size = new System.Drawing.Size(94, 35);
             productEditButton.TabIndex = 10;
             productEditButton.Text = "Create";
             productEditButton.UseVisualStyleBackColor = true;
@@ -347,7 +348,7 @@ namespace SomerenUI
             // 
             // listViewPanelProducts
             // 
-            listViewPanelProducts.Location = new System.Drawing.Point(14, 60);
+            listViewPanelProducts.Location = new System.Drawing.Point(15, 60);
             listViewPanelProducts.Name = "listViewPanelProducts";
             listViewPanelProducts.Size = new System.Drawing.Size(700, 400);
             listViewPanelProducts.TabIndex = 0;
@@ -359,7 +360,7 @@ namespace SomerenUI
             // 
             productDeleteButton.Location = new System.Drawing.Point(859, 249);
             productDeleteButton.Name = "productDeleteButton";
-            productDeleteButton.Size = new System.Drawing.Size(94, 29);
+            productDeleteButton.Size = new System.Drawing.Size(94, 35);
             productDeleteButton.TabIndex = 1;
             productDeleteButton.Text = "Delete";
             productDeleteButton.Click += DeleteProductButton_Click;
@@ -368,7 +369,7 @@ namespace SomerenUI
             // pnlRooms
             // 
             pnlRooms.Controls.Add(listViewGeneral);
-            pnlRooms.Location = new Point(14, 31);
+            pnlRooms.Location = new Point(15, 31);
             pnlRooms.Name = "pnlRooms";
             pnlRooms.Size = new Size(1340, 660);
             pnlRooms.TabIndex = 2;
@@ -380,7 +381,7 @@ namespace SomerenUI
             pnlRevenue.Controls.Add(StartDatePickerLabel1);
             pnlRevenue.Controls.Add(revenueDateStart);
             pnlRevenue.Controls.Add(revenueDateEnd);
-            pnlRevenue.Location = new System.Drawing.Point(14, 31);
+            pnlRevenue.Location = new System.Drawing.Point(15, 31);
             pnlRevenue.Name = "pnlRevenue";
             pnlRevenue.Size = new System.Drawing.Size(1072, 528);
             pnlRevenue.TabIndex = 2;
@@ -413,7 +414,7 @@ namespace SomerenUI
             // 
             // revenueDateStart
             // 
-            revenueDateStart.Location = new System.Drawing.Point(17, 100);
+            revenueDateStart.Location = new System.Drawing.Point(15, 100);
             revenueDateStart.MaxDate = DateTime.Now;
             revenueDateStart.Name = "revenueDateStart";
             revenueDateStart.Size = new System.Drawing.Size(200, 27);
@@ -449,7 +450,7 @@ namespace SomerenUI
             // 
             ordersComboBoxLabel.AutoSize = true;
             ordersComboBoxLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            ordersComboBoxLabel.Location = new Point(22, 80);
+            ordersComboBoxLabel.Location = new Point(15, 80);
             ordersComboBoxLabel.Name = "ordersComboBoxLabel";
             ordersComboBoxLabel.Size = new Size(161, 28);
             ordersComboBoxLabel.TabIndex = 0;
