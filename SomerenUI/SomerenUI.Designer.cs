@@ -221,11 +221,10 @@ namespace SomerenUI
             // OutputRevenue
             // 
             OutputRevenue.AutoSize = true;
-            OutputRevenue.Location = new System.Drawing.Point(73, 184);
+            OutputRevenue.Location = new System.Drawing.Point(15, 184);
             OutputRevenue.Name = "OutputRevenue";
             OutputRevenue.Size = new System.Drawing.Size(0, 20);
             OutputRevenue.TabIndex = 3;
-
             // 
             // EndDatePickerLabel1
             // 
@@ -234,7 +233,7 @@ namespace SomerenUI
             EndDatePickerLabel1.Name = "EndDatePickerLabel1";
             EndDatePickerLabel1.Size = new System.Drawing.Size(69, 20);
             EndDatePickerLabel1.TabIndex = 2;
-            EndDatePickerLabel1.Text = "EndDate:";
+            EndDatePickerLabel1.Text = "End date:";
             // 
             // StartDatePickerLabel1
             // 
@@ -243,11 +242,11 @@ namespace SomerenUI
             StartDatePickerLabel1.Name = "StartDatePickerLabel1";
             StartDatePickerLabel1.Size = new System.Drawing.Size(75, 20);
             StartDatePickerLabel1.TabIndex = 1;
-            StartDatePickerLabel1.Text = "StartDate:";
+            StartDatePickerLabel1.Text = "Start date:";
             // 
             // revenueDateStart
             // 
-            revenueDateStart.Location = new System.Drawing.Point(15, 91);
+            revenueDateStart.Location = new System.Drawing.Point(17, 100);
             revenueDateStart.MaxDate = DateTime.Now;
             revenueDateStart.Name = "revenueDateStart";
             revenueDateStart.Size = new System.Drawing.Size(200, 27);
@@ -258,7 +257,7 @@ namespace SomerenUI
             // 
             // revenueDateEnd
             // 
-            revenueDateEnd.Location = new System.Drawing.Point(398, 91);
+            revenueDateEnd.Location = new System.Drawing.Point(400, 100);
             revenueDateEnd.MaxDate = DateTime.Now;
             revenueDateEnd.Name = "revenueDateEnd";
             revenueDateEnd.Size = new System.Drawing.Size(200, 27);
