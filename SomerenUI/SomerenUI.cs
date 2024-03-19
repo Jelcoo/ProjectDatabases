@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Drawing;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SomerenUI
 {
@@ -21,6 +22,7 @@ namespace SomerenUI
             panelList.Add(pnlTeachers);
             panelList.Add(pnlActivities);
             panelList.Add(pnlRooms);
+            panelList.Add(pnlRevenue);
         }
 
         private void ShowPanel(Panel panel)
@@ -95,6 +97,12 @@ namespace SomerenUI
             }
         }
 
+        private void ShowRevenuePanel()
+        {
+            ShowPanel(pnlRevenue);
+            SetHeader("Revenue");
+        }
+
         private void ShowActivitiesPanel()
         {
             ShowPanel(pnlActivities);
@@ -131,13 +139,21 @@ namespace SomerenUI
             List<Activity> activities = activityService.GetActivities(sortBy);
             return activities;
         }
-      
+
         private List<Room> GetRooms(string sortBy)
         {
             RoomService roomService = new RoomService();
             List<Room> rooms = roomService.GetRooms(sortBy);
             return rooms;
         }
+
+        private Revenue GetRevenue(DateTime startDate, DateTime endDate)
+        {
+            RevenueService revenueService = new RevenueService();
+            Revenue revenue = revenueService.GetRevenue(startDate, endDate);
+            return revenue;
+        }
+
 
         private void DisplayStudents(List<Student> students)
         {
@@ -203,6 +219,21 @@ namespace SomerenUI
             SetHeader("Rooms");
         }
 
+        private void DisplayRevenue(DateTime start, DateTime end)
+        {
+            try
+            {
+                // get and display revenue
+                Revenue revenue = GetRevenue(start, end);
+
+                OutputRevenue.Text = $"Turnover: {revenue.Turnover}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the revenue: " + e.Message);
+            }
+        }
+
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
         {
             SetHeader("Dashboard", false);
@@ -234,9 +265,25 @@ namespace SomerenUI
             ShowRoomsPanel();
         }
 
+        private void revenueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowRevenuePanel();
+        }
+
         private void SomerenUI_Load(object sender, EventArgs e)
         {
             ShowPanel(pnlDashboard);
+        }
+
+        private void updateRevenueSelector(object sender, EventArgs e)
+        {
+            DateTime startDate = revenueDateStart.Value;
+            DateTime endDate = revenueDateEnd.Value;
+
+            revenueDateStart.MaxDate = endDate;
+            revenueDateEnd.MinDate = startDate;
+
+            DisplayRevenue(startDate, endDate);
         }
     }
 }
