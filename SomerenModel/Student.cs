@@ -16,10 +16,5 @@ namespace SomerenModel
         public string Class { get; set; }
         public int Vouchers { get; set; }
         public int RoomId { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

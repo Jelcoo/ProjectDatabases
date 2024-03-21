@@ -33,6 +33,7 @@ namespace SomerenDAL
 
             return revenue;
         }
+
         private Revenue Readrevenue(SqlDataReader reader)
         {
             reader.GetColumnSchema();

@@ -30,19 +30,6 @@ namespace SomerenDAL
             return students;
         }
 
-        public Student GetById(int studentId)
-        {
-            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students] WHERE studentId=@Id", OpenConnection());
-            command.Parameters.AddWithValue("@Id", studentId);
-
-            SqlDataReader reader = command.ExecuteReader();
-            Student student = ReadStudent(reader);
-            reader.Close();
-            CloseConnection();
-
-            return student;
-        }
-
         public Student ReadStudent(SqlDataReader reader)
         {
             Student student = new Student()
