@@ -698,7 +698,7 @@ namespace SomerenUI
             DisplayRevenue(startDate, endDate);
         }
 
-        private void vATToolStripMenuItem_Click(object sender, EventArgs e)
+        private void vatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowVatPanel();
         }
