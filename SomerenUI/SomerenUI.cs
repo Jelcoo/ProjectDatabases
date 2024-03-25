@@ -13,6 +13,7 @@ namespace SomerenUI
         private Student selectedOrderStudent = null;
         private Order unprocessedOrder = null;
         private Product selectedProduct;
+        private string selectedQuarter = null;
 
         public SomerenUI()
         {
@@ -402,40 +403,29 @@ namespace SomerenUI
             Helpers.CopyAndCloneLabel(lblRecordTotal, $"€{summary["VATAmount"]:0.00}", counter);
         }
 
-        private void DisplayVat(string quarter = null)
+        private void DisplayVat(object sender = null, EventArgs e = null)
         {
-            ResetVatLabels(quarter);
+            ResetVatLabels(selectedQuarter);
             VATService vatService = new VATService();
-            List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates(GetYear(), quarter));
+            List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates((int)txtYear.Value, selectedQuarter));
             for (int i = 0; i < vatSummary.Count; i++)
             {
                 CreateVatLabels(vatSummary[i], i);
             }
 
-            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates(GetYear(), quarter));
+            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates((int)txtYear.Value, selectedQuarter));
             lblTotalToPayValue.Text = $"€{Math.Round(totalTaxNeeded, 2)}";
         }
 
         private void ResetVatLabels(string quarter)
         {
-            lblDates.Text = Helpers.GetQuarterDates(GetYear(), quarter)[0].ToString("dddd dd/MM/yyyy") + " - " + Helpers.GetQuarterDates(GetYear(), quarter)[1].ToString("dddd dd/MM/yyyy");
+            lblDates.Text = Helpers.GetQuarterDates((int)txtYear.Value, quarter)[0].ToString("dddd dd/MM/yyyy") + " - " + Helpers.GetQuarterDates((int)txtYear.Value, quarter)[1].ToString("dddd dd/MM/yyyy");
             Helpers.RemoveControlsWithTag("clonedLabel", this);
             lblRecordTypeVat.Text = "Overig";
             lblRecordPercentage.Text = "0%";
             lblRecordOrders.Text = "0";
             lblRecordProducts.Text = "0";
             lblRecordTotal.Text = "€0.00";
-        }
-
-        private int GetYear()
-        {
-            if (txtYear.Text.Length == 4 && int.TryParse(txtYear.Text, out int year)) return year;
-            else
-            {
-                if (txtYear.Text.Length != 0) MessageBox.Show("Invalid year");
-
-                return DateTime.Now.Year;
-            }
         }
 
         private void orderProduct_Click(object sender, EventArgs e)
@@ -631,22 +621,22 @@ namespace SomerenUI
 
         private void btnQ1_Click(object sender, EventArgs e)
         {
-            DisplayVat("Q1");
+            this.selectedQuarter = "Q1";
         }
 
         private void btnQ2_Click(object sender, EventArgs e)
         {
-            DisplayVat("Q2");
+            this.selectedQuarter = "Q2";
         }
 
         private void btnQ3_Click(object sender, EventArgs e)
         {
-            DisplayVat("Q3");
+            this.selectedQuarter = "Q3";
         }
 
         private void btnQ4_Click(object sender, EventArgs e)
         {
-            DisplayVat("Q4");
+            this.selectedQuarter = "Q4";
         }
     }
 }

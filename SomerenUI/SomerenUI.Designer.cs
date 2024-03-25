@@ -97,7 +97,7 @@ namespace SomerenUI
             pnlStudents = new Panel();
             pnlTeachers = new Panel();
             pnlVat = new Panel();
-            txtYear = new TextBox();
+            txtYear = new NumericUpDown();
             gbQuarter.SuspendLayout();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -144,6 +144,7 @@ namespace SomerenUI
             btnQ1.Text = "Q1";
             btnQ1.UseVisualStyleBackColor = false;
             btnQ1.Click += btnQ1_Click;
+            btnQ1.Click += DisplayVat;
             // 
             // btnQ2
             // 
@@ -158,6 +159,7 @@ namespace SomerenUI
             btnQ2.Text = "Q2";
             btnQ2.UseVisualStyleBackColor = false;
             btnQ2.Click += btnQ2_Click;
+            btnQ2.Click += DisplayVat;
             // 
             // btnQ3
             // 
@@ -172,6 +174,7 @@ namespace SomerenUI
             btnQ3.Text = "Q3";
             btnQ3.UseVisualStyleBackColor = false;
             btnQ3.Click += btnQ3_Click;
+            btnQ3.Click += DisplayVat;
             // 
             // btnQ4
             // 
@@ -186,6 +189,7 @@ namespace SomerenUI
             btnQ4.Text = "Q4";
             btnQ4.UseVisualStyleBackColor = false;
             btnQ4.Click += btnQ4_Click;
+            btnQ4.Click += DisplayVat;
             // 
             // dashboardToolStripMenuItem
             // 
@@ -756,6 +760,10 @@ namespace SomerenUI
             txtYear.Name = "txtYear";
             txtYear.Size = new Size(125, 31);
             txtYear.TabIndex = 2;
+            txtYear.Minimum = 0;
+            txtYear.Maximum = DateTime.Today.Year;
+            txtYear.Value = DateTime.Today.Year;
+            txtYear.ValueChanged += DisplayVat;
             // 
             // SomerenUI
             // 
@@ -856,7 +864,7 @@ namespace SomerenUI
         private Panel pnlVat;
         private PictureBox pictureBox1;
         private TextBox productEditNameInput;
-        private TextBox txtYear;
+        private NumericUpDown txtYear;
         private ToolStripMenuItem activitiesToolStripMenuItem;
         private ToolStripMenuItem dashboardToolStripMenuItem;
         private ToolStripMenuItem dashboardToolStripMenuItem1;
