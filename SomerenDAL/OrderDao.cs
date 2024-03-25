@@ -118,10 +118,10 @@ namespace SomerenDAL
             {
                 Dictionary<string, object> summary = new Dictionary<string, object>
         {
-            { "VATRate", reader["VATRate"] },
-            { "VATAmount", reader["VATAmount"] },
-            { "TotalProductsSold", reader["TotalProductsSold"] },
-            { "NumberOfOrders", reader["NumberOfOrders"] }
+            { "VATRate",  reader["VATRate"] },
+            { "VATAmount",  reader["VATAmount"]},
+            { "TotalProductsSold",  reader["TotalProductsSold"] },
+            { "NumberOfOrders",  reader["NumberOfOrders"] }
         };
 
                 vatSummaries.Add(summary);
@@ -135,26 +135,33 @@ namespace SomerenDAL
         public double GetTotalTaxNeeded(DateTime startDate, DateTime endDate)
         {
             string query = @"
-        SELECT 
-            SUM(ol.quantity * p.price * p.VATRate) AS TotalTaxNeeded
-        FROM 
-            orders o
-        JOIN 
-            orderlines ol ON o.orderId = ol.orderId
-        JOIN 
-            products p ON ol.productId = p.productId
-        WHERE 
-            o.orderTimestamp BETWEEN @startDate AND @endDate;";
+SELECT 
+    SUM(ol.quantity * p.price * p.VATRate) AS TotalTaxNeeded
+FROM 
+    orders o
+JOIN 
+    orderlines ol ON o.orderId = ol.orderId
+JOIN 
+    products p ON ol.productId = p.productId
+WHERE 
+    o.orderTimestamp BETWEEN @startDate AND @endDate;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@startDate", startDate);
             command.Parameters.AddWithValue("@endDate", endDate);
 
-            double totalTaxNeeded = (double)command.ExecuteScalar();
+            object result = command.ExecuteScalar();
+            double totalTaxNeeded = 0;
+
+            if (result != DBNull.Value)
+            {
+                totalTaxNeeded = Convert.ToDouble(result);
+            }
 
             CloseConnection();
 
             return totalTaxNeeded;
         }
+
     }
 }

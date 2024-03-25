@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -59,9 +61,9 @@ namespace SomerenUI
             else
                 return "Overig";
         }
-        public static Label CopyAndCloneLabel(Label originalLabel, string newText, string? tag = "clonedLabel")
+        public static Label CopyAndCloneLabel(Label originalLabel, string newText, int counter, string? tag = "clonedLabel")
         {
-            if (originalLabel.Tag == null)
+            if (counter == 0)
             {
                 originalLabel.Text = newText;
                 return null;
@@ -70,16 +72,20 @@ namespace SomerenUI
             {
                 // Create a new Label and copy properties from the original label
                 Label clonedLabel = new Label();
-                clonedLabel.Left = originalLabel.Left;
                 clonedLabel.Location = originalLabel.Location;
-                clonedLabel.Top = originalLabel.Bottom + 30; // Place 30px below the original
+
+
+                // Place the cloned label below the lowest positioned element in the same column
+                clonedLabel.Top = originalLabel.Top + originalLabel.Height + 30 * counter; // Adjust the spacing as needed
 
                 clonedLabel.Margin = originalLabel.Margin;
                 clonedLabel.Text = newText;
                 clonedLabel.Font = originalLabel.Font;
                 clonedLabel.Size = originalLabel.Size;
+                clonedLabel.Padding = originalLabel.Padding;
                 clonedLabel.Tag = tag;
                 clonedLabel.Visible = true; // Ensure it's visible
+                clonedLabel.Width = 60;
 
                 // Add the cloned label to the form or a specific container
                 originalLabel.Parent.Controls.Add(clonedLabel);
@@ -90,7 +96,38 @@ namespace SomerenUI
             }
         }
 
+        public static T DeepCopy<T>(T other)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(ms, other);
+                ms.Position = 0;
+                return (T)formatter.Deserialize(ms);
+            }
+        }
+        public static void RemoveControlsWithTag(string tag, Control parent)
+        {
+            var taggedControls = new List<Control>();
 
+            foreach (Control control in parent.Controls)
+            {
+                if (control.Tag?.ToString() == tag)
+                {
+                    taggedControls.Add(control);
+                }
 
+                // Recursively call this method in case this is a container
+                if (control.HasChildren)
+                {
+                    RemoveControlsWithTag(tag, control);
+                }
+            }
+
+            foreach (Control control in taggedControls)
+            {
+                parent.Controls.Remove(control);
+            }
+        }
     }
 }

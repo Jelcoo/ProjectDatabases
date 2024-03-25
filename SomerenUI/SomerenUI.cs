@@ -224,41 +224,59 @@ namespace SomerenUI
             SetHeader("Rooms");
         }
 
-        private void DisplayVat()
+        private void DisplayVat(string? quarter = null)
         {
             SetHeader("VAT");
             VATService vatService = new VATService();
 
-            List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates());
-            if (vatSummary != null)
-            {
-                string message = "";
-                foreach (var summary in vatSummary)
-                    message += $"VAT Rate: {summary["VATRate"]}, VAT Amount: {summary["VATAmount"]}, Total Products Sold: {summary["TotalProductsSold"]}, Number of Orders: {summary["NumberOfOrders"]}\n";
-                MessageBox.Show(message);
-            }
+            List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates(getYear(), quarter));
+            lblDates.Text = Helpers.GetQuarterDates(getYear(), quarter)[0].ToString("dddd dd/MM/yyyy") + " - " + Helpers.GetQuarterDates(getYear(), quarter)[1].ToString("dddd dd/MM/yyyy");
+            //if there is an element Label with tag clonedLabel then remove all of them
+            Helpers.RemoveControlsWithTag("clonedLabel", this);
+            lblRecordTypeVat.Text = "Overig";
+            lblRecordPercentage.Text = "0%";
+            lblRecordOrders.Text = "0";
+            lblRecordProducts.Text = "0";
+            lblRecordTotal.Text = "€ 0.00";
 
+            int counter = 0;
             foreach (var summary in vatSummary)
             {
-                Label vatType = Helpers.CopyAndCloneLabel(lblRecordTypeVat, Helpers.GetVatType((double)summary["VATRate"]).ToString());
-                pnlVat.Controls.Add(vatType);
+                string vatAmount = String.Format("{0:N2}", summary["VATAmount"]);
+                Label vatType = Helpers.CopyAndCloneLabel(lblRecordTypeVat, Helpers.GetVatType((double)summary["VATRate"]).ToString(), counter);
 
-                Label vatPercentage = Helpers.CopyAndCloneLabel(lblRecordPercentage, ((double)summary["VATRate"] * 100).ToString() + "%");
-                pnlVat.Controls.Add(vatPercentage);
+                Label vatPercentage = Helpers.CopyAndCloneLabel(lblRecordPercentage, ((double)summary["VATRate"] * 100).ToString() + "%", counter);
 
-                Label orders = Helpers.CopyAndCloneLabel(lblRecordOrders, summary["NumberOfOrders"].ToString());
-                pnlVat.Controls.Add(orders);
+                Label orders = Helpers.CopyAndCloneLabel(lblRecordOrders, summary["NumberOfOrders"].ToString(), counter);
 
-                Label products = Helpers.CopyAndCloneLabel(lblRecordProducts, summary["TotalProductsSold"].ToString());
-                pnlVat.Controls.Add(products);
+                Label products = Helpers.CopyAndCloneLabel(lblRecordProducts, summary["TotalProductsSold"].ToString(), counter);
 
-                Label total = Helpers.CopyAndCloneLabel(lblRecordTotal, "€" + summary["VATAmount"].ToString());
-                pnlVat.Controls.Add(total);
+                Label total = Helpers.CopyAndCloneLabel(lblRecordTotal, "€" + vatAmount, counter);
+
+                counter++;
             }
+            counter = 0;
 
             // Display total tax needed
-            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates());
+            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates(getYear(), quarter));
             lblTotalToPayValue.Text = $"€{Math.Round(totalTaxNeeded, 2)}";
+        }
+
+        private int getYear()
+        {
+            if (txtYear.Text.Length == 4 && int.TryParse(txtYear.Text, out int year))
+            {
+                return year;
+            }
+            else
+            {
+                if (txtYear.Text.Length != 0)
+                {
+                    MessageBox.Show("Invalid year");
+                }
+
+                return DateTime.Now.Year;
+            }
         }
 
 
@@ -305,7 +323,27 @@ namespace SomerenUI
 
         private void txtYear_TextChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("Hello world");
+
+        }
+
+        private void btnQ1_Click(object sender, EventArgs e)
+        {
+            DisplayVat("Q1");
+        }
+
+        private void btnQ2_Click(object sender, EventArgs e)
+        {
+            DisplayVat("Q2");
+        }
+
+        private void btnQ3_Click(object sender, EventArgs e)
+        {
+            DisplayVat("Q3");
+        }
+
+        private void btnQ4_Click(object sender, EventArgs e)
+        {
+            DisplayVat("Q4");
         }
     }
 }

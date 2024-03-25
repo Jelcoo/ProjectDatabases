@@ -188,20 +188,21 @@ namespace SomerenUI
             pnlVat.Controls.Add(lblYear);
             pnlVat.Controls.Add(txtYear);
             pnlVat.Controls.Add(lblDates);
-            pnlVat.Location = new Point(73, 197);
+            pnlVat.Location = new Point(30, 80);
             pnlVat.Name = "pnlVat";
             pnlVat.Size = new Size(886, 347);
             pnlVat.TabIndex = 1;
             // 
             // lblRecordProducts
             // 
-            lblRecordProducts.AutoSize = true;
             lblRecordProducts.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRecordProducts.Location = new Point(294, 125);
+            lblRecordProducts.Location = new Point(307, 125);
             lblRecordProducts.Name = "lblRecordProducts";
-            lblRecordProducts.Size = new Size(50, 23);
+            lblRecordProducts.Size = new Size(80, 23);
             lblRecordProducts.TabIndex = 20;
-            lblRecordProducts.Text = "€0.00";
+            lblRecordProducts.Tag = "PlaceholderRecordsLabel";
+            lblRecordProducts.Text = "0";
+            lblRecordProducts.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblProducts
             // 
@@ -215,13 +216,14 @@ namespace SomerenUI
             // 
             // lblRecordOrders
             // 
-            lblRecordOrders.AutoSize = true;
             lblRecordOrders.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRecordOrders.Location = new Point(217, 125);
+            lblRecordOrders.Location = new Point(229, 125);
             lblRecordOrders.Name = "lblRecordOrders";
-            lblRecordOrders.Size = new Size(50, 23);
+            lblRecordOrders.Size = new Size(80, 23);
             lblRecordOrders.TabIndex = 18;
-            lblRecordOrders.Text = "€0.00";
+            lblRecordOrders.Tag = "PlaceholderRecordsLabel";
+            lblRecordOrders.Text = "0";
+            lblRecordOrders.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblOrders
             // 
@@ -257,33 +259,37 @@ namespace SomerenUI
             // 
             // lblRecordTotal
             // 
-            lblRecordTotal.AutoSize = true;
             lblRecordTotal.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblRecordTotal.Location = new Point(373, 125);
             lblRecordTotal.Name = "lblRecordTotal";
-            lblRecordTotal.Size = new Size(50, 23);
+            lblRecordTotal.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            lblRecordTotal.Size = new Size(80, 23);
             lblRecordTotal.TabIndex = 14;
+            lblRecordTotal.Tag = "PlaceholderRecordsLabel";
             lblRecordTotal.Text = "€0.00";
+            lblRecordTotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblRecordPercentage
             // 
-            lblRecordPercentage.AutoSize = true;
             lblRecordPercentage.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblRecordPercentage.Location = new Point(142, 125);
             lblRecordPercentage.Name = "lblRecordPercentage";
-            lblRecordPercentage.Size = new Size(33, 23);
+            lblRecordPercentage.Size = new Size(80, 23);
             lblRecordPercentage.TabIndex = 13;
+            lblRecordPercentage.Tag = "PlaceholderRecordsLabel";
             lblRecordPercentage.Text = "0%";
+            lblRecordPercentage.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblRecordTypeVat
             // 
-            lblRecordTypeVat.AutoSize = true;
             lblRecordTypeVat.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblRecordTypeVat.Location = new Point(33, 125);
             lblRecordTypeVat.Name = "lblRecordTypeVat";
-            lblRecordTypeVat.Size = new Size(60, 23);
+            lblRecordTypeVat.Size = new Size(80, 23);
             lblRecordTypeVat.TabIndex = 12;
+            lblRecordTypeVat.Tag = "PlaceholderRecordsLabel";
             lblRecordTypeVat.Text = "Overig";
+            lblRecordTypeVat.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblTotal
             // 
@@ -322,7 +328,7 @@ namespace SomerenUI
             gbQuarter.Controls.Add(btnQ2);
             gbQuarter.Controls.Add(btnQ3);
             gbQuarter.Font = new Font("Segoe UI Semilight", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            gbQuarter.Location = new Point(701, 96);
+            gbQuarter.Location = new Point(701, 148);
             gbQuarter.Name = "gbQuarter";
             gbQuarter.Size = new Size(165, 178);
             gbQuarter.TabIndex = 8;
@@ -341,6 +347,7 @@ namespace SomerenUI
             btnQ1.Tag = "Q1";
             btnQ1.Text = "Q1";
             btnQ1.UseVisualStyleBackColor = false;
+            btnQ1.Click += btnQ1_Click;
             // 
             // btnQ4
             // 
@@ -354,6 +361,7 @@ namespace SomerenUI
             btnQ4.Tag = "Q4";
             btnQ4.Text = "Q4";
             btnQ4.UseVisualStyleBackColor = false;
+            btnQ4.Click += btnQ4_Click;
             // 
             // btnQ2
             // 
@@ -367,6 +375,7 @@ namespace SomerenUI
             btnQ2.Tag = "Q2";
             btnQ2.Text = "Q2";
             btnQ2.UseVisualStyleBackColor = false;
+            btnQ2.Click += btnQ2_Click;
             // 
             // btnQ3
             // 
@@ -380,12 +389,13 @@ namespace SomerenUI
             btnQ3.Tag = "Q3";
             btnQ3.Text = "Q3";
             btnQ3.UseVisualStyleBackColor = false;
+            btnQ3.Click += btnQ3_Click;
             // 
             // lblYear
             // 
             lblYear.AutoSize = true;
             lblYear.Font = new Font("Segoe UI Semilight", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            lblYear.Location = new Point(701, 29);
+            lblYear.Location = new Point(701, 74);
             lblYear.Name = "lblYear";
             lblYear.Size = new Size(84, 31);
             lblYear.TabIndex = 1;
@@ -393,7 +403,7 @@ namespace SomerenUI
             // 
             // txtYear
             // 
-            txtYear.Location = new Point(701, 63);
+            txtYear.Location = new Point(701, 108);
             txtYear.Name = "txtYear";
             txtYear.Size = new Size(125, 27);
             txtYear.TabIndex = 2;
