@@ -425,7 +425,7 @@ namespace SomerenUI
             this.unprocessedOrder.OrderLines = new List<OrderLine>();
         }
 
-        private void DisplayVat(string? quarter = null)
+        private void DisplayVat(string quarter = null)
         {
             SetHeader("VAT");
             VATService vatService = new VATService();
@@ -438,7 +438,7 @@ namespace SomerenUI
             lblRecordPercentage.Text = "0%";
             lblRecordOrders.Text = "0";
             lblRecordProducts.Text = "0";
-            lblRecordTotal.Text = "� 0.00";
+            lblRecordTotal.Text = "€0.00";
 
             int counter = 0;
             foreach (var summary in vatSummary)
@@ -452,7 +452,7 @@ namespace SomerenUI
 
                 Label products = Helpers.CopyAndCloneLabel(lblRecordProducts, summary["TotalProductsSold"].ToString(), counter);
 
-                Label total = Helpers.CopyAndCloneLabel(lblRecordTotal, "�" + vatAmount, counter);
+                Label total = Helpers.CopyAndCloneLabel(lblRecordTotal, "€" + vatAmount, counter);
 
                 counter++;
             }
@@ -460,7 +460,7 @@ namespace SomerenUI
 
             // Display total tax needed
             double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates(getYear(), quarter));
-            lblTotalToPayValue.Text = $"�{Math.Round(totalTaxNeeded, 2)}";
+            lblTotalToPayValue.Text = $"€{Math.Round(totalTaxNeeded, 2)}";
         }
 
         private int getYear()

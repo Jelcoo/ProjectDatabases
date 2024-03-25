@@ -6,7 +6,7 @@ namespace SomerenUI
 {
     public class Helpers
     {
-        public static DateTime[] GetQuarterDates(int? year = null, string? quarter = null)
+        public static DateTime[] GetQuarterDates(int? year = null, string quarter = null)
         {
             // Determine the current year and quarter if not specified
             if (year == null)
@@ -20,7 +20,7 @@ namespace SomerenUI
             }
 
             // Calculate the start and end dates based on the specified year and quarter
-            int monthStart = (quarter == "Q1" ? 1 : quarter == "Q2" ? 4 : quarter == "Q3" ? 7 : 10);
+            int monthStart = quarter == "Q1" ? 1 : quarter == "Q2" ? 4 : quarter == "Q3" ? 7 : 10;
             DateTime startDate = new DateTime(year.Value, monthStart, 1);
             DateTime endDate = startDate.AddMonths(3).AddDays(-1);
 
@@ -38,7 +38,7 @@ namespace SomerenUI
                 return "Overig";
         }
 
-        public static Label CopyAndCloneLabel(Label originalLabel, string newText, int counter, string? tag = "clonedLabel")
+        public static Label CopyAndCloneLabel(Label originalLabel, string newText, int counter, string tag = "clonedLabel")
         {
             if (counter == 0)
             {
@@ -62,7 +62,7 @@ namespace SomerenUI
                 clonedLabel.Padding = originalLabel.Padding;
                 clonedLabel.Tag = tag;
                 clonedLabel.Visible = true; // Ensure it's visible
-                clonedLabel.Width = 60;
+                clonedLabel.Width = 80;
 
                 // Add the cloned label to the form or a specific container
                 originalLabel.Parent.Controls.Add(clonedLabel);
