@@ -386,7 +386,7 @@ namespace SomerenUI
                 // get and display revenue
                 Revenue revenue = GetRevenue(start, end);
 
-                OutputRevenue.Text = $"Turnover: €{revenue.Turnover:0.00}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
+                outputRevenue.Text = $"Turnover: €{revenue.Turnover:0.00}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
             }
             catch (Exception e)
             {
@@ -429,8 +429,8 @@ namespace SomerenUI
             SetHeader("VAT");
             VATService vatService = new VATService();
 
-            List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates(getYear(), quarter));
-            lblDates.Text = Helpers.GetQuarterDates(getYear(), quarter)[0].ToString("dddd dd/MM/yyyy") + " - " + Helpers.GetQuarterDates(getYear(), quarter)[1].ToString("dddd dd/MM/yyyy");
+            List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates(GetYear(), quarter));
+            lblDates.Text = Helpers.GetQuarterDates(GetYear(), quarter)[0].ToString("dddd dd/MM/yyyy") + " - " + Helpers.GetQuarterDates(GetYear(), quarter)[1].ToString("dddd dd/MM/yyyy");
             //if there is an element Label with tag clonedLabel then remove all of them
             Helpers.RemoveControlsWithTag("clonedLabel", this);
             lblRecordTypeVat.Text = "Overig";
@@ -458,11 +458,11 @@ namespace SomerenUI
             counter = 0;
 
             // Display total tax needed
-            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates(getYear(), quarter));
+            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates(GetYear(), quarter));
             lblTotalToPayValue.Text = $"€{Math.Round(totalTaxNeeded, 2)}";
         }
 
-        private int getYear()
+        private int GetYear()
         {
             if (txtYear.Text.Length == 4 && int.TryParse(txtYear.Text, out int year))
             {
@@ -683,7 +683,7 @@ namespace SomerenUI
             return date.ToString("dd-MM-yyyy");
         }
 
-        private void updateRevenueSelector(object sender, EventArgs e)
+        private void UpdateRevenueSelector(object sender, EventArgs e)
         {
             DateTime startDate = revenueDateStart.Value;
             DateTime endDate = revenueDateEnd.Value;

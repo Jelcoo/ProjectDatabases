@@ -74,7 +74,7 @@ namespace SomerenUI
             orderProcessButton = new Button();
             ordersComboBox = new ComboBox();
             ordersComboBoxLabel = new Label();
-            OutputRevenue = new Label();
+            outputRevenue = new Label();
             pictureBox1 = new PictureBox();
             pnlActivities = new Panel();
             pnlDashboard = new Panel();
@@ -90,7 +90,7 @@ namespace SomerenUI
             productEditNameLabel = new Label();
             productDeleteButton = new Button();
             pnlRevenue = new Panel();
-            StartDatePickerLabel1 = new Label();
+            startDatePickerLabel1 = new Label();
             revenueDateStart = new DateTimePicker();
             revenueDateEnd = new DateTimePicker();
             pnlRooms = new Panel();
@@ -513,13 +513,13 @@ namespace SomerenUI
             ordersComboBoxLabel.TabIndex = 0;
             ordersComboBoxLabel.Text = "Selecteer leerling";
             // 
-            // OutputRevenue
+            // outputRevenue
             // 
-            OutputRevenue.AutoSize = true;
-            OutputRevenue.Location = new Point(15, 184);
-            OutputRevenue.Name = "OutputRevenue";
-            OutputRevenue.Size = new Size(0, 25);
-            OutputRevenue.TabIndex = 3;
+            outputRevenue.AutoSize = true;
+            outputRevenue.Location = new Point(15, 184);
+            outputRevenue.Name = "outputRevenue";
+            outputRevenue.Size = new Size(0, 25);
+            outputRevenue.TabIndex = 3;
             // 
             // pictureBox1
             // 
@@ -659,9 +659,9 @@ namespace SomerenUI
             // 
             // pnlRevenue
             // 
-            pnlRevenue.Controls.Add(OutputRevenue);
+            pnlRevenue.Controls.Add(outputRevenue);
             pnlRevenue.Controls.Add(EndDatePickerLabel1);
-            pnlRevenue.Controls.Add(StartDatePickerLabel1);
+            pnlRevenue.Controls.Add(startDatePickerLabel1);
             pnlRevenue.Controls.Add(revenueDateStart);
             pnlRevenue.Controls.Add(revenueDateEnd);
             pnlRevenue.Location = new Point(15, 31);
@@ -669,14 +669,14 @@ namespace SomerenUI
             pnlRevenue.Size = new Size(1072, 528);
             pnlRevenue.TabIndex = 2;
             // 
-            // StartDatePickerLabel1
+            // startDatePickerLabel1
             // 
-            StartDatePickerLabel1.AutoSize = true;
-            StartDatePickerLabel1.Location = new Point(15, 68);
-            StartDatePickerLabel1.Name = "StartDatePickerLabel1";
-            StartDatePickerLabel1.Size = new Size(92, 25);
-            StartDatePickerLabel1.TabIndex = 1;
-            StartDatePickerLabel1.Text = "Start date:";
+            startDatePickerLabel1.AutoSize = true;
+            startDatePickerLabel1.Location = new Point(15, 68);
+            startDatePickerLabel1.Name = "startDatePickerLabel1";
+            startDatePickerLabel1.Size = new Size(92, 25);
+            startDatePickerLabel1.TabIndex = 1;
+            startDatePickerLabel1.Text = "Start date:";
             // 
             // revenueDateStart
             // 
@@ -688,7 +688,7 @@ namespace SomerenUI
             revenueDateStart.Size = new Size(200, 31);
             revenueDateStart.TabIndex = 0;
             revenueDateStart.Value = DateTime.Today;
-            revenueDateStart.ValueChanged += updateRevenueSelector;
+            revenueDateStart.ValueChanged += UpdateRevenueSelector;
             // 
             // revenueDateEnd
             // 
@@ -700,7 +700,7 @@ namespace SomerenUI
             revenueDateEnd.Size = new Size(200, 31);
             revenueDateEnd.TabIndex = 0;
             revenueDateEnd.Value = DateTime.Today;
-            revenueDateEnd.ValueChanged += updateRevenueSelector;
+            revenueDateEnd.ValueChanged += UpdateRevenueSelector;
             // 
             // pnlRooms
             // 
@@ -833,11 +833,11 @@ namespace SomerenUI
         private Label lblYear;
         private Label orderDetailsLabel;
         private Label ordersComboBoxLabel;
-        private Label OutputRevenue;
+        private Label outputRevenue;
         private Label productEditNameLabel;
         private Label productEditPriceLabel;
         private Label productEditStockLabel;
-        private Label StartDatePickerLabel1;
+        private Label startDatePickerLabel1;
         private ListView listViewGeneral;
         private ListView listViewPanelProducts;
         private MenuStrip menuStrip1;
