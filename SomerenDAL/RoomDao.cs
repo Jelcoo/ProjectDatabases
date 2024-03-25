@@ -8,7 +8,7 @@ namespace SomerenDAL
     {
         public List<Room> GetAll()
         {
-            SqlCommand command = new SqlCommand("SELECT roomId, building, floor, amountOfBeds FROM [rooms]", OpenConnection());
+            SqlCommand command = new SqlCommand("SELECT roomId, building, floor, amountOfBeds FROM [rooms] ORDER BY building, floor, roomId ASC", OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Room> rooms = new List<Room>();

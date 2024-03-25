@@ -13,9 +13,9 @@ namespace SomerenService
             teacherdb = new TeacherDao();
         }
 
-        public List<Teacher> GetTeachers(string sortBy = null)
+        public List<Teacher> GetTeachers()
         {
-            List<Teacher> teachers = teacherdb.GetAll(sortBy);
+            List<Teacher> teachers = teacherdb.GetAll();
             return teachers;
         }
     }

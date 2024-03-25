@@ -59,7 +59,7 @@ namespace SomerenUI
 
             try
             {
-                List<Student> students = GetStudents("lastName DESC");
+                List<Student> students = GetStudents();
                 DisplayStudents(students);
             }
             catch (Exception e)
@@ -74,7 +74,7 @@ namespace SomerenUI
 
             try
             {
-                List<Teacher> teachers = GetTeachers("lastName DESC");
+                List<Teacher> teachers = GetTeachers();
                 DisplayTeachers(teachers);
             }
             catch (Exception e)
@@ -89,7 +89,7 @@ namespace SomerenUI
 
             try
             {
-                List<Room> rooms = GetRooms("building, floor, roomId ASC");
+                List<Room> rooms = GetRooms();
                 DisplayRooms(rooms);
             }
             catch (Exception e)
@@ -140,7 +140,7 @@ namespace SomerenUI
 
             try
             {
-                List<Student> students = GetStudents("lastName DESC");
+                List<Student> students = GetStudents();
                 DisplayOrderStudents(students);
             }
             catch (Exception e)
@@ -155,7 +155,7 @@ namespace SomerenUI
 
             try
             {
-                List<Product> products = GetProducts("name ASC");
+                List<Product> products = GetProducts();
                 DisplayOrderProducts(products);
             }
             catch (Exception e)
@@ -179,17 +179,17 @@ namespace SomerenUI
             }
         }
 
-        private List<Student> GetStudents(string sortBy)
+        private List<Student> GetStudents()
         {
             StudentService studentService = new StudentService();
-            List<Student> students = studentService.GetStudents(sortBy);
+            List<Student> students = studentService.GetStudents();
             return students;
         }
 
-        private List<Teacher> GetTeachers(string sortBy)
+        private List<Teacher> GetTeachers()
         {
             TeacherService teacherService = new TeacherService();
-            List<Teacher> teachers = teacherService.GetTeachers(sortBy);
+            List<Teacher> teachers = teacherService.GetTeachers();
             return teachers;
         }
 
@@ -200,10 +200,10 @@ namespace SomerenUI
             return activities;
         }
 
-        private List<Room> GetRooms(string sortBy)
+        private List<Room> GetRooms()
         {
             RoomService roomService = new RoomService();
-            List<Room> rooms = roomService.GetRooms(sortBy);
+            List<Room> rooms = roomService.GetRooms();
             return rooms;
         }
         private List<Product> GetProducts()
@@ -218,13 +218,6 @@ namespace SomerenUI
             RevenueService revenueService = new RevenueService();
             Revenue revenue = revenueService.GetRevenue(startDate, endDate);
             return revenue;
-        }
-
-        private List<Product> GetProducts(string sortBy)
-        {
-            ProductService productService = new ProductService();
-            List<Product> products = productService.GetProducts(sortBy);
-            return products;
         }
 
         private void DisplayStudents(List<Student> students)

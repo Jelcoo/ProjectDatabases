@@ -13,9 +13,9 @@ namespace SomerenService
             productdb = new ProductDao();
         }
 
-        public List<Product> GetProducts(string sortBy = null)
+        public List<Product> GetProducts()
         {
-            List<Product> products = productdb.GetAll(sortBy);
+            List<Product> products = productdb.GetAll();
             return products;
         }
 
