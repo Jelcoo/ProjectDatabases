@@ -404,6 +404,7 @@ namespace SomerenUI
             listViewGeneral.TabIndex = 1;
             listViewGeneral.UseCompatibleStateImageBehavior = false;
             listViewGeneral.View = View.Details;
+            listViewGeneral.FullRowSelect = true;
             // 
             // listViewPanelProducts
             // 
@@ -414,6 +415,7 @@ namespace SomerenUI
             listViewPanelProducts.UseCompatibleStateImageBehavior = false;
             listViewPanelProducts.View = View.Details;
             listViewPanelProducts.SelectedIndexChanged += listViewPanelProducts_SelectedIndexChanged;
+            listViewPanelProducts.FullRowSelect = true;
             // 
             // menuStrip1
             // 
