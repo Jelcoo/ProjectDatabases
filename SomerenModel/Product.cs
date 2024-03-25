@@ -8,6 +8,9 @@ namespace SomerenModel
 {
     public class Product
     {
+        public const double NORMAL_VAT_RATE = 0.06;
+        public const double ALCOHOL_VAT_RATE = 0.21;
+
         public int ProductId { get; set; }
         public string Name { get; set; }
         public int Stock { get; set; }
@@ -17,7 +20,7 @@ namespace SomerenModel
         public bool IsAlcoholic {
             get
             {
-                return VATRate == 0.21;
+                return VATRate == ALCOHOL_VAT_RATE;
             }
         }
     }

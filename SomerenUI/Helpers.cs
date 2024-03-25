@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using SomerenModel;
 
 namespace SomerenUI
 {
@@ -30,9 +31,9 @@ namespace SomerenUI
 
         public static string GetVatType(double vatRate)
         {
-            if (vatRate == 0.06)
+            if (vatRate == Product.NORMAL_VAT_RATE)
                 return "Laag";
-            else if (vatRate == 0.21)
+            else if (vatRate == Product.ALCOHOL_VAT_RATE)
                 return "Hoog";
             else
                 return "Overig";

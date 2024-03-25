@@ -18,7 +18,6 @@ namespace SomerenUI
         {
             InitializeComponent();
 
-
             panelList.Add(pnlDashboard);
             panelList.Add(pnlStudents);
             panelList.Add(pnlTeachers);
@@ -651,7 +650,7 @@ namespace SomerenUI
                 {
                     Name = name,
                     Stock = stock,
-                    VATRate = isAlcoholic ? 0.21 : 0.09,
+                    VATRate = isAlcoholic ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE,
                     Price = price
                 };
 
@@ -666,7 +665,7 @@ namespace SomerenUI
                     ProductId = selectedProduct.ProductId,
                     Name = name,
                     Stock = stock,
-                    VATRate = isAlcoholic ? 0.21 : 0.09,
+                    VATRate = isAlcoholic ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE,
                     Price = price
                 };
 

@@ -64,6 +64,7 @@ namespace SomerenDAL
 
             return vatSummaries;
         }
+
         public double GetTotalTaxNeeded(DateTime startDate, DateTime endDate)
         {
             string query = @"
