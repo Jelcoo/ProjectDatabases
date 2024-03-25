@@ -44,15 +44,22 @@ namespace SomerenUI
             } else
             {
                 // Create a new Label and copy properties from the original label
-                Label clonedLabel = originalLabel;
+                Label clonedLabel = new Label
+                {
+                    Location = originalLabel.Location,
+                    Margin = originalLabel.Margin,
+                    Font = originalLabel.Font,
+                    Size = originalLabel.Size,
+                    Padding = originalLabel.Padding,
 
-                // Place the cloned label below the lowest positioned element in the same column
-                clonedLabel.Top = originalLabel.Top + originalLabel.Height + 30 * counter;
+                    // Place the cloned label below the lowest positioned element in the same column
+                    Top = originalLabel.Top + originalLabel.Height + 30 * counter,
 
-                clonedLabel.Text = newText;
-                clonedLabel.Tag = tag;
-                clonedLabel.Visible = true;
-                clonedLabel.Width = 80;
+                    Text = newText,
+                    Tag = tag,
+                    Visible = true,
+                    Width = 80
+                };
 
                 originalLabel.Parent.Controls.Add(clonedLabel);
 
