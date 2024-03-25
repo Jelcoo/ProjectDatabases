@@ -1,11 +1,6 @@
 ﻿using SomerenModel;
 using System;
-using System.Collections.Generic;
-using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SomerenDAL
 {
@@ -13,16 +8,22 @@ namespace SomerenDAL
     {
         public Revenue GetRevenue(DateTime startDate, DateTime endDate)
         {
-            string query = "SELECT COALESCE(SUM(quantity), 0) AS total_drinks_sold, COUNT(DISTINCT studentId) AS unique_customers, COALESCE(SUM(orderlines.quantity * products.price), 0) AS turnover " +
-            "FROM orders " +
-            "JOIN orderlines ON orders.orderId=orderlines.orderId " +
-            "JOIN products ON orderlines.productId= products.productId " +
-            $"WHERE orders.orderTimestamp BETWEEN '{startDate:yyyy-MM-dd} 00:00:01' AND '{endDate:yyyy-MM-dd} 23:59:59';";
+            string query = @"
+        SELECT COALESCE(SUM(quantity), 0) AS total_drinks_sold,
+            COUNT(DISTINCT studentId) AS unique_customers,
+            COALESCE(SUM(orderlines.quantity * products.price), 0) AS turnover
+        FROM orders
+        JOIN orderlines ON orders.orderId=orderlines.orderId
+        JOIN products ON orderlines.productId= products.productId
+        WHERE orders.orderTimestamp BETWEEN @startDate AND @endDate;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
-            SqlDataReader reader = command.ExecuteReader();
+            command.Parameters.AddWithValue("@startDate", $"{startDate:yyyy-MM-dd} 00:00:00");
+            command.Parameters.AddWithValue("@endDate", $"{endDate:yyyy-MM-dd} 23:59:59");
 
+            SqlDataReader reader = command.ExecuteReader();
             Revenue revenue = null;
+
             if (reader.Read())
             {
                 revenue = Readrevenue(reader);

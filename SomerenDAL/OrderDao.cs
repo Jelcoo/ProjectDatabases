@@ -26,48 +26,18 @@ namespace SomerenDAL
             command.ExecuteNonQuery();
         }
 
-        private Order ReadOrder(SqlDataReader reader)
-        {
-            Order order = new Order()
-            {
-                OrderId = (int)reader["orderId"],
-                OrderTimestamp = DateTime.Parse(reader["orderTimestamp"].ToString()),
-                StudentId = (int)reader["studentId"],
-            };
-
-            return order;
-        }
-
-        private OrderLine ReadOrderLine(SqlDataReader reader)
-        {
-            OrderLine line = new OrderLine()
-            {
-                OrderItemId = (int)reader["orderItemId"],
-                OrderId = (int)reader["orderId"],
-                ProductId = (int)reader["productId"],
-                Quantity = (int)reader["quantity"],
-            };
-
-            return line;
-        }
         public List<Dictionary<string, object>> GetVatSummary(DateTime startDate, DateTime endDate)
         {
             string query = @"
-        SELECT 
-            p.VATRate AS VATRate,
+        SELECT p.VATRate AS VATRate,
             SUM(ol.quantity * p.price * p.VATRate) AS VATAmount,
             SUM(ol.quantity) AS TotalProductsSold,
             COUNT(DISTINCT o.orderId) AS NumberOfOrders
-        FROM 
-            orders o
-        JOIN 
-            orderlines ol ON o.orderId = ol.orderId
-        JOIN 
-            products p ON ol.productId = p.productId
-        WHERE 
-            o.orderTimestamp BETWEEN @startDate AND @endDate
-        GROUP BY 
-            p.VATRate;";
+        FROM orders o
+        JOIN orderlines ol ON o.orderId = ol.orderId
+        JOIN products p ON ol.productId = p.productId
+        WHERE o.orderTimestamp BETWEEN @startDate AND @endDate
+        GROUP BY p.VATRate;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@startDate", startDate);
@@ -79,12 +49,12 @@ namespace SomerenDAL
             while (reader.Read())
             {
                 Dictionary<string, object> summary = new Dictionary<string, object>
-        {
-            { "VATRate",  reader["VATRate"] },
-            { "VATAmount",  reader["VATAmount"]},
-            { "TotalProductsSold",  reader["TotalProductsSold"] },
-            { "NumberOfOrders",  reader["NumberOfOrders"] }
-        };
+                {
+                    { "VATRate",  reader["VATRate"] },
+                    { "VATAmount",  reader["VATAmount"]},
+                    { "TotalProductsSold",  reader["TotalProductsSold"] },
+                    { "NumberOfOrders",  reader["NumberOfOrders"] }
+                };
 
                 vatSummaries.Add(summary);
             }
@@ -97,16 +67,11 @@ namespace SomerenDAL
         public double GetTotalTaxNeeded(DateTime startDate, DateTime endDate)
         {
             string query = @"
-SELECT 
-    SUM(ol.quantity * p.price * p.VATRate) AS TotalTaxNeeded
-FROM 
-    orders o
-JOIN 
-    orderlines ol ON o.orderId = ol.orderId
-JOIN 
-    products p ON ol.productId = p.productId
-WHERE 
-    o.orderTimestamp BETWEEN @startDate AND @endDate;";
+        SELECT SUM(ol.quantity * p.price * p.VATRate) AS TotalTaxNeeded
+        FROM orders o
+        JOIN orderlines ol ON o.orderId = ol.orderId
+        JOIN products p ON ol.productId = p.productId
+        WHERE o.orderTimestamp BETWEEN @startDate AND @endDate;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@startDate", startDate);
