@@ -43,11 +43,7 @@ namespace SomerenUI
             dashboardToolStripMenuItem1 = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             EndDatePickerLabel1 = new Label();
-            flowLayoutPanelActivities = new FlowLayoutPanel();
             flowLayoutPanelOrderProducts = new FlowLayoutPanel();
-            flowLayoutPanelRooms = new FlowLayoutPanel();
-            flowLayoutPanelStudents = new FlowLayoutPanel();
-            flowLayoutPanelTeachers = new FlowLayoutPanel();
             gbQuarter = new GroupBox();
             headerLabel = new Label();
             lblDashboard = new Label();
@@ -221,13 +217,6 @@ namespace SomerenUI
             EndDatePickerLabel1.TabIndex = 2;
             EndDatePickerLabel1.Text = "End date:";
             // 
-            // flowLayoutPanelActivities
-            // 
-            flowLayoutPanelActivities.Location = new Point(18, 48);
-            flowLayoutPanelActivities.Name = "flowLayoutPanelActivities";
-            flowLayoutPanelActivities.Size = new Size(875, 347);
-            flowLayoutPanelActivities.TabIndex = 1;
-            // 
             // flowLayoutPanelOrderProducts
             // 
             flowLayoutPanelOrderProducts.Location = new Point(15, 140);
@@ -235,27 +224,6 @@ namespace SomerenUI
             flowLayoutPanelOrderProducts.Name = "flowLayoutPanelOrderProducts";
             flowLayoutPanelOrderProducts.Size = new Size(600, 434);
             flowLayoutPanelOrderProducts.TabIndex = 1;
-            // 
-            // flowLayoutPanelRooms
-            // 
-            flowLayoutPanelRooms.Location = new Point(18, 48);
-            flowLayoutPanelRooms.Name = "flowLayoutPanelRooms";
-            flowLayoutPanelRooms.Size = new Size(875, 347);
-            flowLayoutPanelRooms.TabIndex = 1;
-            // 
-            // flowLayoutPanelStudents
-            // 
-            flowLayoutPanelStudents.Location = new Point(18, 48);
-            flowLayoutPanelStudents.Name = "flowLayoutPanelStudents";
-            flowLayoutPanelStudents.Size = new Size(875, 347);
-            flowLayoutPanelStudents.TabIndex = 1;
-            // 
-            // flowLayoutPanelTeachers
-            // 
-            flowLayoutPanelTeachers.Location = new Point(18, 48);
-            flowLayoutPanelTeachers.Name = "flowLayoutPanelTeachers";
-            flowLayoutPanelTeachers.Size = new Size(875, 347);
-            flowLayoutPanelTeachers.TabIndex = 1;
             // 
             // gbQuarter
             // 
@@ -565,7 +533,6 @@ namespace SomerenUI
             // 
             // pnlActivities
             // 
-            pnlActivities.Controls.Add(flowLayoutPanelActivities);
             pnlActivities.Location = new Point(15, 31);
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new Size(1340, 660);
@@ -737,7 +704,6 @@ namespace SomerenUI
             // 
             // pnlRooms
             // 
-            pnlRooms.Controls.Add(flowLayoutPanelRooms);
             pnlRooms.Controls.Add(listViewGeneral);
             pnlRooms.Location = new Point(15, 31);
             pnlRooms.Name = "pnlRooms";
@@ -746,7 +712,6 @@ namespace SomerenUI
             // 
             // pnlStudents
             // 
-            pnlStudents.Controls.Add(flowLayoutPanelStudents);
             pnlStudents.Location = new Point(15, 31);
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new Size(1340, 660);
@@ -754,7 +719,6 @@ namespace SomerenUI
             // 
             // pnlTeachers
             // 
-            pnlTeachers.Controls.Add(flowLayoutPanelTeachers);
             pnlTeachers.Location = new Point(15, 31);
             pnlTeachers.Name = "pnlTeachers";
             pnlTeachers.Size = new Size(1340, 660);
@@ -796,7 +760,6 @@ namespace SomerenUI
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1374, 841);
-            Controls.Add(pnlVat);
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
             Controls.Add(pnlStudents);
@@ -806,6 +769,7 @@ namespace SomerenUI
             Controls.Add(pnlProducts);
             Controls.Add(pnlOrders);
             Controls.Add(pnlRevenue);
+            Controls.Add(pnlVat);
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 5, 4, 5);
             Name = "SomerenUI";
@@ -848,11 +812,7 @@ namespace SomerenUI
         private ComboBox ordersComboBox;
         private DateTimePicker revenueDateEnd;
         private DateTimePicker revenueDateStart;
-        private FlowLayoutPanel flowLayoutPanelActivities;
         private FlowLayoutPanel flowLayoutPanelOrderProducts;
-        private FlowLayoutPanel flowLayoutPanelRooms;
-        private FlowLayoutPanel flowLayoutPanelStudents;
-        private FlowLayoutPanel flowLayoutPanelTeachers;
         private GroupBox gbQuarter;
         private Label blbVatType;
         private Label EndDatePickerLabel1;
