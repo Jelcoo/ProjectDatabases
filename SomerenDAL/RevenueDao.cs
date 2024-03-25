@@ -9,13 +9,14 @@ namespace SomerenDAL
         public Revenue GetRevenue(DateTime startDate, DateTime endDate)
         {
             string query = @"
-        SELECT COALESCE(SUM(quantity), 0) AS total_drinks_sold,
-            COUNT(DISTINCT studentId) AS unique_customers,
-            COALESCE(SUM(orderlines.quantity * products.price), 0) AS turnover
-        FROM orders
-        JOIN orderlines ON orders.orderId=orderlines.orderId
-        JOIN products ON orderlines.productId= products.productId
-        WHERE orders.orderTimestamp BETWEEN @startDate AND @endDate;";
+SELECT
+    COALESCE(SUM(quantity), 0) AS total_drinks_sold,
+    COUNT(DISTINCT studentId) AS unique_customers,
+    COALESCE(SUM(orderlines.quantity * products.price), 0) AS turnover
+FROM orders
+JOIN orderlines ON orders.orderId=orderlines.orderId
+JOIN products ON orderlines.productId= products.productId
+WHERE orders.orderTimestamp BETWEEN @startDate AND @endDate;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@startDate", $"{startDate:yyyy-MM-dd} 00:00:00");
@@ -26,7 +27,7 @@ namespace SomerenDAL
 
             if (reader.Read())
             {
-                revenue = Readrevenue(reader);
+                revenue = ReadRevenue(reader);
             }
 
             reader.Close();
@@ -35,7 +36,7 @@ namespace SomerenDAL
             return revenue;
         }
 
-        private Revenue Readrevenue(SqlDataReader reader)
+        private Revenue ReadRevenue(SqlDataReader reader)
         {
             reader.GetColumnSchema();
             Revenue revenue = new Revenue()

@@ -33,11 +33,7 @@ namespace SomerenUI
         {
             foreach (Panel item in this.panelList)
             {
-                try
-                {
-                    item.Hide();
-                }
-                catch { }
+                item.Hide();
             }
             panel.Show();
             panel.Controls.Add(pictureBox1);
@@ -63,7 +59,6 @@ namespace SomerenUI
 
             try
             {
-                // get and display all students
                 List<Student> students = GetStudents("lastName DESC");
                 DisplayStudents(students);
             }
@@ -79,7 +74,6 @@ namespace SomerenUI
 
             try
             {
-                // get and display all students
                 List<Teacher> teachers = GetTeachers("lastName DESC");
                 DisplayTeachers(teachers);
             }
@@ -95,7 +89,6 @@ namespace SomerenUI
 
             try
             {
-                // get and display all rooms
                 List<Room> rooms = GetRooms("building, floor, roomId ASC");
                 DisplayRooms(rooms);
             }
@@ -117,7 +110,6 @@ namespace SomerenUI
 
             try
             {
-                // get and display all activities
                 List<Activity> activities = GetActivities();
                 DisplayActivities(activities);
             }
@@ -133,7 +125,6 @@ namespace SomerenUI
 
             try
             {
-                // get and display all activities
                 List<Product> products = GetProducts();
                 DisplayProducts(products);
             }
@@ -149,7 +140,6 @@ namespace SomerenUI
 
             try
             {
-                // get and add all students
                 List<Student> students = GetStudents("lastName DESC");
                 DisplayOrderStudents(students);
             }
@@ -165,7 +155,6 @@ namespace SomerenUI
 
             try
             {
-                // get and display all products
                 List<Product> products = GetProducts("name ASC");
                 DisplayOrderProducts(products);
             }
@@ -181,8 +170,7 @@ namespace SomerenUI
 
             try
             {
-                // get and display all VAT
-
+                SetHeader("VAT");
                 DisplayVat();
             }
             catch (Exception e)
@@ -231,7 +219,6 @@ namespace SomerenUI
             Revenue revenue = revenueService.GetRevenue(startDate, endDate);
             return revenue;
         }
-
 
         private List<Product> GetProducts(string sortBy)
         {
@@ -320,18 +307,7 @@ namespace SomerenUI
             item.SubItems.Add(product.Stock.ToString());
             item.SubItems.Add($"{product.VATRate * 100}%");
             item.SubItems.Add($"€{product.Price:0.00}");
-            if (product.Stock <= 0)
-            {
-                item.SubItems.Add("stock empty");
-            }
-            else if (product.Stock <= 10)
-            {
-                item.SubItems.Add("nearly depleted");
-            }
-            else
-            {
-                item.SubItems.Add("stock sufficient");
-            }
+            item.SubItems.Add(Helpers.StockToMessage(product.Stock));
 
             return item;
         }
@@ -359,17 +335,13 @@ namespace SomerenUI
 
         private void DeleteProductButton_Click(object sender, EventArgs e)
         {
-            // Logic to delete a product
-            // Assuming you have a way to select one for deletion
-            // For example, if you have a list view, you can get the selected product from there
-
             if (this.selectedProduct != null)
             {
                 ProductService productService = new ProductService();
                 productService.DeleteProduct(this.selectedProduct);
 
-                //    MessageBox.Show("Product deleted successfully!");
-                ShowProductsPanel(); // Refresh products panel
+                MessageBox.Show("Product deleted successfully!");
+                ShowProductsPanel();
             }
             else
             {
@@ -383,7 +355,6 @@ namespace SomerenUI
         {
             try
             {
-                // get and display revenue
                 Revenue revenue = GetRevenue(start, end);
 
                 outputRevenue.Text = $"Turnover: €{revenue.Turnover:0.00}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
@@ -419,61 +390,56 @@ namespace SomerenUI
                 flowLayoutPanelOrderProducts.Controls.Add(btn);
             }
 
+            ResetUnprocessedOrder();
+        }
+
+        private void ResetUnprocessedOrder()
+        {
             this.unprocessedOrder = new Order();
             this.unprocessedOrder.Student = this.selectedOrderStudent;
             this.unprocessedOrder.OrderLines = new List<OrderLine>();
         }
 
+        private void CreateVatLabels(Dictionary<string,object> summary, int counter)
+        {
+            Helpers.CopyAndCloneLabel(lblRecordTypeVat, Helpers.GetVatType((double)summary["VATRate"]).ToString(), counter);
+            Helpers.CopyAndCloneLabel(lblRecordPercentage, ((double)summary["VATRate"] * 100).ToString() + "%", counter);
+            Helpers.CopyAndCloneLabel(lblRecordOrders, summary["NumberOfOrders"].ToString(), counter);
+            Helpers.CopyAndCloneLabel(lblRecordProducts, summary["TotalProductsSold"].ToString(), counter);
+            Helpers.CopyAndCloneLabel(lblRecordTotal, $"€{summary["VATAmount"]:0.00}", counter);
+        }
+
         private void DisplayVat(string quarter = null)
         {
-            SetHeader("VAT");
+            ResetVatLabels(quarter);
             VATService vatService = new VATService();
-
             List<Dictionary<string, object>> vatSummary = vatService.GetVatSummary(Helpers.GetQuarterDates(GetYear(), quarter));
+            for (int i = 0; i < vatSummary.Count; i++)
+            {
+                CreateVatLabels(vatSummary[i], i);
+            }
+
+            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates(GetYear(), quarter));
+            lblTotalToPayValue.Text = $"€{Math.Round(totalTaxNeeded, 2)}";
+        }
+
+        private void ResetVatLabels(string quarter)
+        {
             lblDates.Text = Helpers.GetQuarterDates(GetYear(), quarter)[0].ToString("dddd dd/MM/yyyy") + " - " + Helpers.GetQuarterDates(GetYear(), quarter)[1].ToString("dddd dd/MM/yyyy");
-            //if there is an element Label with tag clonedLabel then remove all of them
             Helpers.RemoveControlsWithTag("clonedLabel", this);
             lblRecordTypeVat.Text = "Overig";
             lblRecordPercentage.Text = "0%";
             lblRecordOrders.Text = "0";
             lblRecordProducts.Text = "0";
             lblRecordTotal.Text = "€0.00";
-
-            int counter = 0;
-            foreach (var summary in vatSummary)
-            {
-                string vatAmount = String.Format("{0:N2}", summary["VATAmount"]);
-                Label vatType = Helpers.CopyAndCloneLabel(lblRecordTypeVat, Helpers.GetVatType((double)summary["VATRate"]).ToString(), counter);
-
-                Label vatPercentage = Helpers.CopyAndCloneLabel(lblRecordPercentage, ((double)summary["VATRate"] * 100).ToString() + "%", counter);
-
-                Label orders = Helpers.CopyAndCloneLabel(lblRecordOrders, summary["NumberOfOrders"].ToString(), counter);
-
-                Label products = Helpers.CopyAndCloneLabel(lblRecordProducts, summary["TotalProductsSold"].ToString(), counter);
-
-                Label total = Helpers.CopyAndCloneLabel(lblRecordTotal, "€" + vatAmount, counter);
-
-                counter++;
-            }
-            counter = 0;
-
-            // Display total tax needed
-            double totalTaxNeeded = vatService.GetTotalTaxNeeded(Helpers.GetQuarterDates(GetYear(), quarter));
-            lblTotalToPayValue.Text = $"€{Math.Round(totalTaxNeeded, 2)}";
         }
 
         private int GetYear()
         {
-            if (txtYear.Text.Length == 4 && int.TryParse(txtYear.Text, out int year))
-            {
-                return year;
-            }
+            if (txtYear.Text.Length == 4 && int.TryParse(txtYear.Text, out int year)) return year;
             else
             {
-                if (txtYear.Text.Length != 0)
-                {
-                    MessageBox.Show("Invalid year");
-                }
+                if (txtYear.Text.Length != 0) MessageBox.Show("Invalid year");
 
                 return DateTime.Now.Year;
             }
@@ -493,22 +459,19 @@ namespace SomerenUI
                 }
             }
 
-            if (!alreadyInOrder)
-            {
-                OrderLine orderLine = new OrderLine();
-                orderLine.Order = this.unprocessedOrder;
-                orderLine.Product = product;
-                orderLine.Quantity = 1;
-
-                this.unprocessedOrder.OrderLines.Add(orderLine);
-            }
-
+            if (!alreadyInOrder) CreateOrderLine(product);
+            if (!orderProcessButton.Visible) orderProcessButton.Visible = true;
             UpdateOrderDetailsLabel();
+        }
 
-            if (!orderProcessButton.Visible)
-            {
-                orderProcessButton.Visible = true;
-            }
+        private void CreateOrderLine(Product product)
+        {
+            OrderLine orderLine = new OrderLine();
+            orderLine.Order = this.unprocessedOrder;
+            orderLine.Product = product;
+            orderLine.Quantity = 1;
+
+            this.unprocessedOrder.OrderLines.Add(orderLine);
         }
 
         private void orderProcessButton_Click(object sender, EventArgs e)
@@ -596,6 +559,11 @@ namespace SomerenUI
 
         private void ProductFormSetProduct(Product product)
         {
+            if (product == null) {
+                ProductFormSetEmpty();
+                return;
+            }
+
             productEditButton.Text = "Edit";
             productEditNameInput.Text = product.Name;
             productEditStockInput.Value = Math.Max(product.Stock, 0);
@@ -614,65 +582,31 @@ namespace SomerenUI
 
         private void listViewPanelProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Check if any item is selected in the listViewPanelProducts
-            if (listViewPanelProducts.SelectedItems.Count > 0)
-            {
-                // Retrieve the selected item from the listView
-                ListViewItem selectedItem = listViewPanelProducts.SelectedItems[0];
-
-                // Update the selectedProduct field with the selected product details
-                this.selectedProduct = (Product)selectedItem.Tag;
-
-                ProductFormSetProduct(this.selectedProduct);
-                productDeleteButton.Visible = true;
-            }
-            else
-            {
-                // If no item is selected, set selectedProduct to null
-                selectedProduct = null;
-                ProductFormSetEmpty();
-                productDeleteButton.Visible = false;
-            }
+            ListViewItem selectedItem = listViewPanelProducts.SelectedItems.Count == 0 ? null : listViewPanelProducts.SelectedItems[0];
+            this.selectedProduct = (Product)selectedItem?.Tag;
+            ProductFormSetProduct(this.selectedProduct);
+            productDeleteButton.Visible = this.selectedProduct == null ? false : true;
         }
 
         private void productEditButton_Click(object sender, EventArgs e)
         {
-            string name = productEditNameInput.Text;
-            int stock = (int)productEditStockInput.Value;
-            bool isAlcoholic = productEditAlcoholInput.Checked;
-            double price = decimal.ToDouble(productEditPriceInput.Value);
-
             ProductService productService = new ProductService();
-
-            if (selectedProduct == null)
+            Product newProduct = new Product()
             {
-                Product newProduct = new Product()
-                {
-                    Name = name,
-                    Stock = stock,
-                    VATRate = isAlcoholic ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE,
-                    Price = price
-                };
+                Name = productEditNameInput.Text,
+                Stock = (int)productEditStockInput.Value,
+                VATRate = productEditAlcoholInput.Checked ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE,
+                Price = decimal.ToDouble(productEditPriceInput.Value)
+            };
 
-                productService.CreateProduct(newProduct);
-
-                MessageBox.Show("Product added successfully!");
-            }
+            if (selectedProduct == null) productService.CreateProduct(newProduct);
             else
             {
-                Product newProduct = new Product()
-                {
-                    ProductId = selectedProduct.ProductId,
-                    Name = name,
-                    Stock = stock,
-                    VATRate = isAlcoholic ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE,
-                    Price = price
-                };
-
+                newProduct.ProductId = selectedProduct.ProductId;
                 productService.UpdateProduct(newProduct);
-
-                MessageBox.Show("Product updated successfully!");
             }
+
+            MessageBox.Show(selectedProduct == null ? "Product added successfully!" : "Product created successfully!");
 
             ProductFormSetEmpty();
             ShowProductsPanel();

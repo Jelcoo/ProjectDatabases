@@ -10,15 +10,9 @@ namespace SomerenDAL
 {
     public class ProductDao : BaseDao
     {
-        public List<Product> GetAll(string sortBy = null)
+        public List<Product> GetAll()
         {
-            string query = "SELECT productId, name, stock, VATRate, price FROM [products]";
-
-            if (sortBy != null)
-            {
-                query += $" ORDER BY {sortBy}";
-            }
-            SqlCommand command = new SqlCommand(query, OpenConnection());
+            SqlCommand command = new SqlCommand("SELECT productId, name, stock, VATRate, price FROM [products]", OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Product> products = new List<Product>();
@@ -59,9 +53,14 @@ namespace SomerenDAL
 
         public void UpdateProduct(Product product)
         {
-            string query = @"UPDATE [products] 
-                    SET name = @Name, stock = @Stock, VATRate = @VATRate, price = @Price
-                    WHERE productId = @ProductId";
+            string query = @"
+UPDATE [products]
+SET
+    name = @Name,
+    stock = @Stock,
+    VATRate = @VATRate,
+    price = @Price
+WHERE productId = @ProductId";
 
             using (SqlCommand command = new SqlCommand(query, OpenConnection()))
             {
@@ -77,7 +76,10 @@ namespace SomerenDAL
 
         public Product CreateProduct(Product product)
         {
-            string query = $"INSERT INTO products (name, stock, VATRate, price) VALUES (@Name, @Stock, @VATRate, @Price); SELECT SCOPE_IDENTITY();";
+            string query = @"
+INSERT INTO products (name, stock, VATRate, price)
+VALUES (@Name, @Stock, @VATRate, @Price);
+SELECT SCOPE_IDENTITY();";
 
             using (SqlCommand command = new SqlCommand(query, OpenConnection()))
             {
@@ -96,9 +98,7 @@ namespace SomerenDAL
 
         public void DeleteProduct(Product product)
         {
-            string query = $"DELETE FROM Products WHERE ProductId = @Id";
-
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            using (SqlCommand command = new SqlCommand("DELETE FROM Products WHERE ProductId = @Id", OpenConnection()))
             {
                 command.Parameters.AddWithValue("@Id", product.ProductId);
                 int nrOfRowsAffected = command.ExecuteNonQuery();

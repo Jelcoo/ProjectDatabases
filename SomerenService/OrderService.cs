@@ -1,6 +1,5 @@
 ﻿using SomerenDAL;
 using SomerenModel;
-using System.Collections.Generic;
 
 namespace SomerenService
 {

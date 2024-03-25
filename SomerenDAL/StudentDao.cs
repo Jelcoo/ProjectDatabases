@@ -6,15 +6,9 @@ namespace SomerenDAL
 {
     public class StudentDao : BaseDao
     {
-        public List<Student> GetAll(string sortBy = null)
+        public List<Student> GetAll()
         {
-            string query = "SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students]";
-
-            if (sortBy != null)
-            {
-                query += $" ORDER BY {sortBy}";
-            }
-            SqlCommand command = new SqlCommand(query, OpenConnection());
+            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students]", OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Student> students = new List<Student>();
