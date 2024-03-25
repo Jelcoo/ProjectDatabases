@@ -10,8 +10,5 @@ namespace SomerenModel
         public string Location { get; set; }
         public DateTime StartOfActivity { get; set; }
         public DateTime EndOfActivity { get; set; }
-
-        public List<Student> Participants { get; set; }
-        public List<Teacher> Supervisors { get; set; }
     }
 }

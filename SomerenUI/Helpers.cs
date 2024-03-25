@@ -34,24 +34,6 @@ namespace SomerenUI
             return new DateTime[] { startDate, endDate };
         }
 
-        public static Color StringToColor(string input)
-        {
-            // Use the GetHashCode method to get a hash code for the string
-            int hash = input.GetHashCode();
-
-            // Convert the hash code to RGB values
-            int red = Math.Abs(hash % 156);
-            int green = Math.Abs((hash / 156) % 156);
-            int blue = Math.Abs((hash / (156 * 156)) % 156);
-
-            // Ensure the RGB values are above the minimum threshold
-            red += 100;
-            green += 100;
-            blue += 100;
-
-            // Create and return the Color object
-            return Color.FromArgb(red, green, blue);
-        }
         public static string GetVatType(double vatRate)
         {
             if (vatRate == 0.06)
@@ -61,6 +43,7 @@ namespace SomerenUI
             else
                 return "Overig";
         }
+
         public static Label CopyAndCloneLabel(Label originalLabel, string newText, int counter, string? tag = "clonedLabel")
         {
             if (counter == 0)
@@ -96,16 +79,6 @@ namespace SomerenUI
             }
         }
 
-        public static T DeepCopy<T>(T other)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(ms, other);
-                ms.Position = 0;
-                return (T)formatter.Deserialize(ms);
-            }
-        }
         public static void RemoveControlsWithTag(string tag, Control parent)
         {
             var taggedControls = new List<Control>();

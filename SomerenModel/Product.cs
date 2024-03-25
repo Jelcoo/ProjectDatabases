@@ -13,5 +13,12 @@ namespace SomerenModel
         public int Stock { get; set; }
         public double VATRate { get; set; }
         public double Price { get; set; }
+
+        public bool IsAlcoholic {
+            get
+            {
+                return VATRate == 0.21;
+            }
+        }
     }
 }

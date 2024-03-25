@@ -7,61 +7,23 @@ namespace SomerenDAL
 {
     public class OrderDao : BaseDao
     {
-        public List<Order> GetAll(string sortBy = null)
+        public int StoreOrder(Order order)
         {
-            string query = "SELECT orders.orderId, students.studentId, orders.orderId, orderTimestamp, orderItemId, quantity, [name], stock, VATRate, price, firstName, lastName, phoneNumber, class, vouchers, roomId " +
-                "FROM orders " +
-                "JOIN orderlines ON orders.orderId = orderlines.orderId " +
-                "JOIN students ON orders.studentId = students.studentId;";
+            SqlCommand command = new SqlCommand("INSERT INTO orders (orderTimestamp, studentId) VALUES (CURRENT_TIMESTAMP, @studentId); SELECT SCOPE_IDENTITY();", OpenConnection());
+            command.Parameters.AddWithValue("@studentId", order.Student.StudentId);
 
-            if (sortBy != null)
-            {
-                query += $" ORDER BY {sortBy}";
-            }
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-
-            SqlDataReader reader = command.ExecuteReader();
-            List<Order> orders = new List<Order>();
-            StudentDao studentdb = new StudentDao();
-
-            while (reader.Read())
-            {
-                Order order = ReadOrder(reader);
-                order.Student = studentdb.ReadStudent(reader);
-                order.OrderLines = GetAllOrderlinesForOrder(order.OrderId);
-
-                orders.Add(order);
-            }
-            reader.Close();
-            CloseConnection();
-
-            return orders;
+            int insertedId = Convert.ToInt32(command.ExecuteScalar());
+            return insertedId;
         }
 
-        public List<OrderLine> GetAllOrderlinesForOrder(int orderId)
+        public void StoreOrderLine(int orderId, OrderLine orderLine)
         {
-            string query = "SELECT orderItemId, orderId, productId, quantity " +
-                "FROM [orderlines] " +
-                "JOIN products ON orderlines.productId = products.productId " +
-                "WHERE orderId=@Id;";
+            SqlCommand command = new SqlCommand("INSERT INTO orderlines (orderId, productId, quantity) VALUES (@orderId, @productId, @quantity)", OpenConnection());
+            command.Parameters.AddWithValue("@orderId", orderId);
+            command.Parameters.AddWithValue("@productId", orderLine.Product.ProductId);
+            command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
 
-            SqlCommand command = new SqlCommand(query, OpenConnection());
-            command.Parameters.AddWithValue("@Id", orderId);
-
-            SqlDataReader reader = command.ExecuteReader();
-            List<OrderLine> orderlines = new List<OrderLine>();
-            ProductDao productdb = new ProductDao();
-
-            while (reader.Read())
-            {
-                OrderLine line = ReadOrderLine(reader);
-                line.Product = productdb.ReadProduct(reader);
-                orderlines.Add(line);
-            }
-            reader.Close();
-            CloseConnection();
-
-            return orderlines;
+            command.ExecuteNonQuery();
         }
 
         private Order ReadOrder(SqlDataReader reader)
