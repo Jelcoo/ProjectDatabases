@@ -397,7 +397,7 @@ namespace SomerenUI
         {
             listViewPanelStudents.Clear();
 
-            listViewPanelStudents.Columns.Add("ID");
+            listViewPanelStudents.Columns.Add("Studentnr", 100);
             listViewPanelStudents.Columns.Add("Name", 200);
             listViewPanelStudents.Columns.Add("Phone number", 200);
             listViewPanelStudents.Columns.Add("Class", 100);
@@ -424,7 +424,7 @@ namespace SomerenUI
         {
             listViewPanelteachers.Clear();
 
-            listViewPanelteachers.Columns.Add("ID");
+            listViewPanelteachers.Columns.Add("Teachernr", 100);
             listViewPanelteachers.Columns.Add("Name", 200);
             listViewPanelteachers.Columns.Add("Phone number", 200);
             listViewPanelteachers.Columns.Add("Date of birth", 200);
@@ -448,15 +448,18 @@ namespace SomerenUI
         {
             ShowListView(pnlActivities, listViewGeneral);
 
-            listViewGeneral.Columns.Add("ID");
             listViewGeneral.Columns.Add("Name", 200);
-            //TODO: add more columns for activities
+            listViewGeneral.Columns.Add("Location", 200);
+            listViewGeneral.Columns.Add("Start", 200);
+            listViewGeneral.Columns.Add("End", 200);
 
             foreach (Activity activity in activities)
             {
-                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
+                ListViewItem listViewItem = new ListViewItem(activity.Name);
                 listViewItem.Tag = activities;
-                listViewItem.SubItems.Add(activity.Name);
+                listViewItem.SubItems.Add(activity.Location);
+                listViewItem.SubItems.Add(activity.StartOfActivity.ToString("dd/MM/yyyy HH:mm"));
+                listViewItem.SubItems.Add(activity.EndOfActivity.ToString("dd/MM/yyyy HH:mm"));
                 listViewGeneral.Items.Add(listViewItem);
             }
 
@@ -467,14 +470,18 @@ namespace SomerenUI
         {
             ShowListView(pnlRooms, listViewGeneral);
 
-            listViewGeneral.Columns.Add("ID");
             listViewGeneral.Columns.Add("Name", 200);
+            listViewGeneral.Columns.Add("Building", 100);
+            listViewGeneral.Columns.Add("Floor", 100);
+            listViewGeneral.Columns.Add("Capacity", 100);
 
             foreach (Room room in rooms)
             {
-                ListViewItem listViewItem = new ListViewItem(room.RoomId.ToString());
+                ListViewItem listViewItem = new ListViewItem(room.Name);
                 listViewItem.Tag = room;
-                listViewItem.SubItems.Add(room.Name);
+                listViewItem.SubItems.Add(room.Building);
+                listViewItem.SubItems.Add(room.Floor.ToString());
+                listViewItem.SubItems.Add(room.AmountOfBeds.ToString());
                 listViewGeneral.Items.Add(listViewItem);
             }
 
@@ -512,13 +519,15 @@ namespace SomerenUI
             }
 
             SetHeader("Products");
-
         }
 
         private void DeleteProductButton_Click(object sender, EventArgs e)
         {
             if (this.selectedProduct != null)
             {
+                DialogResult result = MessageBox.Show("Are you sure you want to unassign the selected teacher?", "Confirm Unassign", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No) return;
+
                 ProductService productService = new ProductService();
                 productService.DeleteProduct(this.selectedProduct);
 
@@ -532,6 +541,7 @@ namespace SomerenUI
 
             ProductFormSetEmpty();
         }
+
         private void DeleteTeacherButton_Click(object sender, EventArgs e)
         {
             if (this.selectedTeacher != null)
@@ -571,7 +581,7 @@ namespace SomerenUI
                 MessageBox.Show("Please select a student to delete.");
             }
 
-            ProductFormSetEmpty();
+            StudentFormSetEmpty();
         }
 
         private void DisplayRevenue(DateTime start, DateTime end)
@@ -580,7 +590,10 @@ namespace SomerenUI
             {
                 Revenue revenue = GetRevenue(start, end);
 
-                outputRevenue.Text = $"Turnover: €{revenue.Turnover:0.00}\nUnique Customers: {revenue.UniqueCustomers}\nTotal Drinks Sold: {revenue.TotalDrinksSold}";
+                outputRevenue.Text = @$"
+Turnover: €{revenue.Turnover:0.00}
+Unique Customers: {revenue.UniqueCustomers}
+Total Drinks Sold: {revenue.TotalDrinksSold}";
             }
             catch (Exception e)
             {
@@ -618,9 +631,7 @@ namespace SomerenUI
 
         private void ResetUnprocessedOrder()
         {
-            this.unprocessedOrder = new Order();
-            this.unprocessedOrder.Student = this.selectedOrderStudent;
-            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+            this.unprocessedOrder = new Order(this.selectedOrderStudent);
         }
 
         private void CreateVatLabels(Dictionary<string, object> summary, int counter)
@@ -678,21 +689,15 @@ namespace SomerenUI
 
         private void CreateOrderLine(Product product)
         {
-            OrderLine orderLine = new OrderLine();
-            orderLine.Order = this.unprocessedOrder;
-            orderLine.Product = product;
-            orderLine.Quantity = 1;
-
-            this.unprocessedOrder.OrderLines.Add(orderLine); //TODO: move orderlines manipulation to OrderService/model
+            OrderLine orderLine = new OrderLine(this.unprocessedOrder, product, 1);
+            this.unprocessedOrder.AddOrderLine(orderLine);
         }
 
         private void orderProcessButton_Click(object sender, EventArgs e)
         {
             OrderService orderService = new OrderService();
             orderService.StoreOrder(this.unprocessedOrder);
-            this.unprocessedOrder = new Order();
-            this.unprocessedOrder.Student = this.selectedOrderStudent;
-            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+            this.unprocessedOrder = new Order(this.selectedOrderStudent);
             orderDetailsLabel.Text = "";
             orderProcessButton.Visible = false;
         }
@@ -766,9 +771,7 @@ namespace SomerenUI
         private void ordersComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.selectedOrderStudent = (Student)ordersComboBox.SelectedItem;
-            this.unprocessedOrder = new Order();
-            this.unprocessedOrder.Student = this.selectedOrderStudent;
-            this.unprocessedOrder.OrderLines = new List<OrderLine>();
+            this.unprocessedOrder = new Order(this.selectedOrderStudent);
             orderDetailsLabel.Text = "";
             orderProcessButton.Visible = false;
             ShowOrderProductsList();
@@ -793,6 +796,7 @@ namespace SomerenUI
             productEditAlcoholInput.Checked = product.IsAlcoholic;
             productEditPriceInput.Value = (decimal)product.Price;
         }
+
         private void TeacherFormSetTeacher(Teacher teacher)
         {
             if (teacher == null)
@@ -817,6 +821,7 @@ namespace SomerenUI
             productEditAlcoholInput.Checked = false;
             productEditPriceInput.Value = 0.00M;
         }
+
         private void TeacherFormSetEmpty()
         {
             teacherEditButton.Text = "Create";
@@ -834,6 +839,7 @@ namespace SomerenUI
             ProductFormSetProduct(this.selectedProduct);
             productDeleteButton.Visible = this.selectedProduct == null ? false : true;
         }
+
         private void listViewPanelTeachers_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListViewItem selectedItem = listViewPanelteachers.SelectedItems.Count == 0 ? null : listViewPanelteachers.SelectedItems[0];
@@ -853,7 +859,7 @@ namespace SomerenUI
                 Price = decimal.ToDouble(productEditPriceInput.Value)
             };
 
-            if (selectedProduct == null) productService.CreateProduct(newProduct);
+            if (selectedProduct == null) productService.CreateProduct();
             else
             {
                 newProduct.ProductId = selectedProduct.ProductId;
@@ -865,6 +871,7 @@ namespace SomerenUI
             ProductFormSetEmpty();
             ShowProductsPanel();
         }
+
         private void StudentFormSetStudent(Student student)
         {
             if (student == null)

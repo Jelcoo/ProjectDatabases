@@ -507,6 +507,8 @@ namespace SomerenUI
             listViewPanelProducts.Size = new Size(561, 321);
             listViewPanelProducts.TabIndex = 0;
             listViewPanelProducts.UseCompatibleStateImageBehavior = false;
+            listViewPanelProducts.View = View.Details;
+            listViewPanelProducts.SelectedIndexChanged += listViewPanelProducts_SelectedIndexChanged;
             //
             // listViewPanelStudents
             //

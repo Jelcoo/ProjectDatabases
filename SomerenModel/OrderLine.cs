@@ -16,6 +16,13 @@ namespace SomerenModel
         public Order Order { get; set; }
         public Product Product { get; set; }
 
+        public OrderLine(Order order, Product product, int quantity)
+        {
+            Order = order;
+            Product = product;
+            Quantity = quantity;
+        }
+
         public override string ToString()
         {
             return $"{Quantity}x {Product.Name} (€{Product.Price:0.00}; {Product.VATRate}%)";
