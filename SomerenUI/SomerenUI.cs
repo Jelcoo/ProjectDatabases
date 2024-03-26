@@ -13,6 +13,7 @@ namespace SomerenUI
         private Student selectedOrderStudent = null;
         private Order unprocessedOrder = null;
         private Product selectedProduct;
+        private Student selectedStudent;
         private string selectedQuarter = null;
 
         public SomerenUI()
@@ -223,17 +224,26 @@ namespace SomerenUI
 
         private void DisplayStudents(List<Student> students)
         {
-            ShowListView(pnlStudents, listViewGeneral);
+            listViewPanelStudents.Clear();
 
-            listViewGeneral.Columns.Add("ID");
-            listViewGeneral.Columns.Add("Name", 200);
+            listViewPanelStudents.Columns.Add("ID");
+            listViewPanelStudents.Columns.Add("Name", 200);
+            listViewPanelStudents.Columns.Add("Phone number", 200);
+            listViewPanelStudents.Columns.Add("Class", 100);
+            listViewPanelStudents.Columns.Add("Vouchers", 100);
+            listViewPanelStudents.Columns.Add("Room", 70);
 
             foreach (Student student in students)
             {
                 ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
                 listViewItem.Tag = student;
                 listViewItem.SubItems.Add(student.Name);
-                listViewGeneral.Items.Add(listViewItem);
+                listViewItem.SubItems.Add(student.PhoneNumber);
+                listViewItem.SubItems.Add(student.Class);
+                listViewItem.SubItems.Add(student.Vouchers.ToString());
+                listViewItem.SubItems.Add(student.RoomId.ToString());
+
+                listViewPanelStudents.Items.Add(listViewItem);
             }
 
             SetHeader("Students");
@@ -340,6 +350,24 @@ namespace SomerenUI
             else
             {
                 MessageBox.Show("Please select a product to delete.");
+            }
+
+            ProductFormSetEmpty();
+        }
+
+        private void DeleteStudentButton_Click(object sender, EventArgs e)
+        {
+            if (this.selectedStudent != null)
+            {
+                StudentService studentService = new StudentService();
+                studentService.DeleteStudent(this.selectedStudent);
+
+                MessageBox.Show("Student deleted successfully!");
+                ShowStudentsPanel();
+            }
+            else
+            {
+                MessageBox.Show("Please select a student to delete.");
             }
 
             ProductFormSetEmpty();
@@ -589,12 +617,74 @@ namespace SomerenUI
                 productService.UpdateProduct(newProduct);
             }
 
-            MessageBox.Show(selectedProduct == null ? "Product added successfully!" : "Product created successfully!");
+            MessageBox.Show(selectedProduct == null ? "Product created successfully!" : "Product edited successfully!");
 
             ProductFormSetEmpty();
             ShowProductsPanel();
         }
+        private void StudentFormSetStudent(Student student)
+        {
+            if (student == null)
+            {
+                StudentFormSetEmpty();
+                return;
+            }
 
+            studentEditButton.Text = "Edit";
+            studentEditFirstNameInput.Text = student.FirstName;
+            studentEditLastNameInput.Text = student.LastName;
+            studentEditPhoneNumberInput.Text = student.PhoneNumber;
+            studentEditClassInput.Text = student.Class;
+            studentEditVouchersNumerric.Value = student.Vouchers;
+            studentEditRoomInput.Text = student.RoomId.ToString();
+            
+        }
+
+        private void StudentFormSetEmpty()
+        {
+            studentEditButton.Text = "Create";
+            studentEditFirstNameInput.Text = "";
+            studentEditLastNameInput.Text = "";
+            studentEditPhoneNumberInput.Text = "";
+            studentEditClassInput.Text = "";
+            studentEditVouchersNumerric.Value = 0;
+            studentEditRoomInput.Text = "";
+
+        }
+
+        private void listViewPanelStudents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = listViewPanelStudents.SelectedItems.Count == 0 ? null : listViewPanelStudents.SelectedItems[0];
+            this.selectedStudent = (Student)selectedItem?.Tag;
+            StudentFormSetStudent(this.selectedStudent);
+            studentDeleteButton.Visible = this.selectedStudent == null ? false : true;
+        }
+
+        private void studentEditButton_Click(object sender, EventArgs e)
+        {
+            StudentService studentService = new StudentService();
+            Student newstudent = new Student()
+            {
+                FirstName = studentEditFirstNameInput.Text,
+                LastName = studentEditLastNameInput.Text,
+                PhoneNumber = studentEditPhoneNumberInput.Text,
+                Class = studentEditClassInput.Text,
+                Vouchers = (int)studentEditVouchersNumerric.Value,
+                RoomId = int.Parse(studentEditRoomInput.Text),  
+            };
+
+            if (selectedStudent == null) studentService.CreateStudent(newstudent);
+            else
+            {
+                newstudent.StudentId = selectedStudent.StudentId;
+                studentService.UpdateStudent(newstudent);
+            }
+
+            MessageBox.Show(selectedStudent == null ? "student created successfully!" : "student edited successfully!");
+
+            StudentFormSetEmpty();
+            ShowStudentsPanel();
+        }
         private string FormatDate(DateTime date)
         {
             return date.ToString("dd-MM-yyyy");
