@@ -39,5 +39,91 @@ namespace SomerenDAL
 
             return activity;
         }
+
+        public List<Student> GetActivityAssignedStudents(Activity activity)
+        {
+            string query = @"
+SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM students
+WHERE studentId IN (
+	SELECT studentId FROM activityparticipants
+	JOIN activities ON activities.activityId=activityparticipants.activityId
+	WHERE activities.activityId=@ActivityId
+);";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+
+            StudentDao studentdb = new StudentDao();
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Student> students = new List<Student>();
+
+            while (reader.Read())
+            {
+                Student student = studentdb.ReadStudent(reader);
+                students.Add(student);
+            }
+
+            reader.Close();
+            CloseConnection();
+
+            return students;
+        }
+
+        public List<Student> GetActivityUnassignedStudents(Activity activity)
+        {
+            string query = @"
+SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM students
+WHERE studentId NOT IN (
+	SELECT studentId FROM activityparticipants
+	JOIN activities ON activities.activityId=activityparticipants.activityId
+	WHERE activities.activityId=@ActivityId
+);";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+
+            StudentDao studentdb = new StudentDao();
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Student> students = new List<Student>();
+
+            while (reader.Read())
+            {
+                Student student = studentdb.ReadStudent(reader);
+                students.Add(student);
+            }
+
+            reader.Close();
+            CloseConnection();
+
+            return students;
+        }
+
+        public void AssignStudent(Student student, Activity activity)
+        {
+            string query = @"INSERT INTO activityparticipants (studentId, activityId) VALUES (@StudentId, @ActivityId)";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@StudentId", student.StudentId);
+                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+
+        public void UnassignStudent(Student student, Activity activity)
+        {
+            string query = @"DELETE FROM activityparticipants WHERE studentId=@StudentId AND activityId=@ActivityId;";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@StudentId", student.StudentId);
+                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
     }
 }
