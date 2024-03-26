@@ -34,7 +34,7 @@ namespace SomerenUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SomerenUI));
             activitiesToolStripMenuItem = new ToolStripMenuItem();
-            blbVatType = new Label();
+            lblVatType = new Label();
             btnQ1 = new Button();
             btnQ2 = new Button();
             btnQ3 = new Button();
@@ -42,7 +42,7 @@ namespace SomerenUI
             dashboardToolStripMenuItem = new ToolStripMenuItem();
             dashboardToolStripMenuItem1 = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
-            EndDatePickerLabel1 = new Label();
+            endDatePickerLabel1 = new Label();
             flowLayoutPanelOrderProducts = new FlowLayoutPanel();
             gbQuarter = new GroupBox();
             headerLabel = new Label();
@@ -121,15 +121,15 @@ namespace SomerenUI
             activitiesToolStripMenuItem.Text = "Activities";
             activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
             // 
-            // blbVatType
+            // lblVatType
             // 
-            blbVatType.AutoSize = true;
-            blbVatType.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            blbVatType.Location = new Point(21, 81);
-            blbVatType.Name = "blbVatType";
-            blbVatType.Size = new Size(98, 28);
-            blbVatType.TabIndex = 9;
-            blbVatType.Text = "Type BTW:";
+            lblVatType.AutoSize = true;
+            lblVatType.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblVatType.Location = new Point(21, 81);
+            lblVatType.Name = "lblVatType";
+            lblVatType.Size = new Size(98, 28);
+            lblVatType.TabIndex = 9;
+            lblVatType.Text = "Type BTW:";
             // 
             // btnQ1
             // 
@@ -212,14 +212,14 @@ namespace SomerenUI
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
-            // EndDatePickerLabel1
+            // endDatePickerLabel1
             // 
-            EndDatePickerLabel1.AutoSize = true;
-            EndDatePickerLabel1.Location = new Point(398, 68);
-            EndDatePickerLabel1.Name = "EndDatePickerLabel1";
-            EndDatePickerLabel1.Size = new Size(86, 25);
-            EndDatePickerLabel1.TabIndex = 2;
-            EndDatePickerLabel1.Text = "End date:";
+            endDatePickerLabel1.AutoSize = true;
+            endDatePickerLabel1.Location = new Point(398, 68);
+            endDatePickerLabel1.Name = "endDatePickerLabel1";
+            endDatePickerLabel1.Size = new Size(86, 25);
+            endDatePickerLabel1.TabIndex = 2;
+            endDatePickerLabel1.Text = "End date:";
             // 
             // flowLayoutPanelOrderProducts
             // 
@@ -666,7 +666,7 @@ namespace SomerenUI
             // pnlRevenue
             // 
             pnlRevenue.Controls.Add(outputRevenue);
-            pnlRevenue.Controls.Add(EndDatePickerLabel1);
+            pnlRevenue.Controls.Add(endDatePickerLabel1);
             pnlRevenue.Controls.Add(startDatePickerLabel1);
             pnlRevenue.Controls.Add(revenueDateStart);
             pnlRevenue.Controls.Add(revenueDateEnd);
@@ -743,7 +743,7 @@ namespace SomerenUI
             pnlVat.Controls.Add(lblRecordTypeVat);
             pnlVat.Controls.Add(lblTotal);
             pnlVat.Controls.Add(lblPercentage);
-            pnlVat.Controls.Add(blbVatType);
+            pnlVat.Controls.Add(lblVatType);
             pnlVat.Controls.Add(gbQuarter);
             pnlVat.Controls.Add(lblYear);
             pnlVat.Controls.Add(txtYear);
@@ -824,8 +824,8 @@ namespace SomerenUI
         private DateTimePicker revenueDateStart;
         private FlowLayoutPanel flowLayoutPanelOrderProducts;
         private GroupBox gbQuarter;
-        private Label blbVatType;
-        private Label EndDatePickerLabel1;
+        private Label lblVatType;
+        private Label endDatePickerLabel1;
         private Label headerLabel;
         private Label lblDashboard;
         private Label lblDates;
