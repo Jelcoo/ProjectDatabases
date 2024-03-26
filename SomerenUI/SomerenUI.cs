@@ -17,6 +17,7 @@ namespace SomerenUI
         private Activity participantSelectedActivity;
         private Activity supervisorSelectedActivity;
 
+
         public SomerenUI()
         {
             InitializeComponent();
@@ -139,6 +140,7 @@ namespace SomerenUI
             }
         }
 
+
         private void DisplayParticipantsActivityList(List<Activity> activities)
         {
             activityParticipantsList.Items.Clear();
@@ -158,6 +160,24 @@ namespace SomerenUI
             SetHeader("Activity Participants");
         }
 
+        private void DisplaySupervisorsActivityList(List<Activity> activities)
+        {
+            activitySupervisorsList.Items.Clear();
+            activitySupervisorsList.Columns.Clear();
+
+            activitySupervisorsList.Columns.Add("ID");
+            activitySupervisorsList.Columns.Add("Name", 200);
+
+            foreach (Activity activity in activities)
+            {
+                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
+                listViewItem.Tag = activity;
+                listViewItem.SubItems.Add(activity.Name);
+                activitySupervisorsList.Items.Add(listViewItem);
+            }
+
+            SetHeader("Activity Supervisors");
+        }
         private List<Student> GetActivityAssignedStudents()
         {
             ActivityService activityService = new ActivityService();
@@ -171,6 +191,22 @@ namespace SomerenUI
             List<Student> students = activityService.GetActivityUnassignedStudents(this.participantSelectedActivity);
             return students;
         }
+
+        private List<Supervisor> GetActivityAssignedSupervisors()
+        {
+            SupervisorService Supervisor = new SupervisorService();
+            List<Supervisor> Supervisors = Supervisor.GetParticipatingSupervisors(this.supervisorSelectedActivity);
+            return Supervisors;
+        }
+
+        private List<Supervisor> GetActivityUnassignedSupervisors()
+        {
+            SupervisorService Supervisor = new SupervisorService();
+            List<Supervisor> Supervisors = Supervisor.GetNonParticipatingSupervisors(this.supervisorSelectedActivity);
+            return Supervisors;
+        }
+
+
 
         private void ShowParticipants()
         {
@@ -208,9 +244,52 @@ namespace SomerenUI
             }
         }
 
+
+        private void ShowSupervisors()
+        {
+            try
+            {
+                List<Supervisor> assignedSupervisors = GetActivityAssignedSupervisors();
+                List<Supervisor> unassignedSupervisors = GetActivityUnassignedSupervisors();
+                ShowSupervisorsList(assignedSupervisors, activitySupervisorsAssigned);
+                ShowSupervisorsList(unassignedSupervisors, activitySupervisorsUnassigned);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activity Supervisors: " + e.Message);
+            }
+        }
+
+        private void ShowSupervisorsList(List<Supervisor> Supervisors, ListView list)
+        {
+            list.Items.Clear();
+            list.Columns.Clear();
+
+            list.Columns.Add("ID");
+            list.Columns.Add("Name", 200);
+
+            foreach (Supervisor Supervisor in Supervisors)
+            {
+                ListViewItem listViewItem = new ListViewItem(Supervisor.TeacherId.ToString());
+                listViewItem.Tag = Supervisor;
+                listViewItem.SubItems.Add(Supervisor.Name);
+                list.Items.Add(listViewItem);
+            }
+        }
+
         private void ShowActivitySupervisorsPanel()
         {
             ShowPanel(pnlActivitySupervisors);
+
+            try
+            {
+                List<Activity> activities = GetActivities();
+                DisplaySupervisorsActivityList(activities);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activity list: " + e.Message);
+            }
         }
 
         private void ShowProductsPanel()
@@ -785,6 +864,51 @@ namespace SomerenUI
             }
         }
 
+
+        private void activitySupervisorsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = activitySupervisorsList.SelectedItems.Count == 0 ? null : activitySupervisorsList.SelectedItems[0];
+            this.supervisorSelectedActivity = (Activity)selectedItem?.Tag;
+            if (this.supervisorSelectedActivity != null)
+            {
+                ShowSupervisors();
+            }
+            activitySupervisorAssignButton.Enabled = false;
+            activitySupervisorUnassignButton.Enabled = false;
+        }
+
+        private void activitySupervisorsUnassigned_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = activitySupervisorsUnassigned.SelectedItems.Count == 0 ? null : activitySupervisorsUnassigned.SelectedItems[0];
+            if (selectedItem == null)
+            {
+                activitySupervisorAssignButton.Enabled = false;
+                activitySupervisorUnassignButton.Enabled = false;
+            }
+            else
+            {
+                activitySupervisorAssignButton.Enabled = true;
+                activitySupervisorUnassignButton.Enabled = false;
+            }
+        }
+
+        private void activitySupervisorsAssigned_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = activitySupervisorsAssigned.SelectedItems.Count == 0 ? null : activitySupervisorsAssigned.SelectedItems[0];
+            if (selectedItem == null)
+            {
+                activitySupervisorAssignButton.Enabled = false;
+                activitySupervisorUnassignButton.Enabled = false;
+            }
+            else
+            {
+                activitySupervisorAssignButton.Enabled = false;
+                activitySupervisorUnassignButton.Enabled = true;
+            }
+        }
+
+
+
         private void activityParticipantAssignButton_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem unassignedParticipant in activityParticipantsUnassigned.SelectedItems)
@@ -815,6 +939,41 @@ namespace SomerenUI
         {
             ActivityService activityService = new ActivityService();
             activityService.UnassignStudent(student, activity);
+        }
+
+
+
+        //-----------------
+        private void activitySupervisorAssignButton_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem unassignedSupervisor in activitySupervisorsUnassigned.SelectedItems)
+            {
+                Supervisor Supervisor = (Supervisor)unassignedSupervisor.Tag;
+                AssignSupervisor(Supervisor, this.supervisorSelectedActivity);
+            }
+            ShowSupervisors();
+        }
+
+        private void AssignSupervisor(Supervisor supervisor, Activity activity)
+        {
+            SupervisorService SupervisorService = new SupervisorService();
+            SupervisorService.AssignSupervisor(activity.ActivityId, supervisor.TeacherId);
+        }
+
+        private void activitySupervisorUnassignButton_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem assignedSupervisor in activitySupervisorsAssigned.SelectedItems)
+            {
+                Supervisor Supervisor = (Supervisor)assignedSupervisor.Tag;
+                AssignSupervisor(Supervisor, this.supervisorSelectedActivity);
+            }
+            ShowSupervisors();
+        }
+
+        private void UnassignSupervisor(Supervisor supervisor, Activity activity)
+        {
+            SupervisorService SupervisorService = new SupervisorService();
+            SupervisorService.UnassignSupervisor(activity.ActivityId, supervisor.TeacherId);
         }
     }
 }

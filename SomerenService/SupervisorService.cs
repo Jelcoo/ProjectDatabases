@@ -20,9 +20,14 @@ namespace SomerenService
         }
 
         // Method to get non-participating supervisors
-        public List<Supervisor> GetNonParticipatingSupervisors()
+        public List<Supervisor> GetNonParticipatingSupervisors(Activity activity = null)
         {
-            return supervisorDao.GetNonParticipatingSupervisors();
+            return supervisorDao.GetNonParticipatingSupervisors(activity);
+        }
+        // Method to get non-participating supervisors
+        public List<Supervisor> GetParticipatingSupervisors(Activity activity = null)
+        {
+            return supervisorDao.GetParticipatingSupervisors(activity);
         }
 
         // Method to assign a supervisor to a specific activity

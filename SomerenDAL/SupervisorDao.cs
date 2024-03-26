@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using SomerenModel;
+using Activity = SomerenModel.Activity;
 
 namespace SomerenDAL
 {
@@ -59,10 +61,65 @@ namespace SomerenDAL
             command.ExecuteNonQuery();
             CloseConnection();
         }
-
-        public List<Supervisor> GetNonParticipatingSupervisors()
+        public List<Supervisor> GetParticipatingSupervisors(Activity activity = null)
         {
-            SqlCommand command = new SqlCommand("SELECT t.teacherId, t.firstName, t.lastName FROM teachers t WHERE NOT EXISTS (SELECT 1 FROM activitysupervisors asv WHERE asv.teacherId = t.teacherId)", OpenConnection());
+            string sqlQuery;
+            if (activity != null)
+            {
+                // Get participating supervisors for a specific activity
+                sqlQuery = "SELECT t.teacherId, t.firstName, t.lastName FROM teachers t JOIN activitysupervisors asv ON t.teacherId = asv.teacherId WHERE asv.activityId = @activityId";
+            }
+            else
+            {
+                // Get participating supervisors for all activities
+                sqlQuery = "SELECT DISTINCT t.teacherId, t.firstName, t.lastName FROM teachers t JOIN activitysupervisors asv ON t.teacherId = asv.teacherId";
+            }
+
+            SqlCommand command = new SqlCommand(sqlQuery, OpenConnection());
+            if (activity != null)
+            {
+                command.Parameters.AddWithValue("@activityId", activity.ActivityId);
+            }
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Supervisor> participatingSupervisors = new List<Supervisor>();
+
+            while (reader.Read())
+            {
+                Supervisor supervisor = new Supervisor()
+                {
+                    TeacherId = (int)reader["teacherId"],
+                    FirstName = reader["firstName"].ToString(),
+                    LastName = reader["lastName"].ToString()
+                };
+                participatingSupervisors.Add(supervisor);
+            }
+            reader.Close();
+            CloseConnection();
+
+            return participatingSupervisors;
+        }
+
+
+        public List<Supervisor> GetNonParticipatingSupervisors(Activity activity = null)
+        {
+            string sqlQuery;
+            if (activity != null)
+            {
+                // Get non-participating supervisors for a specific activity
+                sqlQuery = "SELECT t.teacherId, t.firstName, t.lastName FROM teachers t WHERE NOT EXISTS (SELECT 1 FROM activitysupervisors asv WHERE asv.teacherId = t.teacherId AND asv.activityId = @activityId)";
+            }
+            else
+            {
+                // Get non-participating supervisors for all activities
+                sqlQuery = "SELECT t.teacherId, t.firstName, t.lastName FROM teachers t WHERE NOT EXISTS (SELECT 1 FROM activitysupervisors asv WHERE asv.teacherId = t.teacherId)";
+            }
+
+            SqlCommand command = new SqlCommand(sqlQuery, OpenConnection());
+            if (activity != null)
+            {
+                command.Parameters.AddWithValue("@activityId", activity.ActivityId);
+            }
 
             SqlDataReader reader = command.ExecuteReader();
             List<Supervisor> nonParticipatingSupervisors = new List<Supervisor>();
