@@ -9,7 +9,7 @@ namespace SomerenDAL
     {
         public List<Activity> GetAll()
         {
-            string query = "SELECT activityId, name, location, startOfActivity, endOfActivity FROM [activities]";
+            string query = "SELECT activityId, name, location, startOfActivity, endOfActivity FROM [activities] WHERE deleted=0";
             SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
@@ -48,7 +48,9 @@ WHERE studentId IN (
 	SELECT studentId FROM activityparticipants
 	JOIN activities ON activities.activityId=activityparticipants.activityId
 	WHERE activities.activityId=@ActivityId
-);";
+    AND activities.deleted=0
+)
+AND deleted=0;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
@@ -78,7 +80,9 @@ WHERE studentId NOT IN (
 	SELECT studentId FROM activityparticipants
 	JOIN activities ON activities.activityId=activityparticipants.activityId
 	WHERE activities.activityId=@ActivityId
-);";
+    AND activities.deleted=0
+)
+AND deleted=0;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);

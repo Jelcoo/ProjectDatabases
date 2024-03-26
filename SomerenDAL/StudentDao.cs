@@ -8,7 +8,7 @@ namespace SomerenDAL
     {
         public List<Student> GetAll()
         {
-            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students]", OpenConnection());
+            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students] WHERE deleted=0", OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Student> students = new List<Student>();

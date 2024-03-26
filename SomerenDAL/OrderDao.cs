@@ -101,6 +101,5 @@ WHERE o.orderTimestamp BETWEEN @startDate AND @endDate;";
 
             return totalTaxNeeded;
         }
-
     }
 }
