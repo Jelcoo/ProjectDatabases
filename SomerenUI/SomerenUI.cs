@@ -339,12 +339,18 @@ namespace SomerenUI
 
             listViewPanelteachers.Columns.Add("ID");
             listViewPanelteachers.Columns.Add("Name", 200);
+            listViewPanelteachers.Columns.Add("Phone number", 200);
+            listViewPanelteachers.Columns.Add("Date of birth", 200);
+            listViewPanelteachers.Columns.Add("Room", 70);
 
             foreach (Teacher teacher in teachers)
             {
                 ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
                 listViewItem.Tag = teacher;
                 listViewItem.SubItems.Add(teacher.Name);
+                listViewItem.SubItems.Add(teacher.PhoneNumber);
+                listViewItem.SubItems.Add(teacher.DateOfBirth.ToString("dd/MM/yyyy"));
+                listViewItem.SubItems.Add(teacher.RoomId.ToString());
                 listViewPanelteachers.Items.Add(listViewItem);
             }
 
