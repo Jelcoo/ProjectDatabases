@@ -11,8 +11,8 @@ namespace SomerenDAL
             string query = @"
 SELECT roomId, building, floor, amountOfBeds
 FROM [rooms]
-ORDER BY building, floor, roomId ASC
-WHERE deleted=0";
+WHERE deleted=0
+ORDER BY building, floor, roomId ASC";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
 
