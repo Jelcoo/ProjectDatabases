@@ -81,7 +81,7 @@ namespace SomerenUI
             pictureBox1 = new PictureBox();
             pnlActivities = new Panel();
             pnlActivityParticipants = new Panel();
-            label1 = new Label();
+            assignedStudentsLabel = new Label();
             activityParticipantUnassignButton = new Button();
             activityParticipantAssignButton = new Button();
             activityParticipantsAssigned = new ListView();
@@ -109,7 +109,7 @@ namespace SomerenUI
             pnlTeachers = new Panel();
             pnlVat = new Panel();
             txtYear = new NumericUpDown();
-            label2 = new Label();
+            unassignedStudentsLabel = new Label();
             gbQuarter.SuspendLayout();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -574,8 +574,8 @@ namespace SomerenUI
             // 
             // pnlActivityParticipants
             // 
-            pnlActivityParticipants.Controls.Add(label2);
-            pnlActivityParticipants.Controls.Add(label1);
+            pnlActivityParticipants.Controls.Add(unassignedStudentsLabel);
+            pnlActivityParticipants.Controls.Add(assignedStudentsLabel);
             pnlActivityParticipants.Controls.Add(activityParticipantUnassignButton);
             pnlActivityParticipants.Controls.Add(activityParticipantAssignButton);
             pnlActivityParticipants.Controls.Add(activityParticipantsAssigned);
@@ -586,14 +586,14 @@ namespace SomerenUI
             pnlActivityParticipants.Size = new Size(1340, 660);
             pnlActivityParticipants.TabIndex = 2;
             // 
-            // label1
+            // assignedStudentsLabel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(11, 243);
-            label1.Name = "label1";
-            label1.Size = new Size(146, 25);
-            label1.TabIndex = 5;
-            label1.Text = "Not participating";
+            assignedStudentsLabel.AutoSize = true;
+            assignedStudentsLabel.Location = new Point(11, 243);
+            assignedStudentsLabel.Name = "assignedStudentsLabel";
+            assignedStudentsLabel.Size = new Size(146, 25);
+            assignedStudentsLabel.TabIndex = 5;
+            assignedStudentsLabel.Text = "Not participating";
             // 
             // activityParticipantUnassignButton
             // 
@@ -880,12 +880,12 @@ namespace SomerenUI
             // 
             // unassignedStudentsLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(548, 243);
-            label2.Name = "unassignedStudentsLabel";
-            label2.Size = new Size(59, 25);
-            label2.TabIndex = 6;
-            label2.Text = "Participating";
+            unassignedStudentsLabel.AutoSize = true;
+            unassignedStudentsLabel.Location = new Point(548, 243);
+            unassignedStudentsLabel.Name = "unassignedStudentsLabel";
+            unassignedStudentsLabel.Size = new Size(59, 25);
+            unassignedStudentsLabel.TabIndex = 6;
+            unassignedStudentsLabel.Text = "Participating";
             // 
             // SomerenUI
             // 
@@ -1010,7 +1010,7 @@ namespace SomerenUI
         private ListView activityParticipantsUnassigned;
         private ListView activityParticipantsList;
         private Button activityParticipantUnassignButton;
-        private Label label1;
-        private Label label2;
+        private Label assignedStudentsLabel;
+        private Label unassignedStudentsLabel;
     }
 }
