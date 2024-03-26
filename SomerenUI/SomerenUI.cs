@@ -15,6 +15,8 @@ namespace SomerenUI
         private Product selectedProduct;
         private Teacher selectedTeacher;
         private string selectedQuarter = null;
+        private Activity participantSelectedActivity;
+        private Activity supervisorSelectedActivity;
 
         public SomerenUI()
         {
@@ -24,6 +26,8 @@ namespace SomerenUI
             panelList.Add(pnlStudents);
             panelList.Add(pnlTeachers);
             panelList.Add(pnlActivities);
+            panelList.Add(pnlActivityParticipants);
+            panelList.Add(pnlActivitySupervisors);
             panelList.Add(pnlRooms);
             panelList.Add(pnlProducts);
             panelList.Add(pnlOrders);
@@ -119,6 +123,95 @@ namespace SomerenUI
             {
                 MessageBox.Show("Something went wrong while loading the activities: " + e.Message);
             }
+        }
+
+        private void ShowActivityParticipantsPanel()
+        {
+            ShowPanel(pnlActivityParticipants);
+
+            try
+            {
+                List<Activity> activities = GetActivities();
+                DisplayParticipantsActivityList(activities);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activity list: " + e.Message);
+            }
+        }
+
+        private void DisplayParticipantsActivityList(List<Activity> activities)
+        {
+            activityParticipantsList.Items.Clear();
+            activityParticipantsList.Columns.Clear();
+
+            activityParticipantsList.Columns.Add("ID");
+            activityParticipantsList.Columns.Add("Name", 200);
+
+            foreach (Activity activity in activities)
+            {
+                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
+                listViewItem.Tag = activity;
+                listViewItem.SubItems.Add(activity.Name);
+                activityParticipantsList.Items.Add(listViewItem);
+            }
+
+            SetHeader("Activity Participants");
+        }
+
+        private List<Student> GetActivityAssignedStudents()
+        {
+            ActivityService activityService = new ActivityService();
+            List<Student> students = activityService.GetActivityAssignedStudents(this.participantSelectedActivity);
+            return students;
+        }
+
+        private List<Student> GetActivityUnassignedStudents()
+        {
+            ActivityService activityService = new ActivityService();
+            List<Student> students = activityService.GetActivityUnassignedStudents(this.participantSelectedActivity);
+            return students;
+        }
+
+        private void ShowParticipants()
+        {
+            try
+            {
+                List<Student> assignedStudents = GetActivityAssignedStudents();
+                List<Student> unassignedStudents = GetActivityUnassignedStudents();
+                ShowParticipantsList(assignedStudents, activityParticipantsAssigned);
+                ShowParticipantsList(unassignedStudents, activityParticipantsUnassigned);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activity participants: " + e.Message);
+            }
+        }
+
+        private void ShowParticipantsList(List<Student> students, ListView list)
+        {
+            list.Items.Clear();
+            list.Columns.Clear();
+
+            list.Columns.Add("ID");
+            list.Columns.Add("Name", 200);
+            list.Columns.Add("Phone number", 200);
+            list.Columns.Add("Class", 100);
+
+            foreach (Student student in students)
+            {
+                ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
+                listViewItem.Tag = student;
+                listViewItem.SubItems.Add(student.Name);
+                listViewItem.SubItems.Add(student.PhoneNumber);
+                listViewItem.SubItems.Add(student.Class);
+                list.Items.Add(listViewItem);
+            }
+        }
+
+        private void ShowActivitySupervisorsPanel()
+        {
+            ShowPanel(pnlActivitySupervisors);
         }
 
         private void ShowProductsPanel()
@@ -412,7 +505,7 @@ namespace SomerenUI
             this.unprocessedOrder.OrderLines = new List<OrderLine>();
         }
 
-        private void CreateVatLabels(Dictionary<string,object> summary, int counter)
+        private void CreateVatLabels(Dictionary<string, object> summary, int counter)
         {
             Helpers.CopyAndCloneLabel(lblRecordTypeVat, Helpers.GetVatType((double)summary["VATRate"]).ToString(), counter);
             Helpers.CopyAndCloneLabel(lblRecordPercentage, ((double)summary["VATRate"] * 100).ToString() + "%", counter);
@@ -517,9 +610,19 @@ namespace SomerenUI
             ShowTeachersPanel();
         }
 
-        private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void activitiesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             ShowActivitiesPanel();
+        }
+
+        private void activityParticipantsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowActivityParticipantsPanel();
+        }
+
+        private void activitySupervisorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowActivitySupervisorsPanel();
         }
 
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -560,7 +663,8 @@ namespace SomerenUI
 
         private void ProductFormSetProduct(Product product)
         {
-            if (product == null) {
+            if (product == null)
+            {
                 ProductFormSetEmpty();
                 return;
             }
@@ -711,6 +815,80 @@ namespace SomerenUI
         private void btnQ4_Click(object sender, EventArgs e)
         {
             this.selectedQuarter = "Q4";
+        }
+
+        private void activityParticipantsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = activityParticipantsList.SelectedItems.Count == 0 ? null : activityParticipantsList.SelectedItems[0];
+            this.participantSelectedActivity = (Activity)selectedItem?.Tag;
+            if (this.participantSelectedActivity != null)
+            {
+                ShowParticipants();
+            }
+            activityParticipantAssignButton.Enabled = false;
+            activityParticipantUnassignButton.Enabled = false;
+        }
+
+        private void activityParticipantsUnassigned_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = activityParticipantsUnassigned.SelectedItems.Count == 0 ? null : activityParticipantsUnassigned.SelectedItems[0];
+            if (selectedItem == null)
+            {
+                activityParticipantAssignButton.Enabled = false;
+                activityParticipantUnassignButton.Enabled = false;
+            }
+            else
+            {
+                activityParticipantAssignButton.Enabled = true;
+                activityParticipantUnassignButton.Enabled = false;
+            }
+        }
+
+        private void activityParticipantsAssigned_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = activityParticipantsAssigned.SelectedItems.Count == 0 ? null : activityParticipantsAssigned.SelectedItems[0];
+            if (selectedItem == null)
+            {
+                activityParticipantAssignButton.Enabled = false;
+                activityParticipantUnassignButton.Enabled = false;
+            }
+            else
+            {
+                activityParticipantAssignButton.Enabled = false;
+                activityParticipantUnassignButton.Enabled = true;
+            }
+        }
+
+        private void activityParticipantAssignButton_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem unassignedParticipant in activityParticipantsUnassigned.SelectedItems)
+            {
+                Student participant = (Student)unassignedParticipant.Tag;
+                AssignStudent(participant, this.participantSelectedActivity);
+            }
+            ShowParticipants();
+        }
+
+        private void AssignStudent(Student student, Activity activity)
+        {
+            ActivityService activityService = new ActivityService();
+            activityService.AssignStudent(student, activity);
+        }
+
+        private void activityParticipantUnassignButton_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem assignedParticipant in activityParticipantsAssigned.SelectedItems)
+            {
+                Student participant = (Student)assignedParticipant.Tag;
+                UnassignStudent(participant, this.participantSelectedActivity);
+            }
+            ShowParticipants();
+        }
+
+        private void UnassignStudent(Student student, Activity activity)
+        {
+            ActivityService activityService = new ActivityService();
+            activityService.UnassignStudent(student, activity);
         }
     }
 }

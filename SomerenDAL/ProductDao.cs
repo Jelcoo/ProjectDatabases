@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
-using System.Globalization;
 using SomerenModel;
 
 namespace SomerenDAL
@@ -12,7 +9,7 @@ namespace SomerenDAL
     {
         public List<Product> GetAll()
         {
-            SqlCommand command = new SqlCommand("SELECT productId, name, stock, VATRate, price FROM [products]", OpenConnection());
+            SqlCommand command = new SqlCommand("SELECT productId, name, stock, VATRate, price FROM [products] WHERE deleted=0", OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Product> products = new List<Product>();
@@ -97,9 +94,9 @@ SELECT SCOPE_IDENTITY();";
 
         public void DeleteProduct(Product product)
         {
-            using (SqlCommand command = new SqlCommand("DELETE FROM Products WHERE ProductId = @Id", OpenConnection()))
+            using (SqlCommand command = new SqlCommand("UPDATE products SET deleted=1 WHERE productId=@ProductId", OpenConnection()))
             {
-                command.Parameters.AddWithValue("@Id", product.ProductId);
+                command.Parameters.AddWithValue("@ProductId", product.ProductId);
                 int nrOfRowsAffected = command.ExecuteNonQuery();
             }
             CloseConnection();
