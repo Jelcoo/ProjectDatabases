@@ -13,6 +13,7 @@ namespace SomerenUI
         private Student selectedOrderStudent = null;
         private Order unprocessedOrder = null;
         private Product selectedProduct;
+        private Teacher selectedTeacher;
         private string selectedQuarter = null;
 
         public SomerenUI()
@@ -241,17 +242,17 @@ namespace SomerenUI
 
         private void DisplayTeachers(List<Teacher> teachers)
         {
-            ShowListView(pnlTeachers, listViewGeneral);
+            listViewPanelteachers.Clear();
 
-            listViewGeneral.Columns.Add("ID");
-            listViewGeneral.Columns.Add("Name", 200);
+            listViewPanelteachers.Columns.Add("ID");
+            listViewPanelteachers.Columns.Add("Name", 200);
 
             foreach (Teacher teacher in teachers)
             {
                 ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
                 listViewItem.Tag = teacher;
                 listViewItem.SubItems.Add(teacher.Name);
-                listViewGeneral.Items.Add(listViewItem);
+                listViewPanelteachers.Items.Add(listViewItem);
             }
 
             SetHeader("Teachers");
@@ -343,6 +344,23 @@ namespace SomerenUI
             }
 
             ProductFormSetEmpty();
+        }
+        private void DeleteTeacherButton_Click(object sender, EventArgs e)
+        {
+            if (this.selectedTeacher != null)
+            {
+                TeacherService teacherService = new TeacherService();
+                teacherService.DeleteTeacher(this.selectedTeacher);
+
+                MessageBox.Show("Teacher deleted successfully!");
+                ShowTeachersPanel();
+            }
+            else
+            {
+                MessageBox.Show("Please select a teacher to delete.");
+            }
+
+            TeacherFormSetEmpty();
         }
 
         private void DisplayRevenue(DateTime start, DateTime end)
@@ -553,6 +571,21 @@ namespace SomerenUI
             productEditAlcoholInput.Checked = product.IsAlcoholic;
             productEditPriceInput.Value = (decimal)product.Price;
         }
+        private void TeacherFormSetTeacher(Teacher teacher)
+        {
+            if (teacher == null)
+            {
+                TeacherFormSetEmpty();
+                return;
+            }
+
+            teacherEditButton.Text = "Edit";
+            teacherEditFirstNameInput.Text = teacher.FirstName;
+            teacherEditLastNameInput.Text = teacher.LastName;
+            teacherEditPhoneNumberInput.Text = teacher.PhoneNumber;
+            teacherEditDateOfBirthInput.Text = teacher.DateOfBirth.ToString();
+            teacherEditRoomIdInput.Text = teacher.RoomId.ToString();
+        }
 
         private void ProductFormSetEmpty()
         {
@@ -562,6 +595,15 @@ namespace SomerenUI
             productEditAlcoholInput.Checked = false;
             productEditPriceInput.Value = 0.00M;
         }
+        private void TeacherFormSetEmpty()
+        {
+            teacherEditButton.Text = "Create";
+            teacherEditFirstNameInput.Text = "";
+            teacherEditLastNameInput.Text = "";
+            teacherEditPhoneNumberInput.Text = "";
+            teacherEditDateOfBirthInput.Text = DateTime.Now.ToString();
+            teacherEditRoomIdInput.Text = "";
+        }
 
         private void listViewPanelProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -569,6 +611,13 @@ namespace SomerenUI
             this.selectedProduct = (Product)selectedItem?.Tag;
             ProductFormSetProduct(this.selectedProduct);
             productDeleteButton.Visible = this.selectedProduct == null ? false : true;
+        }
+        private void listViewPanelTeachers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = listViewPanelteachers.SelectedItems.Count == 0 ? null : listViewPanelteachers.SelectedItems[0];
+            this.selectedTeacher = (Teacher)selectedItem?.Tag;
+            TeacherFormSetTeacher(this.selectedTeacher);
+            teachersDeleteButton.Visible = this.selectedTeacher == null ? false : true;
         }
 
         private void productEditButton_Click(object sender, EventArgs e)
@@ -589,10 +638,35 @@ namespace SomerenUI
                 productService.UpdateProduct(newProduct);
             }
 
-            MessageBox.Show(selectedProduct == null ? "Product added successfully!" : "Product created successfully!");
+            MessageBox.Show(selectedProduct == null ? "Product created successfully!" : "Product updated successfully!");
 
             ProductFormSetEmpty();
             ShowProductsPanel();
+        }
+
+        private void teacherEditButton_Click(object sender, EventArgs e)
+        {
+            TeacherService teacherService = new TeacherService();
+            Teacher newTeacher = new Teacher()
+            {
+                FirstName = teacherEditFirstNameInput.Text,
+                LastName = teacherEditLastNameInput.Text,
+                PhoneNumber = teacherEditPhoneNumberInput.Text,
+                DateOfBirth = teacherEditDateOfBirthInput.Value,
+                RoomId = int.Parse(teacherEditRoomIdInput.Text),
+            };
+
+            if (selectedTeacher == null) teacherService.CreateTeacher(newTeacher);
+            else
+            {
+                newTeacher.TeacherId = selectedTeacher.TeacherId;
+                teacherService.UpdateTeacher(newTeacher);
+            }
+
+            MessageBox.Show(selectedTeacher == null ? "Teacher created successfully!" : "Teacher updated successfully!");
+
+            TeacherFormSetEmpty();
+            ShowTeachersPanel();
         }
 
         private string FormatDate(DateTime date)

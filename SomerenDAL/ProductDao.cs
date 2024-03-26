@@ -87,7 +87,6 @@ SELECT SCOPE_IDENTITY();";
                 command.Parameters.AddWithValue("@Stock", product.Stock);
                 command.Parameters.AddWithValue("@VATRate", product.VATRate);
                 command.Parameters.AddWithValue("@Price", product.Price);
-                command.ExecuteNonQuery();
 
                 int id = Convert.ToInt32(command.ExecuteScalar());
                 product.ProductId = id;
