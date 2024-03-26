@@ -1126,6 +1126,13 @@ namespace SomerenUI
 
         private void activitySupervisorUnassignButton_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Are you sure you want to unassign the selected supervisor(s)?", "Confirm Unassign", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            // Proceed if the user confirms
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+
             foreach (ListViewItem assignedSupervisor in activitySupervisorsAssigned.SelectedItems)
             {
                 Teacher teacher = (Teacher)assignedSupervisor.Tag;
