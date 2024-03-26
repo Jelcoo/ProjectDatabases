@@ -133,6 +133,7 @@ namespace SomerenUI
             pnlRooms.SuspendLayout();
             pnlTeachers.SuspendLayout();
             pnlVat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)productEditPriceInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)productEditStockInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtYear).BeginInit();
@@ -1084,7 +1085,7 @@ namespace SomerenUI
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1374, 841);
-            Controls.Add(pnlActivityParticipants);
+            Controls.Add(pnlTeachers);
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
             Controls.Add(pnlStudents);
