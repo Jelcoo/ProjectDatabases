@@ -81,6 +81,12 @@ namespace SomerenUI
             pictureBox1 = new PictureBox();
             pnlActivities = new Panel();
             pnlActivityParticipants = new Panel();
+            label1 = new Label();
+            activityParticipantUnassignButton = new Button();
+            activityParticipantAssignButton = new Button();
+            activityParticipantsAssigned = new ListView();
+            activityParticipantsUnassigned = new ListView();
+            activityParticipantsList = new ListView();
             pnlActivitySupervisors = new Panel();
             pnlDashboard = new Panel();
             pnlOrders = new Panel();
@@ -103,11 +109,7 @@ namespace SomerenUI
             pnlTeachers = new Panel();
             pnlVat = new Panel();
             txtYear = new NumericUpDown();
-            activityParticipantsList = new ListView();
-            activityParticipantsUnassigned = new ListView();
-            activityParticipantsAssigned = new ListView();
-            activityParticipantAssignButton = new Button();
-            activityParticipantUnassignButton = new Button();
+            label2 = new Label();
             gbQuarter.SuspendLayout();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -572,6 +574,8 @@ namespace SomerenUI
             // 
             // pnlActivityParticipants
             // 
+            pnlActivityParticipants.Controls.Add(label2);
+            pnlActivityParticipants.Controls.Add(label1);
             pnlActivityParticipants.Controls.Add(activityParticipantUnassignButton);
             pnlActivityParticipants.Controls.Add(activityParticipantAssignButton);
             pnlActivityParticipants.Controls.Add(activityParticipantsAssigned);
@@ -581,6 +585,71 @@ namespace SomerenUI
             pnlActivityParticipants.Name = "pnlActivityParticipants";
             pnlActivityParticipants.Size = new Size(1340, 660);
             pnlActivityParticipants.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(11, 243);
+            label1.Name = "label1";
+            label1.Size = new Size(146, 25);
+            label1.TabIndex = 5;
+            label1.Text = "Not participating";
+            // 
+            // activityParticipantUnassignButton
+            // 
+            activityParticipantUnassignButton.Enabled = false;
+            activityParticipantUnassignButton.Location = new Point(456, 426);
+            activityParticipantUnassignButton.Name = "activityParticipantUnassignButton";
+            activityParticipantUnassignButton.Size = new Size(60, 34);
+            activityParticipantUnassignButton.TabIndex = 4;
+            activityParticipantUnassignButton.Text = "<";
+            activityParticipantUnassignButton.UseVisualStyleBackColor = true;
+            activityParticipantUnassignButton.Click += activityParticipantUnassignButton_Click;
+            // 
+            // activityParticipantAssignButton
+            // 
+            activityParticipantAssignButton.Enabled = false;
+            activityParticipantAssignButton.Location = new Point(456, 383);
+            activityParticipantAssignButton.Name = "activityParticipantAssignButton";
+            activityParticipantAssignButton.Size = new Size(60, 34);
+            activityParticipantAssignButton.TabIndex = 3;
+            activityParticipantAssignButton.Text = ">";
+            activityParticipantAssignButton.UseVisualStyleBackColor = true;
+            activityParticipantAssignButton.Click += activityParticipantAssignButton_Click;
+            // 
+            // activityParticipantsAssigned
+            // 
+            activityParticipantsAssigned.FullRowSelect = true;
+            activityParticipantsAssigned.Location = new Point(548, 271);
+            activityParticipantsAssigned.Name = "activityParticipantsAssigned";
+            activityParticipantsAssigned.Size = new Size(405, 320);
+            activityParticipantsAssigned.TabIndex = 2;
+            activityParticipantsAssigned.UseCompatibleStateImageBehavior = false;
+            activityParticipantsAssigned.View = View.Details;
+            activityParticipantsAssigned.SelectedIndexChanged += activityParticipantsAssigned_SelectedIndexChanged;
+            // 
+            // activityParticipantsUnassigned
+            // 
+            activityParticipantsUnassigned.FullRowSelect = true;
+            activityParticipantsUnassigned.Location = new Point(15, 271);
+            activityParticipantsUnassigned.Name = "activityParticipantsUnassigned";
+            activityParticipantsUnassigned.Size = new Size(405, 320);
+            activityParticipantsUnassigned.TabIndex = 1;
+            activityParticipantsUnassigned.UseCompatibleStateImageBehavior = false;
+            activityParticipantsUnassigned.View = View.Details;
+            activityParticipantsUnassigned.SelectedIndexChanged += activityParticipantsUnassigned_SelectedIndexChanged;
+            // 
+            // activityParticipantsList
+            // 
+            activityParticipantsList.FullRowSelect = true;
+            activityParticipantsList.GridLines = true;
+            activityParticipantsList.Location = new Point(15, 70);
+            activityParticipantsList.Name = "activityParticipantsList";
+            activityParticipantsList.Size = new Size(938, 143);
+            activityParticipantsList.TabIndex = 1;
+            activityParticipantsList.UseCompatibleStateImageBehavior = false;
+            activityParticipantsList.View = View.Details;
+            activityParticipantsList.SelectedIndexChanged += activityParticipantsList_SelectedIndexChanged;
             // 
             // pnlActivitySupervisors
             // 
@@ -809,59 +878,14 @@ namespace SomerenUI
             txtYear.Value = new decimal(new int[] { 2024, 0, 0, 0 });
             txtYear.ValueChanged += DisplayVat;
             // 
-            // activityParticipantsList
+            // unassignedStudentsLabel
             // 
-            activityParticipantsList.FullRowSelect = true;
-            activityParticipantsList.GridLines = true;
-            activityParticipantsList.Location = new Point(15, 70);
-            activityParticipantsList.Name = "activityParticipantsList";
-            activityParticipantsList.Size = new Size(905, 143);
-            activityParticipantsList.TabIndex = 1;
-            activityParticipantsList.UseCompatibleStateImageBehavior = false;
-            activityParticipantsList.View = View.Details;
-            activityParticipantsList.SelectedIndexChanged += activityParticipantsList_SelectedIndexChanged;
-            // 
-            // activityParticipantsUnassigned
-            // 
-            activityParticipantsUnassigned.FullRowSelect = true;
-            activityParticipantsUnassigned.Location = new Point(15, 271);
-            activityParticipantsUnassigned.Name = "activityParticipantsUnassigned";
-            activityParticipantsUnassigned.Size = new Size(405, 320);
-            activityParticipantsUnassigned.TabIndex = 1;
-            activityParticipantsUnassigned.UseCompatibleStateImageBehavior = false;
-            activityParticipantsUnassigned.View = View.Details;
-            activityParticipantsUnassigned.SelectedIndexChanged += activityParticipantsUnassigned_SelectedIndexChanged;
-            // 
-            // activityParticipantsAssigned
-            // 
-            activityParticipantsAssigned.FullRowSelect = true;
-            activityParticipantsAssigned.Location = new Point(548, 271);
-            activityParticipantsAssigned.Name = "activityParticipantsAssigned";
-            activityParticipantsAssigned.Size = new Size(405, 320);
-            activityParticipantsAssigned.TabIndex = 2;
-            activityParticipantsAssigned.UseCompatibleStateImageBehavior = false;
-            activityParticipantsAssigned.View = View.Details;
-            activityParticipantsAssigned.SelectedIndexChanged += activityParticipantsAssigned_SelectedIndexChanged;
-            // 
-            // activityParticipantAssignButton
-            // 
-            activityParticipantAssignButton.Location = new Point(466, 383);
-            activityParticipantAssignButton.Name = "activityParticipantAssignButton";
-            activityParticipantAssignButton.Size = new Size(60, 34);
-            activityParticipantAssignButton.TabIndex = 3;
-            activityParticipantAssignButton.Text = ">";
-            activityParticipantAssignButton.UseVisualStyleBackColor = true;
-            activityParticipantAssignButton.Enabled = false;
-            // 
-            // activityParticipantUnassignButton
-            // 
-            activityParticipantUnassignButton.Location = new Point(466, 426);
-            activityParticipantUnassignButton.Name = "activityParticipantUnassignButton";
-            activityParticipantUnassignButton.Size = new Size(60, 34);
-            activityParticipantUnassignButton.TabIndex = 4;
-            activityParticipantUnassignButton.Text = "<";
-            activityParticipantUnassignButton.UseVisualStyleBackColor = true;
-            activityParticipantUnassignButton.Enabled = false;
+            label2.AutoSize = true;
+            label2.Location = new Point(548, 243);
+            label2.Name = "unassignedStudentsLabel";
+            label2.Size = new Size(59, 25);
+            label2.TabIndex = 6;
+            label2.Text = "Participating";
             // 
             // SomerenUI
             // 
@@ -890,6 +914,7 @@ namespace SomerenUI
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlActivityParticipants.ResumeLayout(false);
+            pnlActivityParticipants.PerformLayout();
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlOrders.ResumeLayout(false);
@@ -985,5 +1010,7 @@ namespace SomerenUI
         private ListView activityParticipantsUnassigned;
         private ListView activityParticipantsList;
         private Button activityParticipantUnassignButton;
+        private Label label1;
+        private Label label2;
     }
 }

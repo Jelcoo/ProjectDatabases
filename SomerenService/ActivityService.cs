@@ -30,5 +30,15 @@ namespace SomerenService
             List<Student> students = activitydb.GetActivityUnassignedStudents(activity);
             return students;
         }
+
+        public void AssignStudent(Student student, Activity activity)
+        {
+            activitydb.AssignStudent(student, activity);
+        }
+
+        public void UnassignStudent(Student student, Activity activity)
+        {
+            activitydb.UnassignStudent(student, activity);
+        }
     }
 }

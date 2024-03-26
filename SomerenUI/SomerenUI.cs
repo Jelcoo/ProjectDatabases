@@ -186,6 +186,9 @@ namespace SomerenUI
 
         private void ShowParticipantsList(List<Student> students, ListView list)
         {
+            list.Items.Clear();
+            list.Columns.Clear();
+
             list.Columns.Add("ID");
             list.Columns.Add("Name", 200);
             list.Columns.Add("Phone number", 200);
@@ -741,11 +744,8 @@ namespace SomerenUI
         {
             ListViewItem selectedItem = activityParticipantsList.SelectedItems.Count == 0 ? null : activityParticipantsList.SelectedItems[0];
             this.participantSelectedActivity = (Activity)selectedItem?.Tag;
-            activityParticipantsUnassigned.Items.Clear();
-            activityParticipantsUnassigned.Columns.Clear();
-            activityParticipantsAssigned.Items.Clear();
-            activityParticipantsAssigned.Columns.Clear();
-            if (this.participantSelectedActivity != null) {
+            if (this.participantSelectedActivity != null)
+            {
                 ShowParticipants();
             }
             activityParticipantAssignButton.Enabled = false;
@@ -755,10 +755,13 @@ namespace SomerenUI
         private void activityParticipantsUnassigned_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListViewItem selectedItem = activityParticipantsUnassigned.SelectedItems.Count == 0 ? null : activityParticipantsUnassigned.SelectedItems[0];
-            if (selectedItem == null) {
+            if (selectedItem == null)
+            {
                 activityParticipantAssignButton.Enabled = false;
                 activityParticipantUnassignButton.Enabled = false;
-            } else {
+            }
+            else
+            {
                 activityParticipantAssignButton.Enabled = true;
                 activityParticipantUnassignButton.Enabled = false;
             }
@@ -767,13 +770,48 @@ namespace SomerenUI
         private void activityParticipantsAssigned_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListViewItem selectedItem = activityParticipantsAssigned.SelectedItems.Count == 0 ? null : activityParticipantsAssigned.SelectedItems[0];
-            if (selectedItem == null) {
+            if (selectedItem == null)
+            {
                 activityParticipantAssignButton.Enabled = false;
                 activityParticipantUnassignButton.Enabled = false;
-            } else {
+            }
+            else
+            {
                 activityParticipantAssignButton.Enabled = false;
                 activityParticipantUnassignButton.Enabled = true;
             }
+        }
+
+        private void activityParticipantAssignButton_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem unassignedParticipant in activityParticipantsUnassigned.SelectedItems)
+            {
+                Student participant = (Student)unassignedParticipant.Tag;
+                AssignStudent(participant, this.participantSelectedActivity);
+            }
+            ShowParticipants();
+        }
+
+        private void AssignStudent(Student student, Activity activity)
+        {
+            ActivityService activityService = new ActivityService();
+            activityService.AssignStudent(student, activity);
+        }
+
+        private void activityParticipantUnassignButton_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem assignedParticipant in activityParticipantsAssigned.SelectedItems)
+            {
+                Student participant = (Student)assignedParticipant.Tag;
+                UnassignStudent(participant, this.participantSelectedActivity);
+            }
+            ShowParticipants();
+        }
+
+        private void UnassignStudent(Student student, Activity activity)
+        {
+            ActivityService activityService = new ActivityService();
+            activityService.UnassignStudent(student, activity);
         }
     }
 }
