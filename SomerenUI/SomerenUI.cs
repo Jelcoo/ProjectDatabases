@@ -141,6 +141,9 @@ namespace SomerenUI
 
         private void DisplayParticipantsActivityList(List<Activity> activities)
         {
+            activityParticipantsList.Items.Clear();
+            activityParticipantsList.Columns.Clear();
+
             activityParticipantsList.Columns.Add("ID");
             activityParticipantsList.Columns.Add("Name", 200);
 
