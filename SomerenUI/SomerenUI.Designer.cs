@@ -34,7 +34,10 @@ namespace SomerenUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SomerenUI));
             activitiesToolStripMenuItem = new ToolStripMenuItem();
-            blbVatType = new Label();
+            activitiesToolStripMenuItem1 = new ToolStripMenuItem();
+            activityParticipantsToolStripMenuItem = new ToolStripMenuItem();
+            activitySupervisorsToolStripMenuItem = new ToolStripMenuItem();
+            lblVatType = new Label();
             btnQ1 = new Button();
             btnQ2 = new Button();
             btnQ3 = new Button();
@@ -42,7 +45,7 @@ namespace SomerenUI
             dashboardToolStripMenuItem = new ToolStripMenuItem();
             dashboardToolStripMenuItem1 = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
-            EndDatePickerLabel1 = new Label();
+            endDatePickerLabel1 = new Label();
             flowLayoutPanelOrderProducts = new FlowLayoutPanel();
             gbQuarter = new GroupBox();
             headerLabel = new Label();
@@ -63,6 +66,7 @@ namespace SomerenUI
             listViewGeneral = new ListView();
             listViewPanelProducts = new ListView();
             listViewPanelStudents = new ListView();
+            listViewPanelteachers = new ListView();
             menuStrip1 = new MenuStrip();
             studentsToolStripMenuItem = new ToolStripMenuItem();
             teachersToolStripMenuItem = new ToolStripMenuItem();
@@ -78,6 +82,15 @@ namespace SomerenUI
             outputRevenue = new Label();
             pictureBox1 = new PictureBox();
             pnlActivities = new Panel();
+            pnlActivityParticipants = new Panel();
+            assignedStudentsLabel = new Label();
+            unassignedStudentsLabel = new Label();
+            activityParticipantUnassignButton = new Button();
+            activityParticipantAssignButton = new Button();
+            activityParticipantsAssigned = new ListView();
+            activityParticipantsUnassigned = new ListView();
+            activityParticipantsList = new ListView();
+            pnlActivitySupervisors = new Panel();
             pnlDashboard = new Panel();
             pnlOrders = new Panel();
             pnlProducts = new Panel();
@@ -90,6 +103,14 @@ namespace SomerenUI
             productEditNameInput = new TextBox();
             productEditNameLabel = new Label();
             productDeleteButton = new Button();
+            teacherEditButton = new Button();
+            teacherEditFirstNameInput = new TextBox();
+            teacherEditRoomIdInput = new TextBox();
+            teacherEditPhoneNumberInput = new TextBox();
+            teacherEditDateOfBirthInput = new DateTimePicker();
+            teacherEditLastNameInput = new TextBox();
+            teacherEditFirstNameLabel = new Label();
+            teachersDeleteButton = new Button();
             pnlRevenue = new Panel();
             startDatePickerLabel1 = new Label();
             revenueDateStart = new DateTimePicker();
@@ -112,40 +133,65 @@ namespace SomerenUI
             pnlTeachers = new Panel();
             pnlVat = new Panel();
             txtYear = new NumericUpDown();
+            teacherEditLastNameLabel = new Label();
+            teacherEditPhoneNumberLabel = new Label();
+            teacherEditDateOfBirthLabel = new Label();
+            teacherEditRoomIdLabel = new Label();
             studentEditFirstNameInput = new TextBox();
             gbQuarter.SuspendLayout();
             menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlActivityParticipants.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlOrders.SuspendLayout();
             pnlProducts.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)productEditPriceInput).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)productEditStockInput).BeginInit();
             pnlRevenue.SuspendLayout();
             pnlRooms.SuspendLayout();
             pnlStudents.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)studentEditVouchersNumerric).BeginInit();
+            pnlTeachers.SuspendLayout();
             pnlVat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)productEditPriceInput).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)productEditStockInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtYear).BeginInit();
             SuspendLayout();
             // 
             // activitiesToolStripMenuItem
             // 
+            activitiesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { activitiesToolStripMenuItem1, activityParticipantsToolStripMenuItem, activitySupervisorsToolStripMenuItem });
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
             activitiesToolStripMenuItem.Size = new Size(83, 24);
             activitiesToolStripMenuItem.Text = "Activities";
-            activitiesToolStripMenuItem.Click += activitiesToolStripMenuItem_Click;
             // 
-            // blbVatType
+            // activitiesToolStripMenuItem1
             // 
-            blbVatType.AutoSize = true;
-            blbVatType.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            blbVatType.Location = new Point(17, 65);
-            blbVatType.Margin = new Padding(2, 0, 2, 0);
-            blbVatType.Name = "blbVatType";
-            blbVatType.Size = new Size(87, 23);
-            blbVatType.TabIndex = 9;
-            blbVatType.Text = "Type BTW:";
+            activitiesToolStripMenuItem1.Name = "activitiesToolStripMenuItem1";
+            activitiesToolStripMenuItem1.Size = new Size(206, 34);
+            activitiesToolStripMenuItem1.Text = "Activities";
+            activitiesToolStripMenuItem1.Click += activitiesToolStripMenuItem1_Click;
+            // 
+            // activityParticipantsToolStripMenuItem
+            // 
+            activityParticipantsToolStripMenuItem.Name = "activityParticipantsToolStripMenuItem";
+            activityParticipantsToolStripMenuItem.Size = new Size(206, 34);
+            activityParticipantsToolStripMenuItem.Text = "Participants";
+            activityParticipantsToolStripMenuItem.Click += activityParticipantsToolStripMenuItem_Click;
+            // 
+            // activitySupervisorsToolStripMenuItem
+            // 
+            activitySupervisorsToolStripMenuItem.Name = "activitySupervisorsToolStripMenuItem";
+            activitySupervisorsToolStripMenuItem.Size = new Size(206, 34);
+            activitySupervisorsToolStripMenuItem.Text = "Supervisors";
+            activitySupervisorsToolStripMenuItem.Click += activitySupervisorsToolStripMenuItem_Click;
+            // 
+            // lblVatType
+            // 
+            lblVatType.AutoSize = true;
+            lblVatType.Font = new Font("Segoe UI Semilight", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lblVatType.Location = new Point(21, 81);
+            lblVatType.Name = "lblVatType";
+            lblVatType.Size = new Size(98, 28);
+            lblVatType.TabIndex = 9;
+            lblVatType.Text = "Type BTW:";
             // 
             // btnQ1
             // 
@@ -228,15 +274,14 @@ namespace SomerenUI
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
-            // EndDatePickerLabel1
+            // endDatePickerLabel1
             // 
-            EndDatePickerLabel1.AutoSize = true;
-            EndDatePickerLabel1.Location = new Point(318, 54);
-            EndDatePickerLabel1.Margin = new Padding(2, 0, 2, 0);
-            EndDatePickerLabel1.Name = "EndDatePickerLabel1";
-            EndDatePickerLabel1.Size = new Size(71, 20);
-            EndDatePickerLabel1.TabIndex = 2;
-            EndDatePickerLabel1.Text = "End date:";
+            endDatePickerLabel1.AutoSize = true;
+            endDatePickerLabel1.Location = new Point(398, 68);
+            endDatePickerLabel1.Name = "endDatePickerLabel1";
+            endDatePickerLabel1.Size = new Size(86, 25);
+            endDatePickerLabel1.TabIndex = 2;
+            endDatePickerLabel1.Text = "End date:";
             // 
             // flowLayoutPanelOrderProducts
             // 
@@ -445,8 +490,7 @@ namespace SomerenUI
             // listViewPanelProducts
             // 
             listViewPanelProducts.FullRowSelect = true;
-            listViewPanelProducts.Location = new Point(12, 48);
-            listViewPanelProducts.Margin = new Padding(2);
+            listViewPanelProducts.Location = new Point(15, 60);
             listViewPanelProducts.Name = "listViewPanelProducts";
             listViewPanelProducts.Size = new Size(561, 321);
             listViewPanelProducts.TabIndex = 0;
@@ -465,6 +509,18 @@ namespace SomerenUI
             listViewPanelStudents.UseCompatibleStateImageBehavior = false;
             listViewPanelStudents.View = View.Details;
             listViewPanelStudents.SelectedIndexChanged += listViewPanelStudents_SelectedIndexChanged;
+            //
+            // listViewPanelteachers
+            // 
+            listViewPanelteachers.FullRowSelect = true;
+            listViewPanelteachers.Location = new Point(12, 48);
+            listViewPanelteachers.Margin = new Padding(2);
+            listViewPanelteachers.Name = "listViewPanelteachers";
+            listViewPanelteachers.Size = new Size(561, 321);
+            listViewPanelteachers.TabIndex = 0;
+            listViewPanelteachers.UseCompatibleStateImageBehavior = false;
+            listViewPanelteachers.View = View.Details;
+            listViewPanelteachers.SelectedIndexChanged += listViewPanelTeachers_SelectedIndexChanged;
             // 
             // menuStrip1
             // 
@@ -591,6 +647,92 @@ namespace SomerenUI
             pnlActivities.Name = "pnlActivities";
             pnlActivities.Size = new Size(1072, 528);
             pnlActivities.TabIndex = 2;
+            // 
+            // pnlActivityParticipants
+            // 
+            pnlActivityParticipants.Controls.Add(unassignedStudentsLabel);
+            pnlActivityParticipants.Controls.Add(assignedStudentsLabel);
+            pnlActivityParticipants.Controls.Add(activityParticipantUnassignButton);
+            pnlActivityParticipants.Controls.Add(activityParticipantAssignButton);
+            pnlActivityParticipants.Controls.Add(activityParticipantsAssigned);
+            pnlActivityParticipants.Controls.Add(activityParticipantsUnassigned);
+            pnlActivityParticipants.Controls.Add(activityParticipantsList);
+            pnlActivityParticipants.Location = new Point(15, 31);
+            pnlActivityParticipants.Name = "pnlActivityParticipants";
+            pnlActivityParticipants.Size = new Size(1340, 660);
+            pnlActivityParticipants.TabIndex = 2;
+            // 
+            // assignedStudentsLabel
+            // 
+            assignedStudentsLabel.AutoSize = true;
+            assignedStudentsLabel.Location = new Point(11, 243);
+            assignedStudentsLabel.Name = "assignedStudentsLabel";
+            assignedStudentsLabel.Size = new Size(146, 25);
+            assignedStudentsLabel.TabIndex = 5;
+            assignedStudentsLabel.Text = "Not participating";
+            // 
+            // activityParticipantUnassignButton
+            // 
+            activityParticipantUnassignButton.Enabled = false;
+            activityParticipantUnassignButton.Location = new Point(456, 426);
+            activityParticipantUnassignButton.Name = "activityParticipantUnassignButton";
+            activityParticipantUnassignButton.Size = new Size(60, 34);
+            activityParticipantUnassignButton.TabIndex = 4;
+            activityParticipantUnassignButton.Text = "<";
+            activityParticipantUnassignButton.UseVisualStyleBackColor = true;
+            activityParticipantUnassignButton.Click += activityParticipantUnassignButton_Click;
+            // 
+            // activityParticipantAssignButton
+            // 
+            activityParticipantAssignButton.Enabled = false;
+            activityParticipantAssignButton.Location = new Point(456, 383);
+            activityParticipantAssignButton.Name = "activityParticipantAssignButton";
+            activityParticipantAssignButton.Size = new Size(60, 34);
+            activityParticipantAssignButton.TabIndex = 3;
+            activityParticipantAssignButton.Text = ">";
+            activityParticipantAssignButton.UseVisualStyleBackColor = true;
+            activityParticipantAssignButton.Click += activityParticipantAssignButton_Click;
+            // 
+            // activityParticipantsAssigned
+            // 
+            activityParticipantsAssigned.FullRowSelect = true;
+            activityParticipantsAssigned.Location = new Point(548, 271);
+            activityParticipantsAssigned.Name = "activityParticipantsAssigned";
+            activityParticipantsAssigned.Size = new Size(405, 320);
+            activityParticipantsAssigned.TabIndex = 2;
+            activityParticipantsAssigned.UseCompatibleStateImageBehavior = false;
+            activityParticipantsAssigned.View = View.Details;
+            activityParticipantsAssigned.SelectedIndexChanged += activityParticipantsAssigned_SelectedIndexChanged;
+            // 
+            // activityParticipantsUnassigned
+            // 
+            activityParticipantsUnassigned.FullRowSelect = true;
+            activityParticipantsUnassigned.Location = new Point(15, 271);
+            activityParticipantsUnassigned.Name = "activityParticipantsUnassigned";
+            activityParticipantsUnassigned.Size = new Size(405, 320);
+            activityParticipantsUnassigned.TabIndex = 1;
+            activityParticipantsUnassigned.UseCompatibleStateImageBehavior = false;
+            activityParticipantsUnassigned.View = View.Details;
+            activityParticipantsUnassigned.SelectedIndexChanged += activityParticipantsUnassigned_SelectedIndexChanged;
+            // 
+            // activityParticipantsList
+            // 
+            activityParticipantsList.FullRowSelect = true;
+            activityParticipantsList.GridLines = true;
+            activityParticipantsList.Location = new Point(15, 70);
+            activityParticipantsList.Name = "activityParticipantsList";
+            activityParticipantsList.Size = new Size(938, 143);
+            activityParticipantsList.TabIndex = 1;
+            activityParticipantsList.UseCompatibleStateImageBehavior = false;
+            activityParticipantsList.View = View.Details;
+            activityParticipantsList.SelectedIndexChanged += activityParticipantsList_SelectedIndexChanged;
+            // 
+            // pnlActivitySupervisors
+            // 
+            pnlActivitySupervisors.Location = new Point(15, 31);
+            pnlActivitySupervisors.Name = "pnlActivitySupervisors";
+            pnlActivitySupervisors.Size = new Size(1340, 660);
+            pnlActivitySupervisors.TabIndex = 2;
             // 
             // pnlDashboard
             // 
@@ -720,10 +862,84 @@ namespace SomerenUI
             productDeleteButton.Visible = false;
             productDeleteButton.Click += DeleteProductButton_Click;
             // 
+            // teacherEditButton
+            // 
+            teacherEditButton.Location = new Point(596, 250);
+            teacherEditButton.Margin = new Padding(2);
+            teacherEditButton.Name = "teacherEditButton";
+            teacherEditButton.Size = new Size(75, 28);
+            teacherEditButton.TabIndex = 10;
+            teacherEditButton.Text = "Create";
+            teacherEditButton.UseVisualStyleBackColor = true;
+            teacherEditButton.Click += teacherEditButton_Click;
+            // 
+            // teacherEditFirstNameInput
+            // 
+            teacherEditFirstNameInput.Location = new Point(702, 75);
+            teacherEditFirstNameInput.Margin = new Padding(2);
+            teacherEditFirstNameInput.Name = "teacherEditFirstNameInput";
+            teacherEditFirstNameInput.Size = new Size(120, 27);
+            teacherEditFirstNameInput.TabIndex = 3;
+            // 
+            // teacherEditRoomIdInput
+            // 
+            teacherEditRoomIdInput.Location = new Point(702, 199);
+            teacherEditRoomIdInput.Margin = new Padding(2);
+            teacherEditRoomIdInput.Name = "teacherEditRoomIdInput";
+            teacherEditRoomIdInput.Size = new Size(120, 27);
+            teacherEditRoomIdInput.TabIndex = 3;
+            // 
+            // teacherEditPhoneNumberInput
+            // 
+            teacherEditPhoneNumberInput.Location = new Point(702, 136);
+            teacherEditPhoneNumberInput.Margin = new Padding(2);
+            teacherEditPhoneNumberInput.Name = "teacherEditPhoneNumberInput";
+            teacherEditPhoneNumberInput.Size = new Size(120, 27);
+            teacherEditPhoneNumberInput.TabIndex = 3;
+            // 
+            // teacherEditDateOfBirthInput
+            // 
+            teacherEditDateOfBirthInput.CustomFormat = "dd MMM yyyy";
+            teacherEditDateOfBirthInput.Format = DateTimePickerFormat.Custom;
+            teacherEditDateOfBirthInput.Location = new Point(702, 167);
+            teacherEditDateOfBirthInput.Margin = new Padding(2);
+            teacherEditDateOfBirthInput.Name = "teacherEditDateOfBirthInput";
+            teacherEditDateOfBirthInput.Size = new Size(120, 27);
+            teacherEditDateOfBirthInput.TabIndex = 3;
+            // 
+            // teacherEditLastNameInput
+            // 
+            teacherEditLastNameInput.Location = new Point(702, 106);
+            teacherEditLastNameInput.Margin = new Padding(2);
+            teacherEditLastNameInput.Name = "teacherEditLastNameInput";
+            teacherEditLastNameInput.Size = new Size(120, 27);
+            teacherEditLastNameInput.TabIndex = 3;
+            // 
+            // teacherEditFirstNameLabel
+            // 
+            teacherEditFirstNameLabel.AutoSize = true;
+            teacherEditFirstNameLabel.Location = new Point(587, 79);
+            teacherEditFirstNameLabel.Margin = new Padding(2, 0, 2, 0);
+            teacherEditFirstNameLabel.Name = "teacherEditFirstNameLabel";
+            teacherEditFirstNameLabel.Size = new Size(76, 20);
+            teacherEditFirstNameLabel.TabIndex = 2;
+            teacherEditFirstNameLabel.Text = "Firstname:";
+            // 
+            // teachersDeleteButton
+            // 
+            teachersDeleteButton.Location = new Point(687, 250);
+            teachersDeleteButton.Margin = new Padding(2);
+            teachersDeleteButton.Name = "teachersDeleteButton";
+            teachersDeleteButton.Size = new Size(75, 28);
+            teachersDeleteButton.TabIndex = 1;
+            teachersDeleteButton.Text = "Delete";
+            teachersDeleteButton.Visible = false;
+            teachersDeleteButton.Click += DeleteTeacherButton_Click;
+            // 
             // pnlRevenue
             // 
             pnlRevenue.Controls.Add(outputRevenue);
-            pnlRevenue.Controls.Add(EndDatePickerLabel1);
+            pnlRevenue.Controls.Add(endDatePickerLabel1);
             pnlRevenue.Controls.Add(startDatePickerLabel1);
             pnlRevenue.Controls.Add(revenueDateStart);
             pnlRevenue.Controls.Add(revenueDateEnd);
@@ -924,6 +1140,19 @@ namespace SomerenUI
             // 
             // pnlTeachers
             // 
+            pnlTeachers.Controls.Add(teacherEditRoomIdLabel);
+            pnlTeachers.Controls.Add(teacherEditDateOfBirthLabel);
+            pnlTeachers.Controls.Add(teacherEditPhoneNumberLabel);
+            pnlTeachers.Controls.Add(teacherEditLastNameLabel);
+            pnlTeachers.Controls.Add(teacherEditButton);
+            pnlTeachers.Controls.Add(teacherEditFirstNameInput);
+            pnlTeachers.Controls.Add(teacherEditRoomIdInput);
+            pnlTeachers.Controls.Add(teacherEditDateOfBirthInput);
+            pnlTeachers.Controls.Add(teacherEditLastNameInput);
+            pnlTeachers.Controls.Add(teacherEditPhoneNumberInput);
+            pnlTeachers.Controls.Add(teacherEditFirstNameLabel);
+            pnlTeachers.Controls.Add(listViewPanelteachers);
+            pnlTeachers.Controls.Add(teachersDeleteButton);
             pnlTeachers.Location = new Point(12, 25);
             pnlTeachers.Margin = new Padding(2);
             pnlTeachers.Name = "pnlTeachers";
@@ -943,7 +1172,7 @@ namespace SomerenUI
             pnlVat.Controls.Add(lblRecordTypeVat);
             pnlVat.Controls.Add(lblTotal);
             pnlVat.Controls.Add(lblPercentage);
-            pnlVat.Controls.Add(blbVatType);
+            pnlVat.Controls.Add(lblVatType);
             pnlVat.Controls.Add(gbQuarter);
             pnlVat.Controls.Add(lblYear);
             pnlVat.Controls.Add(txtYear);
@@ -973,21 +1202,71 @@ namespace SomerenUI
             studentEditFirstNameInput.Name = "studentEditFirstNameInput";
             studentEditFirstNameInput.Size = new Size(170, 27);
             studentEditFirstNameInput.TabIndex = 22;
+            //
+            // teacherEditLastNameLabel
+            // 
+            teacherEditLastNameLabel.AutoSize = true;
+            teacherEditLastNameLabel.Location = new Point(587, 107);
+            teacherEditLastNameLabel.Margin = new Padding(2, 0, 2, 0);
+            teacherEditLastNameLabel.Name = "teacherEditLastNameLabel";
+            teacherEditLastNameLabel.Size = new Size(75, 20);
+            teacherEditLastNameLabel.TabIndex = 11;
+            teacherEditLastNameLabel.Text = "Lastname:";
+            // 
+            // teacherEditPhoneNumberLabel
+            // 
+            teacherEditPhoneNumberLabel.AutoSize = true;
+            teacherEditPhoneNumberLabel.Location = new Point(587, 139);
+            teacherEditPhoneNumberLabel.Margin = new Padding(2, 0, 2, 0);
+            teacherEditPhoneNumberLabel.Name = "teacherEditPhoneNumberLabel";
+            teacherEditPhoneNumberLabel.Size = new Size(111, 20);
+            teacherEditPhoneNumberLabel.TabIndex = 12;
+            teacherEditPhoneNumberLabel.Text = "Phone Number:";
+            // 
+            // teacherEditDateOfBirthLabel
+            // 
+            teacherEditDateOfBirthLabel.AutoSize = true;
+            teacherEditDateOfBirthLabel.Location = new Point(587, 172);
+            teacherEditDateOfBirthLabel.Margin = new Padding(2, 0, 2, 0);
+            teacherEditDateOfBirthLabel.Name = "teacherEditDateOfBirthLabel";
+            teacherEditDateOfBirthLabel.Size = new Size(99, 20);
+            teacherEditDateOfBirthLabel.TabIndex = 13;
+            teacherEditDateOfBirthLabel.Text = "Date Of Birth:";
+            // 
+            // teacherEditRoomIdLabel
+            // 
+            teacherEditRoomIdLabel.AutoSize = true;
+            teacherEditRoomIdLabel.Location = new Point(588, 202);
+            teacherEditRoomIdLabel.Margin = new Padding(2, 0, 2, 0);
+            teacherEditRoomIdLabel.Name = "teacherEditRoomIdLabel";
+            teacherEditRoomIdLabel.Size = new Size(110, 20);
+            teacherEditRoomIdLabel.TabIndex = 14;
+            teacherEditRoomIdLabel.Text = "Room Number:";
+            //
+            // unassignedStudentsLabel
+            // 
+            unassignedStudentsLabel.AutoSize = true;
+            unassignedStudentsLabel.Location = new Point(548, 243);
+            unassignedStudentsLabel.Name = "unassignedStudentsLabel";
+            unassignedStudentsLabel.Size = new Size(59, 25);
+            unassignedStudentsLabel.TabIndex = 6;
+            unassignedStudentsLabel.Text = "Participating";
             // 
             // SomerenUI
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1099, 673);
-            Controls.Add(pnlStudents);
+            ClientSize = new Size(1374, 841);
+            Controls.Add(pnlTeachers);
             Controls.Add(menuStrip1);
             Controls.Add(pnlDashboard);
-            Controls.Add(pnlTeachers);
+            Controls.Add(pnlStudents);
             Controls.Add(pnlActivities);
+            Controls.Add(pnlActivitySupervisors);
             Controls.Add(pnlRooms);
+            Controls.Add(pnlRevenue);
             Controls.Add(pnlProducts);
             Controls.Add(pnlOrders);
-            Controls.Add(pnlRevenue);
             Controls.Add(pnlVat);
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 4, 3, 4);
@@ -998,6 +1277,12 @@ namespace SomerenUI
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlActivities.ResumeLayout(false);
+            pnlActivities.PerformLayout();
+            pnlActivityParticipants.ResumeLayout(false);
+            pnlActivityParticipants.PerformLayout();
+            pnlActivitySupervisors.ResumeLayout(false);
+            pnlActivitySupervisors.PerformLayout();
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlOrders.ResumeLayout(false);
@@ -1009,9 +1294,6 @@ namespace SomerenUI
             pnlRevenue.ResumeLayout(false);
             pnlRevenue.PerformLayout();
             pnlRooms.ResumeLayout(false);
-            pnlStudents.ResumeLayout(false);
-            pnlStudents.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)studentEditVouchersNumerric).EndInit();
             pnlVat.ResumeLayout(false);
             pnlVat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)txtYear).EndInit();
@@ -1027,17 +1309,19 @@ namespace SomerenUI
         private Button btnQ4;
         private Button orderProcessButton;
         private Button productDeleteButton;
+        private Button teachersDeleteButton;
         private Button productEditButton;
         private Button studentDeleteButton;
         private Button studentEditButton;
+        private Button teacherEditButton;
         private CheckBox productEditAlcoholInput;
         private ComboBox ordersComboBox;
         private DateTimePicker revenueDateEnd;
         private DateTimePicker revenueDateStart;
         private FlowLayoutPanel flowLayoutPanelOrderProducts;
         private GroupBox gbQuarter;
-        private Label blbVatType;
-        private Label EndDatePickerLabel1;
+        private Label lblVatType;
+        private Label endDatePickerLabel1;
         private Label headerLabel;
         private Label lblDashboard;
         private Label lblDates;
@@ -1058,6 +1342,7 @@ namespace SomerenUI
         private Label ordersComboBoxLabel;
         private Label outputRevenue;
         private Label productEditNameLabel;
+        private Label teacherEditFirstNameLabel;
         private Label productEditPriceLabel;
         private Label productEditStockLabel;
         private Label studentEditFirstNameLabel;
@@ -1067,10 +1352,13 @@ namespace SomerenUI
         private ListView listViewGeneral;
         private ListView listViewPanelProducts;
         private ListView listViewPanelStudents;
+        private ListView listViewPanelteachers;
         private MenuStrip menuStrip1;
         private NumericUpDown productEditPriceInput;
         private NumericUpDown productEditStockInput;
         private Panel pnlActivities;
+        private Panel pnlActivityParticipants;
+        private Panel pnlActivitySupervisors;
         private Panel pnlDashboard;
         private Panel pnlOrders;
         private Panel pnlProducts;
@@ -1087,8 +1375,16 @@ namespace SomerenUI
         private TextBox studentEditClassInput;
         private TextBox studentEditRoomInput;
         private NumericUpDown studentEditVouchersNumerric;
+        private TextBox teacherEditFirstNameInput;
+        private TextBox teacherEditRoomIdInput;
+        private DateTimePicker teacherEditDateOfBirthInput;
+        private TextBox teacherEditLastNameInput;
+        private TextBox teacherEditPhoneNumberInput;
         private NumericUpDown txtYear;
         private ToolStripMenuItem activitiesToolStripMenuItem;
+        private ToolStripMenuItem activitiesToolStripMenuItem1;
+        private ToolStripMenuItem activityParticipantsToolStripMenuItem;
+        private ToolStripMenuItem activitySupervisorsToolStripMenuItem;
         private ToolStripMenuItem dashboardToolStripMenuItem;
         private ToolStripMenuItem dashboardToolStripMenuItem1;
         private ToolStripMenuItem exitToolStripMenuItem;
@@ -1104,5 +1400,16 @@ namespace SomerenUI
         private Label studentEditClassLabel;
         private Label studentEditVouchersLabel;
         private Label studentEditRoomLabel;
+        private Label teacherEditLastNameLabel;
+        private Label teacherEditRoomIdLabel;
+        private Label teacherEditDateOfBirthLabel;
+        private Label teacherEditPhoneNumberLabel;
+        private Button activityParticipantAssignButton;
+        private ListView activityParticipantsAssigned;
+        private ListView activityParticipantsUnassigned;
+        private ListView activityParticipantsList;
+        private Button activityParticipantUnassignButton;
+        private Label assignedStudentsLabel;
+        private Label unassignedStudentsLabel;
     }
 }

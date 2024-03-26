@@ -1,6 +1,7 @@
 ﻿using SomerenDAL;
 using SomerenModel;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SomerenService
 {
@@ -17,6 +18,21 @@ namespace SomerenService
         {
             List<Teacher> teachers = teacherdb.GetAll();
             return teachers;
+        }
+        public void UpdateTeacher(Teacher teacher)
+        {
+            teacherdb.UpdateTeacher(teacher);
+        }
+
+        public void DeleteTeacher(Teacher teacher)
+        {
+            teacherdb.DeleteTeacher(teacher);
+        }
+
+        public Teacher CreateTeacher(Teacher teacher)
+        {
+            teacherdb.CreateTeacher(teacher);
+            return teacher;
         }
     }
 }
