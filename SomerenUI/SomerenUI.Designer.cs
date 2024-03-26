@@ -175,6 +175,7 @@ namespace SomerenUI
             btnQ1.Tag = "Q1";
             btnQ1.Text = "Q1";
             btnQ1.UseVisualStyleBackColor = false;
+            btnQ1.Click += btnQ1_Click;
             btnQ1.Click += DisplayVat;
             // 
             // btnQ2
@@ -189,6 +190,7 @@ namespace SomerenUI
             btnQ2.Tag = "Q2";
             btnQ2.Text = "Q2";
             btnQ2.UseVisualStyleBackColor = false;
+            btnQ2.Click += btnQ2_Click;
             btnQ2.Click += DisplayVat;
             // 
             // btnQ3
@@ -203,6 +205,7 @@ namespace SomerenUI
             btnQ3.Tag = "Q3";
             btnQ3.Text = "Q3";
             btnQ3.UseVisualStyleBackColor = false;
+            btnQ3.Click += btnQ3_Click;
             btnQ3.Click += DisplayVat;
             // 
             // btnQ4
@@ -217,6 +220,7 @@ namespace SomerenUI
             btnQ4.Tag = "Q4";
             btnQ4.Text = "Q4";
             btnQ4.UseVisualStyleBackColor = false;
+            btnQ4.Click += btnQ4_Click;
             btnQ4.Click += DisplayVat;
             // 
             // dashboardToolStripMenuItem
