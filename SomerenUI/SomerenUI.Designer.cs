@@ -807,11 +807,11 @@ namespace SomerenUI
             revenueDateStart.CustomFormat = "dd MMM yyyy";
             revenueDateStart.Format = DateTimePickerFormat.Custom;
             revenueDateStart.Location = new Point(15, 100);
-            revenueDateStart.MaxDate = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateStart.MaxDate = DateTime.Today;
             revenueDateStart.Name = "revenueDateStart";
             revenueDateStart.Size = new Size(200, 31);
             revenueDateStart.TabIndex = 0;
-            revenueDateStart.Value = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateStart.Value = DateTime.Today;
             revenueDateStart.ValueChanged += UpdateRevenueSelector;
             // 
             // revenueDateEnd
@@ -819,11 +819,11 @@ namespace SomerenUI
             revenueDateEnd.CustomFormat = "dd MMM yyyy";
             revenueDateEnd.Format = DateTimePickerFormat.Custom;
             revenueDateEnd.Location = new Point(400, 100);
-            revenueDateEnd.MaxDate = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateEnd.MaxDate = DateTime.Today;
             revenueDateEnd.Name = "revenueDateEnd";
             revenueDateEnd.Size = new Size(200, 31);
             revenueDateEnd.TabIndex = 0;
-            revenueDateEnd.Value = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateEnd.Value = DateTime.Today;
             revenueDateEnd.ValueChanged += UpdateRevenueSelector;
             // 
             // pnlRooms
@@ -875,11 +875,12 @@ namespace SomerenUI
             // 
             txtYear.AllowDrop = true;
             txtYear.Location = new Point(701, 108);
-            txtYear.Maximum = new decimal(new int[] { 2024, 0, 0, 0 });
             txtYear.Name = "txtYear";
             txtYear.Size = new Size(125, 31);
             txtYear.TabIndex = 2;
-            txtYear.Value = new decimal(new int[] { 2024, 0, 0, 0 });
+            txtYear.Minimum = 0;
+            txtYear.Maximum = DateTime.Today.Year;
+            txtYear.Value = DateTime.Today.Year;
             txtYear.ValueChanged += DisplayVat;
             // 
             // unassignedStudentsLabel
@@ -917,8 +918,12 @@ namespace SomerenUI
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlActivities.ResumeLayout(false);
+            pnlActivities.PerformLayout();
             pnlActivityParticipants.ResumeLayout(false);
             pnlActivityParticipants.PerformLayout();
+            pnlActivitySupervisors.ResumeLayout(false);
+            pnlActivitySupervisors.PerformLayout();
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlOrders.ResumeLayout(false);
@@ -932,7 +937,6 @@ namespace SomerenUI
             pnlRooms.ResumeLayout(false);
             pnlVat.ResumeLayout(false);
             pnlVat.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)txtYear).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
