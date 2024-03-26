@@ -864,7 +864,6 @@ namespace SomerenUI
             }
         }
 
-
         private void activitySupervisorsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListViewItem selectedItem = activitySupervisorsList.SelectedItems.Count == 0 ? null : activitySupervisorsList.SelectedItems[0];
@@ -907,8 +906,6 @@ namespace SomerenUI
             }
         }
 
-
-
         private void activityParticipantAssignButton_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem unassignedParticipant in activityParticipantsUnassigned.SelectedItems)
@@ -941,9 +938,6 @@ namespace SomerenUI
             activityService.UnassignStudent(student, activity);
         }
 
-
-
-        //-----------------
         private void activitySupervisorAssignButton_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem unassignedSupervisor in activitySupervisorsUnassigned.SelectedItems)
@@ -965,7 +959,7 @@ namespace SomerenUI
             foreach (ListViewItem assignedSupervisor in activitySupervisorsAssigned.SelectedItems)
             {
                 Supervisor Supervisor = (Supervisor)assignedSupervisor.Tag;
-                AssignSupervisor(Supervisor, this.supervisorSelectedActivity);
+                UnassignSupervisor(Supervisor, this.supervisorSelectedActivity);
             }
             ShowSupervisors();
         }

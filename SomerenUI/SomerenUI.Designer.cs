@@ -771,7 +771,7 @@ namespace SomerenUI
             activitySupervisorsAssigned.TabIndex = 9;
             activitySupervisorsAssigned.UseCompatibleStateImageBehavior = false;
             activitySupervisorsAssigned.View = View.Details;
-            activitySupervisorsList.SelectedIndexChanged += activitySupervisorsAssigned_SelectedIndexChanged;
+            activitySupervisorsAssigned.SelectedIndexChanged += activitySupervisorsAssigned_SelectedIndexChanged;
             // 
             // activitySupervisorsUnassigned
             // 
@@ -783,7 +783,7 @@ namespace SomerenUI
             activitySupervisorsUnassigned.TabIndex = 7;
             activitySupervisorsUnassigned.UseCompatibleStateImageBehavior = false;
             activitySupervisorsUnassigned.View = View.Details;
-            activitySupervisorsList.SelectedIndexChanged += activitySupervisorsUnassigned_SelectedIndexChanged;
+            activitySupervisorsUnassigned.SelectedIndexChanged += activitySupervisorsUnassigned_SelectedIndexChanged;
             // 
             // activitySupervisorsList
             // 
