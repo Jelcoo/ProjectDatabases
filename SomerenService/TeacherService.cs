@@ -31,7 +31,8 @@ namespace SomerenService
 
         public Teacher CreateTeacher(Teacher teacher)
         {
-            teacherdb.CreateTeacher(teacher);
+            int teacherId = teacherdb.CreateTeacher(teacher);
+            teacher.TeacherId = teacherId;
             return teacher;
         }
     }

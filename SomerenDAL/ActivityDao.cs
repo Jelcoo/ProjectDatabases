@@ -108,12 +108,11 @@ AND deleted=0;";
         {
             string query = @"INSERT INTO activityparticipants (studentId, activityId) VALUES (@StudentId, @ActivityId)";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@StudentId", student.StudentId);
-                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
-                command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@StudentId", student.StudentId);
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
 
@@ -121,12 +120,11 @@ AND deleted=0;";
         {
             string query = @"DELETE FROM activityparticipants WHERE studentId=@StudentId AND activityId=@ActivityId;";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@StudentId", student.StudentId);
-                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
-                command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@StudentId", student.StudentId);
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
         
@@ -199,12 +197,11 @@ AND deleted=0;";
         {
             string query = @"INSERT INTO activitysupervisors (teacherId, activityId) VALUES (@TeacherId, @ActivityId)";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
-                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
-                command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
 
@@ -212,12 +209,11 @@ AND deleted=0;";
         {
             string query = @"DELETE FROM activitysupervisors WHERE teacherId=@TeacherId AND activityId=@ActivityId;";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
-                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
-                command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
     }

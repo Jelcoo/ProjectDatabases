@@ -8,24 +8,17 @@ namespace SomerenModel
 {
     public class Order
     {
-        public int OrderId { get; set; }
-        public DateTime OrderTimestamp { get; set; }
-        public int StudentId { get; set; }
-
         public Student Student { get; set; }
         public List<OrderLine> OrderLines { get; set; }
 
-        public double TotalPrice {
-            get
+        public double TotalPrice() {
+            double price = 0;
+            foreach (OrderLine line in OrderLines)
             {
-                double price = 0;
-                foreach (OrderLine line in OrderLines)
-                {
-                    price += line.Product.Price * line.Quantity;
-                }
-
-                return price;
+                price += line.Product.Price * line.Quantity;
             }
+
+            return price;
         }
 
         public override string ToString()

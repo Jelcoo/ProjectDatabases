@@ -11,6 +11,5 @@ namespace SomerenModel
         public int TotalDrinksSold { get; set; }
         public int UniqueCustomers { get; set; }
         public double Turnover { get; set; }
-       
     }
 }

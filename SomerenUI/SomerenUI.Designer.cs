@@ -216,7 +216,7 @@ namespace SomerenUI
             btnQ1.Tag = "Q1";
             btnQ1.Text = "Q1";
             btnQ1.UseVisualStyleBackColor = false;
-            btnQ1.Click += DisplayVat;
+            btnQ1.Click += btnQ1_Click;
             // 
             // btnQ2
             // 
@@ -231,7 +231,7 @@ namespace SomerenUI
             btnQ2.Tag = "Q2";
             btnQ2.Text = "Q2";
             btnQ2.UseVisualStyleBackColor = false;
-            btnQ2.Click += DisplayVat;
+            btnQ2.Click += btnQ2_Click;
             // 
             // btnQ3
             // 
@@ -246,7 +246,7 @@ namespace SomerenUI
             btnQ3.Tag = "Q3";
             btnQ3.Text = "Q3";
             btnQ3.UseVisualStyleBackColor = false;
-            btnQ3.Click += DisplayVat;
+            btnQ3.Click += btnQ3_Click;
             // 
             // btnQ4
             // 
@@ -261,7 +261,7 @@ namespace SomerenUI
             btnQ4.Tag = "Q4";
             btnQ4.Text = "Q4";
             btnQ4.UseVisualStyleBackColor = false;
-            btnQ4.Click += DisplayVat;
+            btnQ4.Click += btnQ4_Click;
             // 
             // dashboardToolStripMenuItem
             // 
@@ -1309,7 +1309,7 @@ namespace SomerenUI
             txtYear.Size = new Size(100, 27);
             txtYear.TabIndex = 2;
             txtYear.Value = new decimal(new int[] { 2024, 0, 0, 0 });
-            txtYear.ValueChanged += DisplayVat;
+            txtYear.ValueChanged += txtYear_ValueChanged;
             // 
             // studentEditFirstNameInput
             // 
@@ -1443,7 +1443,6 @@ namespace SomerenUI
         private Label lblOrders;
         private Label lblPercentage;
         private Label lblProducts;
-        private Label lblStudents;
         private Label lblRecordOrders;
         private Label lblRecordPercentage;
         private Label lblRecordProducts;
@@ -1461,8 +1460,6 @@ namespace SomerenUI
         private Label productEditPriceLabel;
         private Label productEditStockLabel;
         private Label studentEditFirstNameLabel;
-        private Label studentEditPriceLabel;
-        private Label studentEditStockLabel;
         private Label startDatePickerLabel1;
         private ListView listViewGeneral;
         private ListView listViewPanelProducts;

@@ -22,8 +22,8 @@ namespace SomerenService
 
         public double GetTotalTaxNeeded(DateTime[] dateRanges)
         {
-            if(dateRanges.Length > 2 || dateRanges.Length == 0)
-                return 0;
+            if (dateRanges.Length > 2 || dateRanges.Length == 0) return 0;
+
             return orderDao.GetTotalTaxNeeded(dateRanges[0], dateRanges[1]);
         }
     }

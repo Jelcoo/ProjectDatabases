@@ -31,7 +31,8 @@ namespace SomerenService
 
         public Product CreateProduct(Product product)
         {
-            productdb.CreateProduct(product);
+            int productId = productdb.CreateProduct(product);
+            product.ProductId = productId;
             return product;
         }
     }

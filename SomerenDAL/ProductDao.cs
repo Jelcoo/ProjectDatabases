@@ -59,46 +59,44 @@ SET
     price = @Price
 WHERE productId = @ProductId";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@Name", product.Name);
-                command.Parameters.AddWithValue("@Stock", product.Stock);
-                command.Parameters.AddWithValue("@VATRate", product.VATRate);
-                command.Parameters.AddWithValue("@Price", product.Price);
-                command.Parameters.AddWithValue("@ProductId", product.ProductId);
-                command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@Name", product.Name);
+            command.Parameters.AddWithValue("@Stock", product.Stock);
+            command.Parameters.AddWithValue("@VATRate", product.VATRate);
+            command.Parameters.AddWithValue("@Price", product.Price);
+            command.Parameters.AddWithValue("@ProductId", product.ProductId);
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
 
-        public Product CreateProduct(Product product)
+        public int CreateProduct(Product product)
         {
             string query = @"
 INSERT INTO products (name, stock, VATRate, price)
 VALUES (@Name, @Stock, @VATRate, @Price);
 SELECT SCOPE_IDENTITY();";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@Name", product.Name);
-                command.Parameters.AddWithValue("@Stock", product.Stock);
-                command.Parameters.AddWithValue("@VATRate", product.VATRate);
-                command.Parameters.AddWithValue("@Price", product.Price);
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@Name", product.Name);
+            command.Parameters.AddWithValue("@Stock", product.Stock);
+            command.Parameters.AddWithValue("@VATRate", product.VATRate);
+            command.Parameters.AddWithValue("@Price", product.Price);
 
-                int id = Convert.ToInt32(command.ExecuteScalar());
-                product.ProductId = id;
-            }
+            int id = Convert.ToInt32(command.ExecuteScalar());
+
             CloseConnection();
-            return product;
+
+            return id;
         }
 
         public void DeleteProduct(Product product)
         {
-            using (SqlCommand command = new SqlCommand("UPDATE products SET deleted=1 WHERE productId=@ProductId", OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@ProductId", product.ProductId);
-                int nrOfRowsAffected = command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand("UPDATE products SET deleted=1 WHERE productId=@ProductId", OpenConnection());
+            command.Parameters.AddWithValue("@ProductId", product.ProductId);
+
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
     }

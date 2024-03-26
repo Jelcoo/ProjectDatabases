@@ -20,7 +20,7 @@ namespace SomerenService
             foreach (OrderLine orderLine in order.OrderLines)
             {
                 orderdb.StoreOrderLine(orderId, orderLine);
-                productdb.DecreaseStock(orderLine.Product, orderLine.Quantity);
+                productdb.DecreaseStock(orderLine.Product, orderLine.Quantity); //TODO pass whole orderLine
             }
         }
     }

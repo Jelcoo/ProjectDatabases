@@ -142,143 +142,6 @@ namespace SomerenUI
             }
         }
 
-
-        private void DisplayParticipantsActivityList(List<Activity> activities)
-        {
-            activityParticipantsList.Items.Clear();
-            activityParticipantsList.Columns.Clear();
-
-            activityParticipantsList.Columns.Add("ID");
-            activityParticipantsList.Columns.Add("Name", 200);
-
-            foreach (Activity activity in activities)
-            {
-                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
-                listViewItem.Tag = activity;
-                listViewItem.SubItems.Add(activity.Name);
-                activityParticipantsList.Items.Add(listViewItem);
-            }
-
-            SetHeader("Activity Participants");
-        }
-
-        private void DisplaySupervisorsActivityList(List<Activity> activities)
-        {
-            activitySupervisorsList.Items.Clear();
-            activitySupervisorsList.Columns.Clear();
-
-            activitySupervisorsList.Columns.Add("ID");
-            activitySupervisorsList.Columns.Add("Name", 200);
-
-            foreach (Activity activity in activities)
-            {
-                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
-                listViewItem.Tag = activity;
-                listViewItem.SubItems.Add(activity.Name);
-                activitySupervisorsList.Items.Add(listViewItem);
-            }
-
-            SetHeader("Activity Supervisors");
-        }
-        private List<Student> GetActivityAssignedStudents()
-        {
-            ActivityService activityService = new ActivityService();
-            List<Student> students = activityService.GetActivityAssignedStudents(this.participantSelectedActivity);
-            return students;
-        }
-
-        private List<Student> GetActivityUnassignedStudents()
-        {
-            ActivityService activityService = new ActivityService();
-            List<Student> students = activityService.GetActivityUnassignedStudents(this.participantSelectedActivity);
-            return students;
-        }
-
-        private List<Teacher> GetActivityAssignedSupervisors()
-        {
-            ActivityService activityService = new ActivityService();
-            List<Teacher> teachers = activityService.GetActivityAssignedTeachers(this.supervisorSelectedActivity);
-            return teachers;
-        }
-
-        private List<Teacher> GetActivityUnassignedSupervisors()
-        {
-            ActivityService activityService = new ActivityService();
-            List<Teacher> teachers = activityService.GetActivityUnassignedTeachers(this.supervisorSelectedActivity);
-            return teachers;
-        }
-
-
-
-        private void ShowParticipants()
-        {
-            try
-            {
-                List<Student> assignedStudents = GetActivityAssignedStudents();
-                List<Student> unassignedStudents = GetActivityUnassignedStudents();
-                ShowParticipantsList(assignedStudents, activityParticipantsAssigned);
-                ShowParticipantsList(unassignedStudents, activityParticipantsUnassigned);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Something went wrong while loading the activity participants: " + e.Message);
-            }
-        }
-
-        private void ShowParticipantsList(List<Student> students, ListView list)
-        {
-            list.Items.Clear();
-            list.Columns.Clear();
-
-            list.Columns.Add("ID");
-            list.Columns.Add("Name", 200);
-            list.Columns.Add("Phone number", 200);
-            list.Columns.Add("Class", 100);
-
-            foreach (Student student in students)
-            {
-                ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
-                listViewItem.Tag = student;
-                listViewItem.SubItems.Add(student.Name);
-                listViewItem.SubItems.Add(student.PhoneNumber);
-                listViewItem.SubItems.Add(student.Class);
-                list.Items.Add(listViewItem);
-            }
-        }
-
-
-        private void ShowSupervisors()
-        {
-            try
-            {
-                List<Teacher> assignedSupervisors = GetActivityAssignedSupervisors();
-                List<Teacher> unassignedSupervisors = GetActivityUnassignedSupervisors();
-                ShowSupervisorsList(assignedSupervisors, activitySupervisorsAssigned);
-                ShowSupervisorsList(unassignedSupervisors, activitySupervisorsUnassigned);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Something went wrong while loading the activity Supervisors: " + e.Message);
-            }
-        }
-
-        private void ShowSupervisorsList(List<Teacher> teachers, ListView list)
-        {
-            list.Items.Clear();
-            list.Columns.Clear();
-
-            list.Columns.Add("ID");
-            list.Columns.Add("Name", 200);
-
-            foreach (Teacher teacher in teachers)
-            {
-                ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
-                listViewItem.Tag = teacher;
-                listViewItem.SubItems.Add(teacher.Name);
-                list.Items.Add(listViewItem);
-            }
-        }
-
         private void ShowActivitySupervisorsPanel()
         {
             ShowPanel(pnlActivitySupervisors);
@@ -354,6 +217,56 @@ namespace SomerenUI
             }
         }
 
+        private void DisplayParticipantsActivityList(List<Activity> activities)
+        {
+            activityParticipantsList.Items.Clear();
+            activityParticipantsList.Columns.Clear();
+
+            activityParticipantsList.Columns.Add("ID");
+            activityParticipantsList.Columns.Add("Name", 200);
+
+            foreach (Activity activity in activities)
+            {
+                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
+                listViewItem.Tag = activity;
+                listViewItem.SubItems.Add(activity.Name);
+                activityParticipantsList.Items.Add(listViewItem);
+            }
+
+            SetHeader("Activity Participants");
+        }
+
+        private void ShowParticipants()
+        {
+            try
+            {
+                List<Student> assignedStudents = GetActivityAssignedStudents();
+                List<Student> unassignedStudents = GetActivityUnassignedStudents();
+                ShowParticipantsList(assignedStudents, activityParticipantsAssigned);
+                ShowParticipantsList(unassignedStudents, activityParticipantsUnassigned);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activity participants: " + e.Message);
+            }
+        }
+
+        private void ShowSupervisors()
+        {
+            try
+            {
+                List<Teacher> assignedSupervisors = GetActivityAssignedSupervisors();
+                List<Teacher> unassignedSupervisors = GetActivityUnassignedSupervisors();
+                ShowSupervisorsList(assignedSupervisors, activitySupervisorsAssigned);
+                ShowSupervisorsList(unassignedSupervisors, activitySupervisorsUnassigned);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activity Supervisors: " + e.Message);
+            }
+        }
+
+
         private List<Student> GetStudents()
         {
             StudentService studentService = new StudentService();
@@ -393,6 +306,91 @@ namespace SomerenUI
             RevenueService revenueService = new RevenueService();
             Revenue revenue = revenueService.GetRevenue(startDate, endDate);
             return revenue;
+        }
+
+        private List<Student> GetActivityAssignedStudents()
+        {
+            ActivityService activityService = new ActivityService();
+            List<Student> students = activityService.GetActivityAssignedStudents(this.participantSelectedActivity);
+            return students;
+        }
+
+        private List<Student> GetActivityUnassignedStudents()
+        {
+            ActivityService activityService = new ActivityService();
+            List<Student> students = activityService.GetActivityUnassignedStudents(this.participantSelectedActivity);
+            return students;
+        }
+
+        private List<Teacher> GetActivityAssignedSupervisors()
+        {
+            ActivityService activityService = new ActivityService();
+            List<Teacher> teachers = activityService.GetActivityAssignedTeachers(this.supervisorSelectedActivity);
+            return teachers;
+        }
+
+        private List<Teacher> GetActivityUnassignedSupervisors()
+        {
+            ActivityService activityService = new ActivityService();
+            List<Teacher> teachers = activityService.GetActivityUnassignedTeachers(this.supervisorSelectedActivity);
+            return teachers;
+        }
+
+        private void DisplaySupervisorsActivityList(List<Activity> activities)
+        {
+            activitySupervisorsList.Items.Clear();
+            activitySupervisorsList.Columns.Clear();
+
+            activitySupervisorsList.Columns.Add("ID");
+            activitySupervisorsList.Columns.Add("Name", 200);
+
+            foreach (Activity activity in activities)
+            {
+                ListViewItem listViewItem = new ListViewItem(activity.ActivityId.ToString());
+                listViewItem.Tag = activity;
+                listViewItem.SubItems.Add(activity.Name);
+                activitySupervisorsList.Items.Add(listViewItem);
+            }
+
+            SetHeader("Activity Supervisors");
+        }
+
+        private void ShowParticipantsList(List<Student> students, ListView list)
+        {
+            list.Items.Clear();
+            list.Columns.Clear();
+
+            list.Columns.Add("ID");
+            list.Columns.Add("Name", 200);
+            list.Columns.Add("Phone number", 200);
+            list.Columns.Add("Class", 100);
+
+            foreach (Student student in students)
+            {
+                ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
+                listViewItem.Tag = student;
+                listViewItem.SubItems.Add(student.Name);
+                listViewItem.SubItems.Add(student.PhoneNumber);
+                listViewItem.SubItems.Add(student.Class);
+                list.Items.Add(listViewItem);
+            }
+        }
+
+        private void ShowSupervisorsList(List<Teacher> teachers, ListView list)
+        {
+            list.Items.Clear();
+            list.Columns.Clear();
+
+            list.Columns.Add("ID");
+            list.Columns.Add("Name", 200);
+
+            foreach (Teacher teacher in teachers)
+            {
+                ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
+                listViewItem.Tag = teacher;
+                listViewItem.SubItems.Add(teacher.Name);
+                list.Items.Add(listViewItem);
+            }
         }
 
         private void DisplayStudents(List<Student> students)
@@ -452,6 +450,7 @@ namespace SomerenUI
 
             listViewGeneral.Columns.Add("ID");
             listViewGeneral.Columns.Add("Name", 200);
+            //TODO: add more columns for activities
 
             foreach (Activity activity in activities)
             {
@@ -537,6 +536,9 @@ namespace SomerenUI
         {
             if (this.selectedTeacher != null)
             {
+                DialogResult result = MessageBox.Show("Are you sure you want to unassign the selected teacher?", "Confirm Unassign", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No) return;
+
                 TeacherService teacherService = new TeacherService();
                 teacherService.DeleteTeacher(this.selectedTeacher);
 
@@ -555,6 +557,9 @@ namespace SomerenUI
         {
             if (this.selectedStudent != null)
             {
+                DialogResult result = MessageBox.Show("Are you sure you want to unassign the selected student?", "Confirm Unassign", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No) return;
+
                 StudentService studentService = new StudentService();
                 studentService.DeleteStudent(this.selectedStudent);
 
@@ -627,7 +632,7 @@ namespace SomerenUI
             Helpers.CopyAndCloneLabel(lblRecordTotal, $"€{summary["VATAmount"]:0.00}", counter);
         }
 
-        private void DisplayVat(object sender = null, EventArgs e = null)
+        private void DisplayVat()
         {
             ResetVatLabels(selectedQuarter);
             VATService vatService = new VATService();
@@ -678,7 +683,7 @@ namespace SomerenUI
             orderLine.Product = product;
             orderLine.Quantity = 1;
 
-            this.unprocessedOrder.OrderLines.Add(orderLine);
+            this.unprocessedOrder.OrderLines.Add(orderLine); //TODO: move orderlines manipulation to OrderService/model
         }
 
         private void orderProcessButton_Click(object sender, EventArgs e)
@@ -697,7 +702,7 @@ namespace SomerenUI
             string orderDetails = "";
             orderDetails += this.unprocessedOrder.ToString();
             orderDetails += "\n";
-            orderDetails += $"Total price: €{this.unprocessedOrder.TotalPrice:0.00}";
+            orderDetails += $"Total price: €{this.unprocessedOrder.TotalPrice():0.00}";
 
             orderDetailsLabel.Text = orderDetails;
         }
@@ -801,7 +806,7 @@ namespace SomerenUI
             teacherEditLastNameInput.Text = teacher.LastName;
             teacherEditPhoneNumberInput.Text = teacher.PhoneNumber;
             teacherEditDateOfBirthInput.Text = teacher.DateOfBirth.ToString();
-            teacherEditRoomIdInput.Text = teacher.RoomId.ToString();
+            teacherEditRoomIdInput.Text = teacher.RoomId.ToString(); //TODO: make dropdown for room selection (teacher/student)
         }
 
         private void ProductFormSetEmpty()
@@ -930,7 +935,7 @@ namespace SomerenUI
             {
                 FirstName = teacherEditFirstNameInput.Text,
                 LastName = teacherEditLastNameInput.Text,
-                PhoneNumber = teacherEditPhoneNumberInput.Text,
+                PhoneNumber = teacherEditPhoneNumberInput.Text, //TODO: validate input fields properly for all forms
                 DateOfBirth = teacherEditDateOfBirthInput.Value,
                 RoomId = int.Parse(teacherEditRoomIdInput.Text),
             };
@@ -975,21 +980,30 @@ namespace SomerenUI
         private void btnQ1_Click(object sender, EventArgs e)
         {
             this.selectedQuarter = "Q1";
+            DisplayVat();
         }
 
         private void btnQ2_Click(object sender, EventArgs e)
         {
             this.selectedQuarter = "Q2";
+            DisplayVat();
         }
 
         private void btnQ3_Click(object sender, EventArgs e)
         {
             this.selectedQuarter = "Q3";
+            DisplayVat();
         }
 
         private void btnQ4_Click(object sender, EventArgs e)
         {
             this.selectedQuarter = "Q4";
+            DisplayVat();
+        }
+
+        private void txtYear_ValueChanged(object sender, EventArgs e)
+        {
+            DisplayVat();
         }
 
         private void activityParticipantsList_SelectedIndexChanged(object sender, EventArgs e)
@@ -1094,6 +1108,9 @@ namespace SomerenUI
 
         private void activityParticipantUnassignButton_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Are you sure you want to unassign the selected participant(s)?", "Confirm Unassign", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.No) return;
+
             foreach (ListViewItem assignedParticipant in activityParticipantsAssigned.SelectedItems)
             {
                 Student participant = (Student)assignedParticipant.Tag;
@@ -1127,11 +1144,7 @@ namespace SomerenUI
         private void activitySupervisorUnassignButton_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to unassign the selected supervisor(s)?", "Confirm Unassign", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            // Proceed if the user confirms
-            if (result == DialogResult.No)
-            {
-                return;
-            }
+            if (result == DialogResult.No) return;
 
             foreach (ListViewItem assignedSupervisor in activitySupervisorsAssigned.SelectedItems)
             {

@@ -10,7 +10,7 @@ namespace SomerenDAL
     {
         public List<Student> GetAll()
         {
-            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students] WHERE deleted=0", OpenConnection());
+            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students] WHERE deleted=0 ORDER BY lastName DESC", OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Student> students = new List<Student>();
@@ -55,51 +55,48 @@ SET
     roomId = @RoomId
 WHERE studentId = @StudentId";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@FirstName", student.FirstName);
-                command.Parameters.AddWithValue("@LastName", student.LastName);
-                command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
-                command.Parameters.AddWithValue("@Class", student.Class);
-                command.Parameters.AddWithValue("@Vouchers", student.Vouchers);
-                command.Parameters.AddWithValue("@RoomId", student.RoomId);
-                command.Parameters.AddWithValue("@StudentId", student.StudentId);
-                command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@FirstName", student.FirstName);
+            command.Parameters.AddWithValue("@LastName", student.LastName);
+            command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
+            command.Parameters.AddWithValue("@Class", student.Class);
+            command.Parameters.AddWithValue("@Vouchers", student.Vouchers);
+            command.Parameters.AddWithValue("@RoomId", student.RoomId);
+            command.Parameters.AddWithValue("@StudentId", student.StudentId);
+
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
 
-        public Student CreateStudent(Student student)
+        public int CreateStudent(Student student)
         {
             string query = @"
 INSERT INTO students (firstName, lastName, phoneNumber, class, vouchers, roomId)
 VALUES (@FirstName, @LastName, @PhoneNumber, @Class, @Vouchers, @RoomId);
 SELECT SCOPE_IDENTITY();";
 
-            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@FirstName", student.FirstName);
-                command.Parameters.AddWithValue("@LastName", student.LastName);
-                command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
-                command.Parameters.AddWithValue("@Class", student.Class);
-                command.Parameters.AddWithValue("@Vouchers", student.Vouchers);
-                command.Parameters.AddWithValue("@RoomId", student.RoomId); 
-                command.ExecuteNonQuery();
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@FirstName", student.FirstName);
+            command.Parameters.AddWithValue("@LastName", student.LastName);
+            command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
+            command.Parameters.AddWithValue("@Class", student.Class);
+            command.Parameters.AddWithValue("@Vouchers", student.Vouchers);
+            command.Parameters.AddWithValue("@RoomId", student.RoomId);
 
-                int id = Convert.ToInt32(command.ExecuteScalar());
-                student.StudentId = id;
-            }
+            int id = Convert.ToInt32(command.ExecuteScalar());
+
             CloseConnection();
-            return student;
+            return id;
         }
 
         public void DeleteStudent(Student student)
         {
-            using (SqlCommand command = new SqlCommand("DELETE FROM Students WHERE StudentId = @Id", OpenConnection()))
-            {
-                command.Parameters.AddWithValue("@Id", student.StudentId);
-                int nrOfRowsAffected = command.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand("DELETE FROM Students WHERE StudentId = @Id", OpenConnection());
+            command.Parameters.AddWithValue("@Id", student.StudentId);
+
+            command.ExecuteNonQuery();
+
             CloseConnection();
         }
     }

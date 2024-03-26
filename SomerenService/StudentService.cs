@@ -31,7 +31,8 @@ namespace SomerenService
 
         public Student CreateStudent(Student student)
         {
-            studentdb.CreateStudent(student);
+            int studentId = studentdb.CreateStudent(student);
+            student.StudentId = studentId;
             return student;
         }
     }

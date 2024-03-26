@@ -63,7 +63,7 @@ GROUP BY p.VATRate;";
             return vatSummaries;
         }
 
-        public Dictionary<string, object> ReadSummary(SqlDataReader reader)
+        private Dictionary<string, object> ReadSummary(SqlDataReader reader)
         {
             Dictionary<string, object> summary = new Dictionary<string, object>
             {
@@ -79,7 +79,7 @@ GROUP BY p.VATRate;";
         public double GetTotalTaxNeeded(DateTime startDate, DateTime endDate)
         {
             string query = @"
-SELECT SUM(ol.quantity * p.price * p.VATRate) AS TotalTaxNeeded
+SELECT COALESCE(SUM(ol.quantity * p.price * p.VATRate), 0) AS TotalTaxNeeded
 FROM orders o
 JOIN orderlines ol ON o.orderId = ol.orderId
 JOIN products p ON ol.productId = p.productId
@@ -90,16 +90,9 @@ WHERE o.orderTimestamp BETWEEN @startDate AND @endDate;";
             command.Parameters.AddWithValue("@endDate", endDate);
 
             object result = command.ExecuteScalar();
-            double totalTaxNeeded = 0;
-
-            if (result != DBNull.Value)
-            {
-                totalTaxNeeded = Convert.ToDouble(result);
-            }
-
             CloseConnection();
 
-            return totalTaxNeeded;
+            return Convert.ToDouble(result);
         }
     }
 }
