@@ -9,7 +9,7 @@ namespace SomerenDAL
     {
         public List<Activity> GetAll()
         {
-            string query = "SELECT activityId, name, location, startOfActivity, endOfActivity FROM [activities]";
+            string query = "SELECT activityId, name, location, startOfActivity, endOfActivity FROM [activities] WHERE deleted=0";
             SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
@@ -48,7 +48,9 @@ WHERE studentId IN (
 	SELECT studentId FROM activityparticipants
 	JOIN activities ON activities.activityId=activityparticipants.activityId
 	WHERE activities.activityId=@ActivityId
-);";
+    AND activities.deleted=0
+)
+AND deleted=0;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
@@ -78,7 +80,9 @@ WHERE studentId NOT IN (
 	SELECT studentId FROM activityparticipants
 	JOIN activities ON activities.activityId=activityparticipants.activityId
 	WHERE activities.activityId=@ActivityId
-);";
+    AND activities.deleted=0
+)
+AND deleted=0;";
 
             SqlCommand command = new SqlCommand(query, OpenConnection());
             command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
@@ -120,6 +124,97 @@ WHERE studentId NOT IN (
             using (SqlCommand command = new SqlCommand(query, OpenConnection()))
             {
                 command.Parameters.AddWithValue("@StudentId", student.StudentId);
+                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+        
+
+        public List<Teacher> GetActivityAssignedTeachers(Activity activity)
+        {
+            string query = @"
+SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM teachers
+WHERE teacherId IN (
+	SELECT teacherId FROM activitysupervisors
+	JOIN activities ON activities.activityId=activitysupervisors.activityId
+	WHERE activities.activityId=@ActivityId
+    AND activities.deleted=0
+)
+AND deleted=0;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+
+            TeacherDao teacherdb = new TeacherDao();
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Teacher> teachers = new List<Teacher>();
+
+            while (reader.Read())
+            {
+                Teacher teacher = teacherdb.ReadTeacher(reader);
+                teachers.Add(teacher);
+            }
+
+            reader.Close();
+            CloseConnection();
+
+            return teachers;
+        }
+
+        public List<Teacher> GetActivityUnassignedTeachers(Activity activity)
+        {
+            string query = @"
+SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM teachers
+WHERE teacherId NOT IN (
+	SELECT teacherId FROM activitysupervisors
+	JOIN activities ON activities.activityId=activitysupervisors.activityId
+	WHERE activities.activityId=@ActivityId
+    AND activities.deleted=0
+)
+AND deleted=0;";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
+            command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+
+            TeacherDao teacherdb = new TeacherDao();
+
+            SqlDataReader reader = command.ExecuteReader();
+            List<Teacher> teachers = new List<Teacher>();
+
+            while (reader.Read())
+            {
+                Teacher teacher = teacherdb.ReadTeacher(reader);
+                teachers.Add(teacher);
+            }
+
+            reader.Close();
+            CloseConnection();
+
+            return teachers;
+        }
+
+        public void AssignTeacher(Teacher teacher, Activity activity)
+        {
+            string query = @"INSERT INTO activitysupervisors (teacherId, activityId) VALUES (@TeacherId, @ActivityId)";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
+                command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+
+        public void UnassignTeacher(Teacher teacher, Activity activity)
+        {
+            string query = @"DELETE FROM activitysupervisors WHERE teacherId=@TeacherId AND activityId=@ActivityId;";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
                 command.Parameters.AddWithValue("@ActivityId", activity.ActivityId);
                 command.ExecuteNonQuery();
             }

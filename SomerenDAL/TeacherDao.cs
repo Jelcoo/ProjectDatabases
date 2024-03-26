@@ -10,7 +10,7 @@ namespace SomerenDAL
     {
         public List<Teacher> GetAll()
         {
-            SqlCommand command = new SqlCommand("SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [teachers]", OpenConnection());
+            SqlCommand command = new SqlCommand("SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [teachers] WHERE deleted=0", OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Teacher> teachers = new List<Teacher>();
@@ -26,7 +26,7 @@ namespace SomerenDAL
             return teachers;
         }
 
-        private Teacher ReadTeacher(SqlDataReader reader)
+        public Teacher ReadTeacher(SqlDataReader reader)
         {
             Teacher teacher = new Teacher()
             {
@@ -39,6 +39,63 @@ namespace SomerenDAL
             };
 
             return teacher;
+        }
+        public void UpdateTeacher(Teacher teacher)
+        {
+            string query = @"
+  UPDATE [teachers]
+SET
+    firstName = @FirstName,
+    lastname = @LastName,
+    phoneNumber = @PhoneNumber,
+    dateOfBirth = @DateOfBirth,
+    roomId = @RoomId
+WHERE teacherId = @TeacherId";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
+                command.Parameters.AddWithValue("@LastName", teacher.LastName);
+                command.Parameters.AddWithValue("@PhoneNumber", teacher.PhoneNumber);
+                command.Parameters.AddWithValue("@DateOfBirth", teacher.DateOfBirth);
+                command.Parameters.AddWithValue("@RoomId", teacher.RoomId);
+                command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
+
+
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
+        public Teacher CreateTeacher(Teacher teacher)
+        {
+            string query = @"
+INSERT INTO teachers (firstName, lastname, phoneNumber, dateOfBirth, roomId)
+VALUES (@FirstName, @LastName, @PhoneNumber, @DateOfBirth, @RoomId);
+SELECT SCOPE_IDENTITY();";
+
+            using (SqlCommand command = new SqlCommand(query, OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
+                command.Parameters.AddWithValue("@LastName", teacher.LastName);
+                command.Parameters.AddWithValue("@PhoneNumber", teacher.PhoneNumber);
+                command.Parameters.AddWithValue("@DateOfBirth", teacher.DateOfBirth);
+                command.Parameters.AddWithValue("@RoomId", teacher.RoomId);
+
+                int id = Convert.ToInt32(command.ExecuteScalar());
+                teacher.TeacherId = id;
+            }
+            CloseConnection();
+            return teacher;
+        }
+        public void DeleteTeacher(Teacher teacher)
+        {
+            using (SqlCommand command = new SqlCommand("UPDATE teachers SET deleted=1 WHERE teacherId = @Id", OpenConnection()))
+            {
+                command.Parameters.AddWithValue("@Id", teacher.TeacherId);
+                
+                int nrOfRowsAffected = command.ExecuteNonQuery();
+            }
+            CloseConnection();
         }
     }
 }

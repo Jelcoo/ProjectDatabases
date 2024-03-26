@@ -13,6 +13,8 @@ namespace SomerenUI
         private Student selectedOrderStudent = null;
         private Order unprocessedOrder = null;
         private Product selectedProduct;
+        private Student selectedStudent;
+        private Teacher selectedTeacher;
         private string selectedQuarter = null;
         private Activity participantSelectedActivity;
         private Activity supervisorSelectedActivity;
@@ -192,18 +194,18 @@ namespace SomerenUI
             return students;
         }
 
-        private List<Supervisor> GetActivityAssignedSupervisors()
+        private List<Teacher> GetActivityAssignedSupervisors()
         {
-            SupervisorService Supervisor = new SupervisorService();
-            List<Supervisor> Supervisors = Supervisor.GetParticipatingSupervisors(this.supervisorSelectedActivity);
-            return Supervisors;
+            ActivityService activityService = new ActivityService();
+            List<Teacher> teachers = activityService.GetActivityAssignedTeachers(this.supervisorSelectedActivity);
+            return teachers;
         }
 
-        private List<Supervisor> GetActivityUnassignedSupervisors()
+        private List<Teacher> GetActivityUnassignedSupervisors()
         {
-            SupervisorService Supervisor = new SupervisorService();
-            List<Supervisor> Supervisors = Supervisor.GetNonParticipatingSupervisors(this.supervisorSelectedActivity);
-            return Supervisors;
+            ActivityService activityService = new ActivityService();
+            List<Teacher> teachers = activityService.GetActivityUnassignedTeachers(this.supervisorSelectedActivity);
+            return teachers;
         }
 
 
@@ -249,8 +251,8 @@ namespace SomerenUI
         {
             try
             {
-                List<Supervisor> assignedSupervisors = GetActivityAssignedSupervisors();
-                List<Supervisor> unassignedSupervisors = GetActivityUnassignedSupervisors();
+                List<Teacher> assignedSupervisors = GetActivityAssignedSupervisors();
+                List<Teacher> unassignedSupervisors = GetActivityUnassignedSupervisors();
                 ShowSupervisorsList(assignedSupervisors, activitySupervisorsAssigned);
                 ShowSupervisorsList(unassignedSupervisors, activitySupervisorsUnassigned);
             }
@@ -260,7 +262,7 @@ namespace SomerenUI
             }
         }
 
-        private void ShowSupervisorsList(List<Supervisor> Supervisors, ListView list)
+        private void ShowSupervisorsList(List<Teacher> teachers, ListView list)
         {
             list.Items.Clear();
             list.Columns.Clear();
@@ -268,11 +270,11 @@ namespace SomerenUI
             list.Columns.Add("ID");
             list.Columns.Add("Name", 200);
 
-            foreach (Supervisor Supervisor in Supervisors)
+            foreach (Teacher teacher in teachers)
             {
-                ListViewItem listViewItem = new ListViewItem(Supervisor.TeacherId.ToString());
-                listViewItem.Tag = Supervisor;
-                listViewItem.SubItems.Add(Supervisor.Name);
+                ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
+                listViewItem.Tag = teacher;
+                listViewItem.SubItems.Add(teacher.Name);
                 list.Items.Add(listViewItem);
             }
         }
@@ -395,17 +397,26 @@ namespace SomerenUI
 
         private void DisplayStudents(List<Student> students)
         {
-            ShowListView(pnlStudents, listViewGeneral);
+            listViewPanelStudents.Clear();
 
-            listViewGeneral.Columns.Add("ID");
-            listViewGeneral.Columns.Add("Name", 200);
+            listViewPanelStudents.Columns.Add("ID");
+            listViewPanelStudents.Columns.Add("Name", 200);
+            listViewPanelStudents.Columns.Add("Phone number", 200);
+            listViewPanelStudents.Columns.Add("Class", 100);
+            listViewPanelStudents.Columns.Add("Vouchers", 100);
+            listViewPanelStudents.Columns.Add("Room", 70);
 
             foreach (Student student in students)
             {
                 ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
                 listViewItem.Tag = student;
                 listViewItem.SubItems.Add(student.Name);
-                listViewGeneral.Items.Add(listViewItem);
+                listViewItem.SubItems.Add(student.PhoneNumber);
+                listViewItem.SubItems.Add(student.Class);
+                listViewItem.SubItems.Add(student.Vouchers.ToString());
+                listViewItem.SubItems.Add(student.RoomId.ToString());
+
+                listViewPanelStudents.Items.Add(listViewItem);
             }
 
             SetHeader("Students");
@@ -413,17 +424,23 @@ namespace SomerenUI
 
         private void DisplayTeachers(List<Teacher> teachers)
         {
-            ShowListView(pnlTeachers, listViewGeneral);
+            listViewPanelteachers.Clear();
 
-            listViewGeneral.Columns.Add("ID");
-            listViewGeneral.Columns.Add("Name", 200);
+            listViewPanelteachers.Columns.Add("ID");
+            listViewPanelteachers.Columns.Add("Name", 200);
+            listViewPanelteachers.Columns.Add("Phone number", 200);
+            listViewPanelteachers.Columns.Add("Date of birth", 200);
+            listViewPanelteachers.Columns.Add("Room", 70);
 
             foreach (Teacher teacher in teachers)
             {
                 ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
                 listViewItem.Tag = teacher;
                 listViewItem.SubItems.Add(teacher.Name);
-                listViewGeneral.Items.Add(listViewItem);
+                listViewItem.SubItems.Add(teacher.PhoneNumber);
+                listViewItem.SubItems.Add(teacher.DateOfBirth.ToString("dd/MM/yyyy"));
+                listViewItem.SubItems.Add(teacher.RoomId.ToString());
+                listViewPanelteachers.Items.Add(listViewItem);
             }
 
             SetHeader("Teachers");
@@ -512,6 +529,41 @@ namespace SomerenUI
             else
             {
                 MessageBox.Show("Please select a product to delete.");
+            }
+
+            ProductFormSetEmpty();
+        }
+        private void DeleteTeacherButton_Click(object sender, EventArgs e)
+        {
+            if (this.selectedTeacher != null)
+            {
+                TeacherService teacherService = new TeacherService();
+                teacherService.DeleteTeacher(this.selectedTeacher);
+
+                MessageBox.Show("Teacher deleted successfully!");
+                ShowTeachersPanel();
+            }
+            else
+            {
+                MessageBox.Show("Please select a teacher to delete.");
+            }
+
+            TeacherFormSetEmpty();
+        }
+
+        private void DeleteStudentButton_Click(object sender, EventArgs e)
+        {
+            if (this.selectedStudent != null)
+            {
+                StudentService studentService = new StudentService();
+                studentService.DeleteStudent(this.selectedStudent);
+
+                MessageBox.Show("Student deleted successfully!");
+                ShowStudentsPanel();
+            }
+            else
+            {
+                MessageBox.Show("Please select a student to delete.");
             }
 
             ProductFormSetEmpty();
@@ -736,6 +788,21 @@ namespace SomerenUI
             productEditAlcoholInput.Checked = product.IsAlcoholic;
             productEditPriceInput.Value = (decimal)product.Price;
         }
+        private void TeacherFormSetTeacher(Teacher teacher)
+        {
+            if (teacher == null)
+            {
+                TeacherFormSetEmpty();
+                return;
+            }
+
+            teacherEditButton.Text = "Edit";
+            teacherEditFirstNameInput.Text = teacher.FirstName;
+            teacherEditLastNameInput.Text = teacher.LastName;
+            teacherEditPhoneNumberInput.Text = teacher.PhoneNumber;
+            teacherEditDateOfBirthInput.Text = teacher.DateOfBirth.ToString();
+            teacherEditRoomIdInput.Text = teacher.RoomId.ToString();
+        }
 
         private void ProductFormSetEmpty()
         {
@@ -745,6 +812,15 @@ namespace SomerenUI
             productEditAlcoholInput.Checked = false;
             productEditPriceInput.Value = 0.00M;
         }
+        private void TeacherFormSetEmpty()
+        {
+            teacherEditButton.Text = "Create";
+            teacherEditFirstNameInput.Text = "";
+            teacherEditLastNameInput.Text = "";
+            teacherEditPhoneNumberInput.Text = "";
+            teacherEditDateOfBirthInput.Text = DateTime.Now.ToString();
+            teacherEditRoomIdInput.Text = "";
+        }
 
         private void listViewPanelProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -752,6 +828,13 @@ namespace SomerenUI
             this.selectedProduct = (Product)selectedItem?.Tag;
             ProductFormSetProduct(this.selectedProduct);
             productDeleteButton.Visible = this.selectedProduct == null ? false : true;
+        }
+        private void listViewPanelTeachers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = listViewPanelteachers.SelectedItems.Count == 0 ? null : listViewPanelteachers.SelectedItems[0];
+            this.selectedTeacher = (Teacher)selectedItem?.Tag;
+            TeacherFormSetTeacher(this.selectedTeacher);
+            teachersDeleteButton.Visible = this.selectedTeacher == null ? false : true;
         }
 
         private void productEditButton_Click(object sender, EventArgs e)
@@ -772,10 +855,97 @@ namespace SomerenUI
                 productService.UpdateProduct(newProduct);
             }
 
-            MessageBox.Show(selectedProduct == null ? "Product added successfully!" : "Product created successfully!");
+            MessageBox.Show(selectedProduct == null ? "Product created successfully!" : "Product edited successfully!");
 
             ProductFormSetEmpty();
             ShowProductsPanel();
+        }
+        private void StudentFormSetStudent(Student student)
+        {
+            if (student == null)
+            {
+                StudentFormSetEmpty();
+                return;
+            }
+
+            studentEditButton.Text = "Edit";
+            studentEditFirstNameInput.Text = student.FirstName;
+            studentEditLastNameInput.Text = student.LastName;
+            studentEditPhoneNumberInput.Text = student.PhoneNumber;
+            studentEditClassInput.Text = student.Class;
+            studentEditVouchersNumerric.Value = student.Vouchers;
+            studentEditRoomInput.Text = student.RoomId.ToString();
+            
+        }
+
+        private void StudentFormSetEmpty()
+        {
+            studentEditButton.Text = "Create";
+            studentEditFirstNameInput.Text = "";
+            studentEditLastNameInput.Text = "";
+            studentEditPhoneNumberInput.Text = "";
+            studentEditClassInput.Text = "";
+            studentEditVouchersNumerric.Value = 0;
+            studentEditRoomInput.Text = "";
+
+        }
+
+        private void listViewPanelStudents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = listViewPanelStudents.SelectedItems.Count == 0 ? null : listViewPanelStudents.SelectedItems[0];
+            this.selectedStudent = (Student)selectedItem?.Tag;
+            StudentFormSetStudent(this.selectedStudent);
+            studentDeleteButton.Visible = this.selectedStudent == null ? false : true;
+        }
+
+        private void studentEditButton_Click(object sender, EventArgs e)
+        {
+            StudentService studentService = new StudentService();
+            Student newstudent = new Student()
+            {
+                FirstName = studentEditFirstNameInput.Text,
+                LastName = studentEditLastNameInput.Text,
+                PhoneNumber = studentEditPhoneNumberInput.Text,
+                Class = studentEditClassInput.Text,
+                Vouchers = (int)studentEditVouchersNumerric.Value,
+                RoomId = int.Parse(studentEditRoomInput.Text),  
+            };
+
+            if (selectedStudent == null) studentService.CreateStudent(newstudent);
+            else
+            {
+                newstudent.StudentId = selectedStudent.StudentId;
+                studentService.UpdateStudent(newstudent);
+            }
+
+            MessageBox.Show(selectedStudent == null ? "student created successfully!" : "student edited successfully!");
+
+            StudentFormSetEmpty();
+            ShowStudentsPanel();
+        }
+        private void teacherEditButton_Click(object sender, EventArgs e)
+        {
+            TeacherService teacherService = new TeacherService();
+            Teacher newTeacher = new Teacher()
+            {
+                FirstName = teacherEditFirstNameInput.Text,
+                LastName = teacherEditLastNameInput.Text,
+                PhoneNumber = teacherEditPhoneNumberInput.Text,
+                DateOfBirth = teacherEditDateOfBirthInput.Value,
+                RoomId = int.Parse(teacherEditRoomIdInput.Text),
+            };
+
+            if (selectedTeacher == null) teacherService.CreateTeacher(newTeacher);
+            else
+            {
+                newTeacher.TeacherId = selectedTeacher.TeacherId;
+                teacherService.UpdateTeacher(newTeacher);
+            }
+
+            MessageBox.Show(selectedTeacher == null ? "Teacher created successfully!" : "Teacher updated successfully!");
+
+            TeacherFormSetEmpty();
+            ShowTeachersPanel();
         }
 
         private string FormatDate(DateTime date)
@@ -942,32 +1112,32 @@ namespace SomerenUI
         {
             foreach (ListViewItem unassignedSupervisor in activitySupervisorsUnassigned.SelectedItems)
             {
-                Supervisor Supervisor = (Supervisor)unassignedSupervisor.Tag;
-                AssignSupervisor(Supervisor, this.supervisorSelectedActivity);
+                Teacher teacher = (Teacher)unassignedSupervisor.Tag;
+                AssignSupervisor(teacher, this.supervisorSelectedActivity);
             }
             ShowSupervisors();
         }
 
-        private void AssignSupervisor(Supervisor supervisor, Activity activity)
+        private void AssignSupervisor(Teacher teacher, Activity activity)
         {
-            SupervisorService SupervisorService = new SupervisorService();
-            SupervisorService.AssignSupervisor(activity.ActivityId, supervisor.TeacherId);
+            ActivityService activityService = new ActivityService();
+            activityService.AssignTeacher(teacher, activity);
         }
 
         private void activitySupervisorUnassignButton_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem assignedSupervisor in activitySupervisorsAssigned.SelectedItems)
             {
-                Supervisor Supervisor = (Supervisor)assignedSupervisor.Tag;
-                UnassignSupervisor(Supervisor, this.supervisorSelectedActivity);
+                Teacher teacher = (Teacher)assignedSupervisor.Tag;
+                UnassignSupervisor(teacher, this.supervisorSelectedActivity);
             }
             ShowSupervisors();
         }
 
-        private void UnassignSupervisor(Supervisor supervisor, Activity activity)
+        private void UnassignSupervisor(Teacher teacher, Activity activity)
         {
-            SupervisorService SupervisorService = new SupervisorService();
-            SupervisorService.UnassignSupervisor(activity.ActivityId, supervisor.TeacherId);
+            ActivityService activityService = new ActivityService();
+            activityService.UnassignTeacher(teacher, activity);
         }
     }
 }
