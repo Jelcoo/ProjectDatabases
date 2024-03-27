@@ -36,14 +36,13 @@ namespace SomerenDAL
 
         public Product ReadProduct(SqlDataReader reader)
         {
-            Product product = new Product()
-            {
-                ProductId = (int)reader["productId"],
-                Name = reader["name"].ToString(),
-                Stock = (int)reader["stock"],
-                VATRate = (double)reader["VATRate"],
-                Price = (double)reader["price"],
-            };
+            Product product = new Product(
+                (int)reader["productId"],
+                (string)reader["name"],
+                (int)reader["stock"],
+                (double)reader["VATRate"],
+                (double)reader["price"]
+            );
 
             return product;
         }

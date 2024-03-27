@@ -678,7 +678,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
                 if (orderLine.Product.ProductId == product.ProductId)
                 {
                     alreadyInOrder = true;
-                    orderLine.Quantity++;
+                    orderLine.IncreaseQuantity(1);
                 }
             }
 
@@ -793,7 +793,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             productEditButton.Text = "Edit";
             productEditNameInput.Text = product.Name;
             productEditStockInput.Value = Math.Max(product.Stock, 0);
-            productEditAlcoholInput.Checked = product.IsAlcoholic;
+            productEditAlcoholInput.Checked = product.DrinkType == DrinkType.Alcoholic;
             productEditPriceInput.Value = (decimal)product.Price;
         }
 
@@ -851,19 +851,17 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
         private void productEditButton_Click(object sender, EventArgs e)
         {
             ProductService productService = new ProductService();
-            Product newProduct = new Product()
-            {
-                Name = productEditNameInput.Text,
-                Stock = (int)productEditStockInput.Value,
-                VATRate = productEditAlcoholInput.Checked ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE,
-                Price = decimal.ToDouble(productEditPriceInput.Value)
-            };
 
-            if (selectedProduct == null) productService.CreateProduct();
-            else
+            string productName = productEditNameInput.Text;
+            int productStock = (int)productEditStockInput.Value;
+            double productVatRate = productEditAlcoholInput.Checked ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE;
+            double productPrice = decimal.ToDouble(productEditPriceInput.Value);
+
+            if (selectedProduct == null) {
+                productService.CreateProduct(new Product(productName, productStock, productVatRate, productPrice));
+            } else
             {
-                newProduct.ProductId = selectedProduct.ProductId;
-                productService.UpdateProduct(newProduct);
+                productService.UpdateProduct(new Product(selectedProduct.ProductId, productName, productStock, productVatRate, productPrice));
             }
 
             MessageBox.Show(selectedProduct == null ? "Product created successfully!" : "Product edited successfully!");
@@ -899,7 +897,6 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             studentEditClassInput.Text = "";
             studentEditVouchersNumerric.Value = 0;
             studentEditRoomInput.Text = "";
-
         }
 
         private void listViewPanelStudents_SelectedIndexChanged(object sender, EventArgs e)
@@ -913,21 +910,18 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
         private void studentEditButton_Click(object sender, EventArgs e)
         {
             StudentService studentService = new StudentService();
-            Student newstudent = new Student()
-            {
-                FirstName = studentEditFirstNameInput.Text,
-                LastName = studentEditLastNameInput.Text,
-                PhoneNumber = studentEditPhoneNumberInput.Text,
-                Class = studentEditClassInput.Text,
-                Vouchers = (int)studentEditVouchersNumerric.Value,
-                RoomId = int.Parse(studentEditRoomInput.Text),  
-            };
 
-            if (selectedStudent == null) studentService.CreateStudent(newstudent);
+            string firstName = studentEditFirstNameInput.Text;
+            string lastName = studentEditLastNameInput.Text;
+            string phoneNumber = studentEditPhoneNumberInput.Text;
+            string @class = studentEditClassInput.Text;
+            int vouchers = (int)studentEditVouchersNumerric.Value;
+            int roomId = int.Parse(studentEditRoomInput.Text);
+
+            if (selectedStudent == null) studentService.CreateStudent(new Student(firstName, lastName, phoneNumber, @class, vouchers, roomId));
             else
             {
-                newstudent.StudentId = selectedStudent.StudentId;
-                studentService.UpdateStudent(newstudent);
+                studentService.UpdateStudent(new Student(selectedStudent.StudentId, firstName, lastName, phoneNumber, @class, vouchers, roomId));
             }
 
             MessageBox.Show(selectedStudent == null ? "student created successfully!" : "student edited successfully!");
@@ -935,23 +929,21 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             StudentFormSetEmpty();
             ShowStudentsPanel();
         }
+
         private void teacherEditButton_Click(object sender, EventArgs e)
         {
             TeacherService teacherService = new TeacherService();
-            Teacher newTeacher = new Teacher()
-            {
-                FirstName = teacherEditFirstNameInput.Text,
-                LastName = teacherEditLastNameInput.Text,
-                PhoneNumber = teacherEditPhoneNumberInput.Text, //TODO: validate input fields properly for all forms
-                DateOfBirth = teacherEditDateOfBirthInput.Value,
-                RoomId = int.Parse(teacherEditRoomIdInput.Text),
-            };
 
-            if (selectedTeacher == null) teacherService.CreateTeacher(newTeacher);
+            string firstName = teacherEditFirstNameInput.Text;
+            string lastName = teacherEditLastNameInput.Text;
+            string phoneNumber = teacherEditPhoneNumberInput.Text;
+            DateTime dateOfBirth = teacherEditDateOfBirthInput.Value;
+            int roomId = int.Parse(teacherEditRoomIdInput.Text);
+
+            if (selectedTeacher == null) teacherService.CreateTeacher(new Teacher(firstName, lastName, phoneNumber, dateOfBirth, roomId));
             else
             {
-                newTeacher.TeacherId = selectedTeacher.TeacherId;
-                teacherService.UpdateTeacher(newTeacher);
+                teacherService.UpdateTeacher(new Teacher(selectedTeacher.TeacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId));
             }
 
             MessageBox.Show(selectedTeacher == null ? "Teacher created successfully!" : "Teacher updated successfully!");

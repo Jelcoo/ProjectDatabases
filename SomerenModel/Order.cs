@@ -8,8 +8,8 @@ namespace SomerenModel
 {
     public class Order
     {
-        public Student Student { get; set; }
-        public List<OrderLine> OrderLines { get; set; }
+        public Student Student { get; private set; }
+        public List<OrderLine> OrderLines { get; private set; }
 
         public Order(Student student) {
             Student = student;

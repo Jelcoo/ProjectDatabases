@@ -32,7 +32,7 @@ namespace SomerenService
         public Product CreateProduct(Product product)
         {
             int productId = productdb.CreateProduct(product);
-            product.ProductId = productId;
+            product.SetId(productId);
             return product;
         }
     }

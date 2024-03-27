@@ -8,19 +8,20 @@ namespace SomerenModel
 {
     public class OrderLine
     {
-        public int OrderItemId { get; set; }
-        public int OrderId { get; set;}
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
-
-        public Order Order { get; set; }
-        public Product Product { get; set; }
+        public Order Order { get; private set; }
+        public Product Product { get; private set; }
+        public int Quantity { get; private set; }
 
         public OrderLine(Order order, Product product, int quantity)
         {
             Order = order;
             Product = product;
             Quantity = quantity;
+        }
+
+        public void IncreaseQuantity(int quantity)
+        {
+            Quantity += quantity;
         }
 
         public override string ToString()

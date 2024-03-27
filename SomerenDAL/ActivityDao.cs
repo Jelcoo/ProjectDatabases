@@ -28,14 +28,13 @@ namespace SomerenDAL
 
         private Activity ReadActivity(SqlDataReader reader)
         {
-            Activity activity = new Activity()
-            {
-                ActivityId = (int)reader["activityId"],
-                Name = reader["name"].ToString(),
-                Location = reader["location"].ToString(),
-                StartOfActivity = DateTime.Parse(reader["startOfActivity"].ToString()),
-                EndOfActivity = DateTime.Parse(reader["endOfActivity"].ToString())
-            };
+            Activity activity = new Activity(
+                activityId: (int)reader["activityId"],
+                name: (string)reader["name"],
+                location: (string)reader["location"],
+                startOfActivity: (DateTime)reader["startOfActivity"],
+                endOfActivity: (DateTime)reader["endOfActivity"]
+            );
 
             return activity;
         }

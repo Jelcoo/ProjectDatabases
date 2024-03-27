@@ -32,7 +32,7 @@ namespace SomerenService
         public Teacher CreateTeacher(Teacher teacher)
         {
             int teacherId = teacherdb.CreateTeacher(teacher);
-            teacher.TeacherId = teacherId;
+            teacher.SetId(teacherId);
             return teacher;
         }
     }

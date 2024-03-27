@@ -32,13 +32,12 @@ ORDER BY building, floor, roomId ASC";
 
         public Room ReadRoom(SqlDataReader reader)
         {
-            Room room = new Room()
-            {
-                RoomId = (int)reader["roomId"],
-                Building = reader["building"].ToString(),
-                Floor = (int)reader["floor"],
-                AmountOfBeds = (int)reader["amountOfBeds"],
-            };
+            Room room = new Room(
+                (int)reader["roomId"],
+                reader["building"].ToString(),
+                (int)reader["floor"],
+                (int)reader["amountOfBeds"]
+            );
 
             return room;
         }

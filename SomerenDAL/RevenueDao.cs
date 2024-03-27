@@ -39,12 +39,11 @@ WHERE orders.orderTimestamp BETWEEN @startDate AND @endDate;";
         private Revenue ReadRevenue(SqlDataReader reader)
         {
             reader.GetColumnSchema();
-            Revenue revenue = new Revenue()
-            {
-                TotalDrinksSold = (int)reader["total_drinks_sold"],
-                UniqueCustomers = (int)reader["unique_customers"],
-                Turnover = (double)reader["turnover"]
-            };
+            Revenue revenue = new Revenue(
+                (int)reader["total_drinks_sold"],
+                (int)reader["unique_customers"],
+                (double)reader["turnover"]
+            );
             return revenue;
         }
     }

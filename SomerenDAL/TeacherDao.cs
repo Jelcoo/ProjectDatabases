@@ -28,15 +28,14 @@ namespace SomerenDAL
 
         public Teacher ReadTeacher(SqlDataReader reader)
         {
-            Teacher teacher = new Teacher()
-            {
-                TeacherId = (int)reader["teacherId"],
-                FirstName = reader["firstName"].ToString(),
-                LastName = reader["lastName"].ToString(),
-                DateOfBirth = DateTime.Parse(reader["dateOfBirth"].ToString()),
-                PhoneNumber = reader["phoneNumber"].ToString(),
-                RoomId = (int)reader["roomId"]
-            };
+            Teacher teacher = new Teacher(
+                teacherId: (int)reader["teacherId"],
+                firstName: (string)reader["firstName"],
+                lastName: (string)reader["lastName"],
+                phoneNumber: (string)reader["phoneNumber"],
+                dateOfBirth: (DateTime)reader["dateOfBirth"],
+                roomId: (int)reader["roomId"]
+            );
 
             return teacher;
         }
