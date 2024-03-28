@@ -25,11 +25,11 @@ namespace SomerenDAL
             return products;
         }
 
-        public void DecreaseStock(Product product, int quantity)
+        public void DecreaseStock(OrderLine orderLine)
         {
             SqlCommand command = new SqlCommand("UPDATE products SET stock = stock - @quantity WHERE productId = @productId", OpenConnection());
-            command.Parameters.AddWithValue("@quantity", quantity);
-            command.Parameters.AddWithValue("@productId", product.ProductId);
+            command.Parameters.AddWithValue("@quantity", orderLine.Quantity);
+            command.Parameters.AddWithValue("@productId", orderLine.Product.ProductId);
 
             command.ExecuteNonQuery();
         }
