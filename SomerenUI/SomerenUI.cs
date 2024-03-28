@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
 using System.Drawing;
+using System.Linq;
 
 namespace SomerenUI
 {
@@ -191,7 +192,7 @@ namespace SomerenUI
 
         private void ShowOrderProductsList()
         {
-            pnlOrders.Controls.Add(flowLayoutPanelOrderProducts);
+            pnlOrders.Controls.Add(listViewOrderProducts);
 
             try
             {
@@ -628,15 +629,74 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
 
         private void DisplayOrderProducts(List<Product> products)
         {
-            flowLayoutPanelOrderProducts.Controls.Clear();
+            listViewOrderProducts.Clear();
+
+            listViewOrderProducts.Columns.Add("Name", 200);
+            listViewOrderProducts.Columns.Add("Stock", 75);
+            listViewOrderProducts.Columns.Add("Alcoholic?", 100);
+            listViewOrderProducts.Columns.Add("Price", 75);
+            listViewOrderProducts.Columns.Add("", 50);
+            listViewOrderProducts.Columns.Add("", 50);
+
+
             foreach (Product product in products)
             {
-                Button btn = new Button();
-                btn.Size = new Size(150, 75);
-                btn.Text = product.Name;
-                btn.Tag = product;
-                btn.MouseClick += orderProduct_Click;
-                flowLayoutPanelOrderProducts.Controls.Add(btn);
+                ListViewItem listViewItem = new ListViewItem(product.Name);
+                listViewItem.Tag = product;
+                listViewItem.SubItems.Add(product.Stock.ToString());
+                listViewItem.SubItems.Add(product.DrinkType == DrinkType.Alcoholic ? "Yes" : "No");
+                listViewItem.SubItems.Add($"€{product.Price:0.00}");
+                listViewItem.SubItems.Add("+");
+                listViewItem.SubItems.Add("-");
+
+                Button addButton = new Button();
+                addButton.Text = "+";
+                addButton.Click += (sender, e) =>
+                {
+                    bool alreadyInOrder = false;
+                    foreach (OrderLine orderLine in this.unprocessedOrder.OrderLines)
+                    {
+                        if (orderLine.Product.ProductId == product.ProductId)
+                        {
+                            alreadyInOrder = true;
+                            orderLine.IncreaseQuantity(1);
+                        }
+                    }
+
+                    if (!alreadyInOrder) CreateOrderLine(product);
+                    if (!orderProcessButton.Visible) orderProcessButton.Visible = true;
+                    UpdateOrderDetailsLabel();
+                };
+
+                Button removeButton = new Button();
+                removeButton.Text = "-";
+                removeButton.Click += (sender, e) =>
+                {
+                    foreach (OrderLine orderLine in this.unprocessedOrder.OrderLines.ToList())
+                    {
+                        if (orderLine.Product.ProductId == product.ProductId)
+                        {
+                            orderLine.DecreaseQuantity(1);
+                            if (orderLine.Quantity == 0)
+                            {
+                                this.unprocessedOrder.OrderLines.Remove(orderLine);
+                            }
+                        }
+                    }
+
+                    if (this.unprocessedOrder.OrderLines.Count == 0) orderProcessButton.Visible = false;
+                    UpdateOrderDetailsLabel();
+                };
+                
+                listViewOrderProducts.Items.Add(listViewItem);
+                listViewOrderProducts.Controls.Add(addButton);
+                listViewOrderProducts.Controls.Add(removeButton);
+                
+                Rectangle rIncrease = listViewItem.SubItems[listViewItem.SubItems.Count - 2].Bounds;
+                addButton.SetBounds(rIncrease.X, rIncrease.Y, rIncrease.Width, rIncrease.Height);
+
+                Rectangle rDecrease = listViewItem.SubItems[listViewItem.SubItems.Count - 1].Bounds;
+                removeButton.SetBounds(rDecrease.X, rDecrease.Y, rDecrease.Width, rDecrease.Height);
             }
 
             ResetUnprocessedOrder();
@@ -679,25 +739,6 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             lblRecordOrders.Text = "0";
             lblRecordProducts.Text = "0";
             lblRecordTotal.Text = "€0.00";
-        }
-
-        private void orderProduct_Click(object sender, EventArgs e)
-        {
-            Product product = (Product)((Button)sender).Tag;
-
-            bool alreadyInOrder = false;
-            foreach (OrderLine orderLine in this.unprocessedOrder.OrderLines)
-            {
-                if (orderLine.Product.ProductId == product.ProductId)
-                {
-                    alreadyInOrder = true;
-                    orderLine.IncreaseQuantity(1);
-                }
-            }
-
-            if (!alreadyInOrder) CreateOrderLine(product);
-            if (!orderProcessButton.Visible) orderProcessButton.Visible = true;
-            UpdateOrderDetailsLabel();
         }
 
         private void CreateOrderLine(Product product)
@@ -1191,6 +1232,19 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
                 }
             }
             return false;
+        }
+    }
+    
+    public static class ListViewExtensions
+    {
+        public static void AddControl(this ListView listView, Control control, int column, int row)
+        {
+            // Calculate the bounds of the cell
+            Rectangle bounds = listView.Items[row].SubItems[column].Bounds;
+            control.Bounds = new Rectangle(bounds.X + 2, bounds.Y + 2, bounds.Width - 4, bounds.Height - 4);
+
+            // Add the control to the ListView
+            listView.Controls.Add(control);
         }
     }
 }

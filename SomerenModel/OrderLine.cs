@@ -24,6 +24,11 @@ namespace SomerenModel
             Quantity += quantity;
         }
 
+        public void DecreaseQuantity(int quantity)
+        {
+            Quantity -= quantity;
+        }
+
         public override string ToString()
         {
             return $"{Quantity}x {Product.Name} (€{Product.Price:0.00}; {Product.VATRate}%)";

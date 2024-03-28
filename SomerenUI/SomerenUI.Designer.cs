@@ -46,7 +46,7 @@ namespace SomerenUI
             dashboardToolStripMenuItem1 = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             endDatePickerLabel1 = new Label();
-            flowLayoutPanelOrderProducts = new FlowLayoutPanel();
+            listViewOrderProducts = new ListView();
             gbQuarter = new GroupBox();
             headerLabel = new Label();
             lblDashboard = new Label();
@@ -294,13 +294,15 @@ namespace SomerenUI
             endDatePickerLabel1.TabIndex = 2;
             endDatePickerLabel1.Text = "End date:";
             // 
-            // flowLayoutPanelOrderProducts
+            // listViewOrderProducts
             // 
-            flowLayoutPanelOrderProducts.Location = new Point(15, 140);
-            flowLayoutPanelOrderProducts.Margin = new Padding(4);
-            flowLayoutPanelOrderProducts.Name = "flowLayoutPanelOrderProducts";
-            flowLayoutPanelOrderProducts.Size = new Size(600, 434);
-            flowLayoutPanelOrderProducts.TabIndex = 1;
+            listViewOrderProducts.Location = new Point(12, 140);
+            listViewOrderProducts.Margin = new Padding(2);
+            listViewOrderProducts.Name = "listViewOrderProducts";
+            listViewOrderProducts.Size = new Size(561, 321);
+            listViewOrderProducts.TabIndex = 0;
+            listViewOrderProducts.UseCompatibleStateImageBehavior = false;
+            listViewOrderProducts.View = View.Details;
             // 
             // gbQuarter
             // 
@@ -1437,7 +1439,7 @@ namespace SomerenUI
         private ComboBox ordersComboBox;
         private DateTimePicker revenueDateEnd;
         private DateTimePicker revenueDateStart;
-        private FlowLayoutPanel flowLayoutPanelOrderProducts;
+        private ListView listViewOrderProducts;
         private GroupBox gbQuarter;
         private Label lblVatType;
         private Label endDatePickerLabel1;
