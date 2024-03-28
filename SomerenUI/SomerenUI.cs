@@ -911,6 +911,11 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             double productVatRate = productEditAlcoholInput.Checked ? Product.ALCOHOL_VAT_RATE : Product.NORMAL_VAT_RATE;
             double productPrice = decimal.ToDouble(productEditPriceInput.Value);
 
+            if (CheckInputFields(productName, productStock, productPrice)) {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+
             if (selectedProduct == null) {
                 productService.CreateProduct(new Product(productName, productStock, productVatRate, productPrice));
             } else
