@@ -10,14 +10,23 @@ namespace SomerenDAL
     {
         public List<Teacher> GetAll()
         {
-            SqlCommand command = new SqlCommand("SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId FROM [teachers] WHERE deleted=0", OpenConnection());
+            string query = @"
+SELECT teacherId, firstName, lastName, phoneNumber, dateOfBirth, rooms.roomId, building, floor, amountOfBeds
+FROM [teachers]
+JOIN rooms ON teachers.roomId = rooms.roomId
+WHERE teachers.deleted=0
+ORDER BY lastName DESC";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Teacher> teachers = new List<Teacher>();
+            RoomDao roomDao = new RoomDao();
 
             while (reader.Read())
             {
                 Teacher teacher = ReadTeacher(reader);
+                teacher.SetRoom(roomDao.ReadRoom(reader));
                 teachers.Add(teacher);
             }
             reader.Close();
@@ -33,8 +42,7 @@ namespace SomerenDAL
                 firstName: (string)reader["firstName"],
                 lastName: (string)reader["lastName"],
                 phoneNumber: (long)reader["phoneNumber"],
-                dateOfBirth: (DateTime)reader["dateOfBirth"],
-                roomId: (int)reader["roomId"]
+                dateOfBirth: (DateTime)reader["dateOfBirth"]
             );
 
             return teacher;
@@ -57,7 +65,7 @@ WHERE teacherId = @TeacherId";
             command.Parameters.AddWithValue("@LastName", teacher.LastName);
             command.Parameters.AddWithValue("@PhoneNumber", teacher.PhoneNumber);
             command.Parameters.AddWithValue("@DateOfBirth", teacher.DateOfBirth);
-            command.Parameters.AddWithValue("@RoomId", teacher.RoomId);
+            command.Parameters.AddWithValue("@RoomId", teacher.Room.RoomId);
             command.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
 
             command.ExecuteNonQuery();
@@ -77,7 +85,7 @@ SELECT SCOPE_IDENTITY();";
             command.Parameters.AddWithValue("@LastName", teacher.LastName);
             command.Parameters.AddWithValue("@PhoneNumber", teacher.PhoneNumber);
             command.Parameters.AddWithValue("@DateOfBirth", teacher.DateOfBirth);
-            command.Parameters.AddWithValue("@RoomId", teacher.RoomId);
+            command.Parameters.AddWithValue("@RoomId", teacher.Room.RoomId);
 
             int id = Convert.ToInt32(command.ExecuteScalar());
 

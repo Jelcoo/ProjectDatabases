@@ -15,20 +15,19 @@ namespace SomerenModel
         public long PhoneNumber { get; private set; }
         public string Class { get; private set; }
         public int Vouchers { get; private set; }
-        public int RoomId { get; private set; } //TODO convert to Room model
+        public Room Room { get; private set; }
 
-        public Student(string firstName, string lastName, long phoneNumber, string @class, int vouchers, int roomId)
+        public Student(string firstName, string lastName, long phoneNumber, string @class, int vouchers)
         {
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
             Class = @class;
             Vouchers = vouchers;
-            RoomId = roomId;
         }
 
-        public Student(int studentId, string firstName, string lastName, long phoneNumber, string @class, int vouchers, int roomId)
-            : this(firstName, lastName, phoneNumber, @class, vouchers, roomId)
+        public Student(int studentId, string firstName, string lastName, long phoneNumber, string @class, int vouchers)
+            : this(firstName, lastName, phoneNumber, @class, vouchers)
         {
             StudentId = studentId;
         }
@@ -36,6 +35,12 @@ namespace SomerenModel
         public Student SetId(int id)
         {
             StudentId = id;
+            return this;
+        }
+
+        public Student SetRoom(Room room)
+        {
+            Room = room;
             return this;
         }
 

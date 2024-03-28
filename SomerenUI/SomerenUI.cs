@@ -69,6 +69,7 @@ namespace SomerenUI
             {
                 List<Student> students = GetStudents();
                 DisplayStudents(students);
+                DisplayRoomsDropdown(studentEditRoomSelect);
             }
             catch (Exception e)
             {
@@ -84,6 +85,7 @@ namespace SomerenUI
             {
                 List<Teacher> teachers = GetTeachers();
                 DisplayTeachers(teachers);
+                DisplayRoomsDropdown(teacherEditRoomSelect);
             }
             catch (Exception e)
             {
@@ -215,6 +217,17 @@ namespace SomerenUI
             {
                 MessageBox.Show("Something went wrong while loading the VAT: " + e.Message);
             }
+        }
+
+        private void DisplayRoomsDropdown(ComboBox comboBox)
+        {
+            List<Room> rooms = GetRooms();
+            comboBox.Items.Clear();
+            foreach (Room room in rooms)
+            {
+                comboBox.Items.Add(room);
+            }
+            comboBox.SelectedIndex = 0;
         }
 
         private void DisplayParticipantsActivityList(List<Activity> activities)
@@ -412,7 +425,7 @@ namespace SomerenUI
                 listViewItem.SubItems.Add(student.PhoneNumber.ToString());
                 listViewItem.SubItems.Add(student.Class);
                 listViewItem.SubItems.Add(student.Vouchers.ToString());
-                listViewItem.SubItems.Add(student.RoomId.ToString());
+                listViewItem.SubItems.Add(student.Room.Name);
 
                 listViewPanelStudents.Items.Add(listViewItem);
             }
@@ -437,7 +450,7 @@ namespace SomerenUI
                 listViewItem.SubItems.Add(teacher.Name);
                 listViewItem.SubItems.Add(teacher.PhoneNumber.ToString());
                 listViewItem.SubItems.Add(teacher.DateOfBirth.ToString("dd/MM/yyyy"));
-                listViewItem.SubItems.Add(teacher.RoomId.ToString());
+                listViewItem.SubItems.Add(teacher.Room.Name);
                 listViewPanelteachers.Items.Add(listViewItem);
             }
 
@@ -810,7 +823,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             teacherEditLastNameInput.Text = teacher.LastName;
             teacherEditPhoneNumberInput.Value = teacher.PhoneNumber;
             teacherEditDateOfBirthInput.Text = teacher.DateOfBirth.ToString();
-            teacherEditRoomIdInput.Text = teacher.RoomId.ToString(); //TODO: make dropdown for room selection (teacher/student)
+            teacherEditRoomSelect.SelectedItem = teacher.Room;
         }
 
         private void ProductFormSetEmpty()
@@ -829,7 +842,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             teacherEditLastNameInput.Text = "";
             teacherEditPhoneNumberInput.Text = "";
             teacherEditDateOfBirthInput.Text = DateTime.Now.ToString();
-            teacherEditRoomIdInput.Text = "";
+            teacherEditRoomSelect.SelectedIndex = 0;
         }
 
         private void listViewPanelProducts_SelectedIndexChanged(object sender, EventArgs e)
@@ -884,8 +897,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             studentEditPhoneNumberInput.Value = student.PhoneNumber;
             studentEditClassInput.Text = student.Class;
             studentEditVouchersNumerric.Value = student.Vouchers;
-            studentEditRoomInput.Text = student.RoomId.ToString();
-            
+            studentEditRoomSelect.SelectedItem = student.Room;
         }
 
         private void StudentFormSetEmpty()
@@ -896,7 +908,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             studentEditPhoneNumberInput.Text = "";
             studentEditClassInput.Text = "";
             studentEditVouchersNumerric.Value = 0;
-            studentEditRoomInput.Text = "";
+            studentEditRoomSelect.SelectedIndex = 0;
         }
 
         private void listViewPanelStudents_SelectedIndexChanged(object sender, EventArgs e)
@@ -916,12 +928,12 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             long phoneNumber = (long)studentEditPhoneNumberInput.Value;
             string @class = studentEditClassInput.Text;
             int vouchers = (int)studentEditVouchersNumerric.Value;
-            int roomId = int.Parse(studentEditRoomInput.Text);
+            Room room = (Room)studentEditRoomSelect.SelectedItem;
 
-            if (selectedStudent == null) studentService.CreateStudent(new Student(firstName, lastName, phoneNumber, @class, vouchers, roomId));
+            if (selectedStudent == null) studentService.CreateStudent(new Student(firstName, lastName, phoneNumber, @class, vouchers).SetRoom(room));
             else
             {
-                studentService.UpdateStudent(new Student(selectedStudent.StudentId, firstName, lastName, phoneNumber, @class, vouchers, roomId));
+                studentService.UpdateStudent(new Student(selectedStudent.StudentId, firstName, lastName, phoneNumber, @class, vouchers).SetRoom(room));
             }
 
             MessageBox.Show(selectedStudent == null ? "student created successfully!" : "student edited successfully!");
@@ -938,12 +950,12 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             string lastName = teacherEditLastNameInput.Text;
             long phoneNumber = (long)teacherEditPhoneNumberInput.Value;
             DateTime dateOfBirth = teacherEditDateOfBirthInput.Value;
-            int roomId = int.Parse(teacherEditRoomIdInput.Text);
+            Room room = (Room)teacherEditRoomSelect.SelectedItem;
 
-            if (selectedTeacher == null) teacherService.CreateTeacher(new Teacher(firstName, lastName, phoneNumber, dateOfBirth, roomId));
+            if (selectedTeacher == null) teacherService.CreateTeacher(new Teacher(firstName, lastName, phoneNumber, dateOfBirth).SetRoom(room));
             else
             {
-                teacherService.UpdateTeacher(new Teacher(selectedTeacher.TeacherId, firstName, lastName, phoneNumber, dateOfBirth, roomId));
+                teacherService.UpdateTeacher(new Teacher(selectedTeacher.TeacherId, firstName, lastName, phoneNumber, dateOfBirth).SetRoom(room));
             }
 
             MessageBox.Show(selectedTeacher == null ? "Teacher created successfully!" : "Teacher updated successfully!");

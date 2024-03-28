@@ -10,14 +10,23 @@ namespace SomerenDAL
     {
         public List<Student> GetAll()
         {
-            SqlCommand command = new SqlCommand("SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, roomId FROM [students] WHERE deleted=0 ORDER BY lastName DESC", OpenConnection());
+            string query = @"
+SELECT studentId, firstName, lastName, phoneNumber, class, vouchers, rooms.roomId, building, floor, amountOfBeds
+FROM [students]
+JOIN rooms ON students.roomId = rooms.roomId
+WHERE students.deleted=0
+ORDER BY lastName DESC";
+
+            SqlCommand command = new SqlCommand(query, OpenConnection());
 
             SqlDataReader reader = command.ExecuteReader();
             List<Student> students = new List<Student>();
+            RoomDao roomDao = new RoomDao();
 
             while (reader.Read())
             {
                 Student student = ReadStudent(reader);
+                student.SetRoom(roomDao.ReadRoom(reader));
                 students.Add(student);
             }
             reader.Close();
@@ -34,8 +43,7 @@ namespace SomerenDAL
                 lastName: (string)reader["lastName"],
                 phoneNumber: (long)reader["phoneNumber"],
                 @class: (string)reader["class"],
-                vouchers: (int)reader["vouchers"],
-                roomId: (int)reader["roomId"]
+                vouchers: (int)reader["vouchers"]
             );
 
             return student;
@@ -60,7 +68,7 @@ WHERE studentId = @StudentId";
             command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
             command.Parameters.AddWithValue("@Class", student.Class);
             command.Parameters.AddWithValue("@Vouchers", student.Vouchers);
-            command.Parameters.AddWithValue("@RoomId", student.RoomId);
+            command.Parameters.AddWithValue("@RoomId", student.Room.RoomId);
             command.Parameters.AddWithValue("@StudentId", student.StudentId);
 
             command.ExecuteNonQuery();
@@ -81,7 +89,7 @@ SELECT SCOPE_IDENTITY();";
             command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
             command.Parameters.AddWithValue("@Class", student.Class);
             command.Parameters.AddWithValue("@Vouchers", student.Vouchers);
-            command.Parameters.AddWithValue("@RoomId", student.RoomId);
+            command.Parameters.AddWithValue("@RoomId", student.Room.RoomId);
 
             int id = Convert.ToInt32(command.ExecuteScalar());
 

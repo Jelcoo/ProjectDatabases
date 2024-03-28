@@ -14,19 +14,18 @@ namespace SomerenModel
         public string LastName { get; private set; }
         public long PhoneNumber { get; private set; }
         public DateTime DateOfBirth { get; private set; }
-        public int RoomId { get; private set; } //TODO convert to Room model
+        public Room Room { get; private set; }
 
-        public Teacher(string firstName, string lastName, long phoneNumber, DateTime dateOfBirth, int roomId)
+        public Teacher(string firstName, string lastName, long phoneNumber, DateTime dateOfBirth)
         {
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
             DateOfBirth = dateOfBirth;
-            RoomId = roomId;
         }
 
-        public Teacher(int teacherId, string firstName, string lastName, long phoneNumber, DateTime dateOfBirth, int roomId)
-            : this(firstName, lastName, phoneNumber, dateOfBirth, roomId)
+        public Teacher(int teacherId, string firstName, string lastName, long phoneNumber, DateTime dateOfBirth)
+            : this(firstName, lastName, phoneNumber, dateOfBirth)
         {
             TeacherId = teacherId;
         }
@@ -34,6 +33,12 @@ namespace SomerenModel
         public Teacher SetId(int id)
         {
             TeacherId = id;
+            return this;
+        }
+
+        public Teacher SetRoom(Room room)
+        {
+            Room = room;
             return this;
         }
     }

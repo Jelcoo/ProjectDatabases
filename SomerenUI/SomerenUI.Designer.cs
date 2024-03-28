@@ -113,7 +113,7 @@ namespace SomerenUI
             productDeleteButton = new Button();
             teacherEditButton = new Button();
             teacherEditFirstNameInput = new TextBox();
-            teacherEditRoomIdInput = new TextBox();
+            teacherEditRoomSelect = new ComboBox();
             teacherEditPhoneNumberInput = new NumericUpDown();
             teacherEditDateOfBirthInput = new DateTimePicker();
             teacherEditLastNameInput = new TextBox();
@@ -125,7 +125,7 @@ namespace SomerenUI
             revenueDateEnd = new DateTimePicker();
             pnlRooms = new Panel();
             pnlStudents = new Panel();
-            studentEditRoomInput = new TextBox();
+            studentEditRoomSelect = new ComboBox();
             studentEditRoomLabel = new Label();
             studentEditVouchersNumerric = new NumericUpDown();
             studentEditVouchersLabel = new Label();
@@ -999,13 +999,12 @@ namespace SomerenUI
             teacherEditFirstNameInput.Size = new Size(120, 27);
             teacherEditFirstNameInput.TabIndex = 3;
             // 
-            // teacherEditRoomIdInput
+            // teacherEditRoomSelect
             // 
-            teacherEditRoomIdInput.Location = new Point(702, 199);
-            teacherEditRoomIdInput.Margin = new Padding(2);
-            teacherEditRoomIdInput.Name = "teacherEditRoomIdInput";
-            teacherEditRoomIdInput.Size = new Size(120, 27);
-            teacherEditRoomIdInput.TabIndex = 3;
+            teacherEditRoomSelect.Location = new Point(702, 199);
+            teacherEditRoomSelect.Name = "teacherEditRoomSelect";
+            teacherEditRoomSelect.Size = new Size(120, 27);
+            teacherEditRoomSelect.TabIndex = 3;
             // 
             // teacherEditPhoneNumberInput
             // 
@@ -1117,7 +1116,7 @@ namespace SomerenUI
             // pnlStudents
             // 
             pnlStudents.Controls.Add(studentEditFirstNameInput);
-            pnlStudents.Controls.Add(studentEditRoomInput);
+            pnlStudents.Controls.Add(studentEditRoomSelect);
             pnlStudents.Controls.Add(studentEditRoomLabel);
             pnlStudents.Controls.Add(studentEditVouchersNumerric);
             pnlStudents.Controls.Add(studentEditVouchersLabel);
@@ -1137,13 +1136,12 @@ namespace SomerenUI
             pnlStudents.Size = new Size(858, 422);
             pnlStudents.TabIndex = 2;
             // 
-            // studentEditRoomInput
+            // studentEditRoomSelect
             // 
-            studentEditRoomInput.Location = new Point(594, 323);
-            studentEditRoomInput.Margin = new Padding(2);
-            studentEditRoomInput.Name = "studentEditRoomInput";
-            studentEditRoomInput.Size = new Size(170, 27);
-            studentEditRoomInput.TabIndex = 21;
+            studentEditRoomSelect.Location = new Point(594, 323);
+            studentEditRoomSelect.Name = "studentEditRoomSelect";
+            studentEditRoomSelect.Size = new Size(170, 27);
+            studentEditRoomSelect.TabIndex = 21;
             // 
             // studentEditRoomLabel
             // 
@@ -1268,7 +1266,7 @@ namespace SomerenUI
             pnlTeachers.Controls.Add(teacherEditLastNameLabel);
             pnlTeachers.Controls.Add(teacherEditButton);
             pnlTeachers.Controls.Add(teacherEditFirstNameInput);
-            pnlTeachers.Controls.Add(teacherEditRoomIdInput);
+            pnlTeachers.Controls.Add(teacherEditRoomSelect);
             pnlTeachers.Controls.Add(teacherEditDateOfBirthInput);
             pnlTeachers.Controls.Add(teacherEditLastNameInput);
             pnlTeachers.Controls.Add(teacherEditPhoneNumberInput);
@@ -1491,10 +1489,10 @@ namespace SomerenUI
         private TextBox studentEditLastNameInput;
         private NumericUpDown studentEditPhoneNumberInput;
         private TextBox studentEditClassInput;
-        private TextBox studentEditRoomInput;
+        private ComboBox studentEditRoomSelect;
         private NumericUpDown studentEditVouchersNumerric;
         private TextBox teacherEditFirstNameInput;
-        private TextBox teacherEditRoomIdInput;
+        private ComboBox teacherEditRoomSelect;
         private DateTimePicker teacherEditDateOfBirthInput;
         private TextBox teacherEditLastNameInput;
         private NumericUpDown teacherEditPhoneNumberInput;
