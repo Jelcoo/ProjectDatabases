@@ -32,7 +32,7 @@ namespace SomerenDAL
                 teacherId: (int)reader["teacherId"],
                 firstName: (string)reader["firstName"],
                 lastName: (string)reader["lastName"],
-                phoneNumber: (string)reader["phoneNumber"],
+                phoneNumber: (System.Int64)reader["phoneNumber"],
                 dateOfBirth: (DateTime)reader["dateOfBirth"],
                 roomId: (int)reader["roomId"]
             );

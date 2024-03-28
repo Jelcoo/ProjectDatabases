@@ -370,7 +370,7 @@ namespace SomerenUI
                 ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
                 listViewItem.Tag = student;
                 listViewItem.SubItems.Add(student.Name);
-                listViewItem.SubItems.Add(student.PhoneNumber);
+                listViewItem.SubItems.Add(student.PhoneNumber.ToString());
                 listViewItem.SubItems.Add(student.Class);
                 list.Items.Add(listViewItem);
             }
@@ -409,7 +409,7 @@ namespace SomerenUI
                 ListViewItem listViewItem = new ListViewItem(student.StudentId.ToString());
                 listViewItem.Tag = student;
                 listViewItem.SubItems.Add(student.Name);
-                listViewItem.SubItems.Add(student.PhoneNumber);
+                listViewItem.SubItems.Add(student.PhoneNumber.ToString());
                 listViewItem.SubItems.Add(student.Class);
                 listViewItem.SubItems.Add(student.Vouchers.ToString());
                 listViewItem.SubItems.Add(student.RoomId.ToString());
@@ -435,7 +435,7 @@ namespace SomerenUI
                 ListViewItem listViewItem = new ListViewItem(teacher.TeacherId.ToString());
                 listViewItem.Tag = teacher;
                 listViewItem.SubItems.Add(teacher.Name);
-                listViewItem.SubItems.Add(teacher.PhoneNumber);
+                listViewItem.SubItems.Add(teacher.PhoneNumber.ToString());
                 listViewItem.SubItems.Add(teacher.DateOfBirth.ToString("dd/MM/yyyy"));
                 listViewItem.SubItems.Add(teacher.RoomId.ToString());
                 listViewPanelteachers.Items.Add(listViewItem);
@@ -808,7 +808,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             teacherEditButton.Text = "Edit";
             teacherEditFirstNameInput.Text = teacher.FirstName;
             teacherEditLastNameInput.Text = teacher.LastName;
-            teacherEditPhoneNumberInput.Text = teacher.PhoneNumber;
+            teacherEditPhoneNumberInput.Value = teacher.PhoneNumber;
             teacherEditDateOfBirthInput.Text = teacher.DateOfBirth.ToString();
             teacherEditRoomIdInput.Text = teacher.RoomId.ToString(); //TODO: make dropdown for room selection (teacher/student)
         }
@@ -881,7 +881,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             studentEditButton.Text = "Edit";
             studentEditFirstNameInput.Text = student.FirstName;
             studentEditLastNameInput.Text = student.LastName;
-            studentEditPhoneNumberInput.Text = student.PhoneNumber;
+            studentEditPhoneNumberInput.Value = student.PhoneNumber;
             studentEditClassInput.Text = student.Class;
             studentEditVouchersNumerric.Value = student.Vouchers;
             studentEditRoomInput.Text = student.RoomId.ToString();
@@ -913,7 +913,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
 
             string firstName = studentEditFirstNameInput.Text;
             string lastName = studentEditLastNameInput.Text;
-            string phoneNumber = studentEditPhoneNumberInput.Text;
+            System.Int64 phoneNumber = (System.Int64)studentEditPhoneNumberInput.Value;
             string @class = studentEditClassInput.Text;
             int vouchers = (int)studentEditVouchersNumerric.Value;
             int roomId = int.Parse(studentEditRoomInput.Text);
@@ -936,7 +936,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
 
             string firstName = teacherEditFirstNameInput.Text;
             string lastName = teacherEditLastNameInput.Text;
-            string phoneNumber = teacherEditPhoneNumberInput.Text;
+            System.Int64 phoneNumber = (System.Int64)teacherEditPhoneNumberInput.Value;
             DateTime dateOfBirth = teacherEditDateOfBirthInput.Value;
             int roomId = int.Parse(teacherEditRoomIdInput.Text);
 

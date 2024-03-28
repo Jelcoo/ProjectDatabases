@@ -1,6 +1,6 @@
 ﻿namespace SomerenModel
 {
-    public class Product //TODO make constructurs (for multiple models)
+    public class Product
     {
         public const double NORMAL_VAT_RATE = 0.06;
         public const double ALCOHOL_VAT_RATE = 0.21;

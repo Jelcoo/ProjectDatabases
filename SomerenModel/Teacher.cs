@@ -12,11 +12,11 @@ namespace SomerenModel
         }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-        public string PhoneNumber { get; private set; } //TODO: validate input fields properly for all forms
+        public System.Int64 PhoneNumber { get; private set; }
         public DateTime DateOfBirth { get; private set; }
         public int RoomId { get; private set; } //TODO convert to Room model
 
-        public Teacher(string firstName, string lastName, string phoneNumber, DateTime dateOfBirth, int roomId)
+        public Teacher(string firstName, string lastName, System.Int64 phoneNumber, DateTime dateOfBirth, int roomId)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -25,7 +25,7 @@ namespace SomerenModel
             RoomId = roomId;
         }
 
-        public Teacher(int teacherId, string firstName, string lastName, string phoneNumber, DateTime dateOfBirth, int roomId)
+        public Teacher(int teacherId, string firstName, string lastName, System.Int64 phoneNumber, DateTime dateOfBirth, int roomId)
             : this(firstName, lastName, phoneNumber, dateOfBirth, roomId)
         {
             TeacherId = teacherId;

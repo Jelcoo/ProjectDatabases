@@ -114,7 +114,7 @@ namespace SomerenUI
             teacherEditButton = new Button();
             teacherEditFirstNameInput = new TextBox();
             teacherEditRoomIdInput = new TextBox();
-            teacherEditPhoneNumberInput = new TextBox();
+            teacherEditPhoneNumberInput = new NumericUpDown();
             teacherEditDateOfBirthInput = new DateTimePicker();
             teacherEditLastNameInput = new TextBox();
             teacherEditFirstNameLabel = new Label();
@@ -131,7 +131,7 @@ namespace SomerenUI
             studentEditVouchersLabel = new Label();
             studentEditClassInput = new TextBox();
             studentEditClassLabel = new Label();
-            studentEditPhoneNumberInput = new TextBox();
+            studentEditPhoneNumberInput = new NumericUpDown();
             studentEditPhoneNumberLabel = new Label();
             studentEditLastNameInput = new TextBox();
             label1studentEditLastNameLabel = new Label();
@@ -1014,6 +1014,8 @@ namespace SomerenUI
             teacherEditPhoneNumberInput.Name = "teacherEditPhoneNumberInput";
             teacherEditPhoneNumberInput.Size = new Size(120, 27);
             teacherEditPhoneNumberInput.TabIndex = 3;
+            teacherEditPhoneNumberInput.Minimum = 0;
+            teacherEditPhoneNumberInput.Maximum = UInt64.MaxValue;
             // 
             // teacherEditDateOfBirthInput
             // 
@@ -1195,6 +1197,8 @@ namespace SomerenUI
             studentEditPhoneNumberInput.Name = "studentEditPhoneNumberInput";
             studentEditPhoneNumberInput.Size = new Size(170, 27);
             studentEditPhoneNumberInput.TabIndex = 14;
+            studentEditPhoneNumberInput.Minimum = 0;
+            studentEditPhoneNumberInput.Maximum = UInt64.MaxValue;
             // 
             // studentEditPhoneNumberLabel
             // 
@@ -1485,7 +1489,7 @@ namespace SomerenUI
         private TextBox productEditNameInput;
         private TextBox studentEditFirstNameInput;
         private TextBox studentEditLastNameInput;
-        private TextBox studentEditPhoneNumberInput;
+        private NumericUpDown studentEditPhoneNumberInput;
         private TextBox studentEditClassInput;
         private TextBox studentEditRoomInput;
         private NumericUpDown studentEditVouchersNumerric;
@@ -1493,7 +1497,7 @@ namespace SomerenUI
         private TextBox teacherEditRoomIdInput;
         private DateTimePicker teacherEditDateOfBirthInput;
         private TextBox teacherEditLastNameInput;
-        private TextBox teacherEditPhoneNumberInput;
+        private NumericUpDown teacherEditPhoneNumberInput;
         private NumericUpDown txtYear;
         private ToolStripMenuItem activitiesToolStripMenuItem;
         private ToolStripMenuItem activitiesToolStripMenuItem1;
