@@ -930,6 +930,11 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             int vouchers = (int)studentEditVouchersNumerric.Value;
             Room room = (Room)studentEditRoomSelect.SelectedItem;
 
+            if (CheckInputFields(firstName, lastName, phoneNumber, @class, vouchers, room)) {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+
             if (selectedStudent == null) studentService.CreateStudent(new Student(firstName, lastName, phoneNumber, @class, vouchers).SetRoom(room));
             else
             {
@@ -951,6 +956,11 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             long phoneNumber = (long)teacherEditPhoneNumberInput.Value;
             DateTime dateOfBirth = teacherEditDateOfBirthInput.Value;
             Room room = (Room)teacherEditRoomSelect.SelectedItem;
+
+            if (CheckInputFields(firstName, lastName, phoneNumber, dateOfBirth, room)) {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
 
             if (selectedTeacher == null) teacherService.CreateTeacher(new Teacher(firstName, lastName, phoneNumber, dateOfBirth).SetRoom(room));
             else
@@ -1169,6 +1179,18 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
         {
             ActivityService activityService = new ActivityService();
             activityService.UnassignTeacher(teacher, activity);
+        }
+
+        private bool CheckInputFields(params object[] fields)
+        {
+            foreach (var field in fields)
+            {
+                if (field == null || field.ToString() == "")
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
