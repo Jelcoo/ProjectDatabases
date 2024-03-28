@@ -776,7 +776,7 @@ namespace SomerenUI
             // lblAssignedSupervisor
             // 
             lblAssignedSupervisor.AutoSize = true;
-            lblAssignedSupervisor.Location = new Point(440, 134);
+            lblAssignedSupervisor.Location = new Point(438, 165);
             lblAssignedSupervisor.Margin = new Padding(2, 0, 2, 0);
             lblAssignedSupervisor.Name = "lblAssignedSupervisor";
             lblAssignedSupervisor.Size = new Size(91, 17);
@@ -786,7 +786,7 @@ namespace SomerenUI
             // lblUnassignedSupervisor
             // 
             lblUnassignedSupervisor.AutoSize = true;
-            lblUnassignedSupervisor.Location = new Point(11, 134);
+            lblUnassignedSupervisor.Location = new Point(9, 165);
             lblUnassignedSupervisor.Margin = new Padding(2, 0, 2, 0);
             lblUnassignedSupervisor.Name = "lblUnassignedSupervisor";
             lblUnassignedSupervisor.Size = new Size(119, 17);
@@ -796,7 +796,7 @@ namespace SomerenUI
             // activitySupervisorUnassignButton
             // 
             activitySupervisorUnassignButton.Enabled = false;
-            activitySupervisorUnassignButton.Location = new Point(367, 259);
+            activitySupervisorUnassignButton.Location = new Point(367, 290);
             activitySupervisorUnassignButton.Margin = new Padding(2);
             activitySupervisorUnassignButton.Name = "activitySupervisorUnassignButton";
             activitySupervisorUnassignButton.Size = new Size(48, 23);
@@ -808,7 +808,7 @@ namespace SomerenUI
             // activitySupervisorAssignButton
             // 
             activitySupervisorAssignButton.Enabled = false;
-            activitySupervisorAssignButton.Location = new Point(367, 229);
+            activitySupervisorAssignButton.Location = new Point(367, 260);
             activitySupervisorAssignButton.Margin = new Padding(2);
             activitySupervisorAssignButton.Name = "activitySupervisorAssignButton";
             activitySupervisorAssignButton.Size = new Size(48, 23);
@@ -820,7 +820,7 @@ namespace SomerenUI
             // activitySupervisorsAssigned
             // 
             activitySupervisorsAssigned.FullRowSelect = true;
-            activitySupervisorsAssigned.Location = new Point(440, 153);
+            activitySupervisorsAssigned.Location = new Point(438, 184);
             activitySupervisorsAssigned.Margin = new Padding(2);
             activitySupervisorsAssigned.Name = "activitySupervisorsAssigned";
             activitySupervisorsAssigned.Size = new Size(325, 219);
@@ -832,7 +832,7 @@ namespace SomerenUI
             // activitySupervisorsUnassigned
             // 
             activitySupervisorsUnassigned.FullRowSelect = true;
-            activitySupervisorsUnassigned.Location = new Point(14, 153);
+            activitySupervisorsUnassigned.Location = new Point(12, 184);
             activitySupervisorsUnassigned.Margin = new Padding(2);
             activitySupervisorsUnassigned.Name = "activitySupervisorsUnassigned";
             activitySupervisorsUnassigned.Size = new Size(325, 219);
@@ -845,7 +845,7 @@ namespace SomerenUI
             // 
             activitySupervisorsList.FullRowSelect = true;
             activitySupervisorsList.GridLines = true;
-            activitySupervisorsList.Location = new Point(14, 17);
+            activitySupervisorsList.Location = new Point(12, 48);
             activitySupervisorsList.Margin = new Padding(2);
             activitySupervisorsList.Name = "activitySupervisorsList";
             activitySupervisorsList.Size = new Size(751, 99);
@@ -1364,15 +1364,6 @@ namespace SomerenUI
             teacherEditRoomIdLabel.Size = new Size(110, 20);
             teacherEditRoomIdLabel.TabIndex = 14;
             teacherEditRoomIdLabel.Text = "Room Number:";
-            //
-            // unassignedStudentsLabel
-            // 
-            unassignedStudentsLabel.AutoSize = true;
-            unassignedStudentsLabel.Location = new Point(548, 243);
-            unassignedStudentsLabel.Name = "unassignedStudentsLabel";
-            unassignedStudentsLabel.Size = new Size(59, 25);
-            unassignedStudentsLabel.TabIndex = 6;
-            unassignedStudentsLabel.Text = "Participating";
             // 
             // SomerenUI
             // 
