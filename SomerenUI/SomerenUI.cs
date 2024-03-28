@@ -1234,17 +1234,4 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             return false;
         }
     }
-    
-    public static class ListViewExtensions
-    {
-        public static void AddControl(this ListView listView, Control control, int column, int row)
-        {
-            // Calculate the bounds of the cell
-            Rectangle bounds = listView.Items[row].SubItems[column].Bounds;
-            control.Bounds = new Rectangle(bounds.X + 2, bounds.Y + 2, bounds.Width - 4, bounds.Height - 4);
-
-            // Add the control to the ListView
-            listView.Controls.Add(control);
-        }
-    }
 }
