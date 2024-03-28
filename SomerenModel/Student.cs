@@ -12,12 +12,12 @@ namespace SomerenModel
                 return FirstName + " " + LastName;
             }
         }
-        public System.Int64 PhoneNumber { get; private set; }
+        public long PhoneNumber { get; private set; }
         public string Class { get; private set; }
         public int Vouchers { get; private set; }
         public int RoomId { get; private set; } //TODO convert to Room model
 
-        public Student(string firstName, string lastName, System.Int64 phoneNumber, string @class, int vouchers, int roomId)
+        public Student(string firstName, string lastName, long phoneNumber, string @class, int vouchers, int roomId)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -27,7 +27,7 @@ namespace SomerenModel
             RoomId = roomId;
         }
 
-        public Student(int studentId, string firstName, string lastName, System.Int64 phoneNumber, string @class, int vouchers, int roomId)
+        public Student(int studentId, string firstName, string lastName, long phoneNumber, string @class, int vouchers, int roomId)
             : this(firstName, lastName, phoneNumber, @class, vouchers, roomId)
         {
             StudentId = studentId;

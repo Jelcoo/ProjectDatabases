@@ -913,7 +913,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
 
             string firstName = studentEditFirstNameInput.Text;
             string lastName = studentEditLastNameInput.Text;
-            System.Int64 phoneNumber = (System.Int64)studentEditPhoneNumberInput.Value;
+            long phoneNumber = (long)studentEditPhoneNumberInput.Value;
             string @class = studentEditClassInput.Text;
             int vouchers = (int)studentEditVouchersNumerric.Value;
             int roomId = int.Parse(studentEditRoomInput.Text);
@@ -936,7 +936,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
 
             string firstName = teacherEditFirstNameInput.Text;
             string lastName = teacherEditLastNameInput.Text;
-            System.Int64 phoneNumber = (System.Int64)teacherEditPhoneNumberInput.Value;
+            long phoneNumber = (long)teacherEditPhoneNumberInput.Value;
             DateTime dateOfBirth = teacherEditDateOfBirthInput.Value;
             int roomId = int.Parse(teacherEditRoomIdInput.Text);
 

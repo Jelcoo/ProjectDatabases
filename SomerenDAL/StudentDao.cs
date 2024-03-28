@@ -32,7 +32,7 @@ namespace SomerenDAL
                 studentId: (int)reader["studentId"],
                 firstName: (string)reader["firstName"],
                 lastName: (string)reader["lastName"],
-                phoneNumber: (System.Int64)reader["phoneNumber"],
+                phoneNumber: (long)reader["phoneNumber"],
                 @class: (string)reader["class"],
                 vouchers: (int)reader["vouchers"],
                 roomId: (int)reader["roomId"]
