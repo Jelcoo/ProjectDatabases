@@ -1226,7 +1226,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
         {
             foreach (var field in fields)
             {
-                if (field == null || field.ToString() == "")
+                if (field == null || field.ToString().Trim() == "")
                 {
                     return true;
                 }
