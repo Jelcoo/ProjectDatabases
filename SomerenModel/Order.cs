@@ -32,6 +32,11 @@ namespace SomerenModel
 
         public override string ToString()
         {
+            if (OrderLines.Count == 0)
+            {
+                return "No items in order";
+            }
+
             string orderString = "";
             foreach (OrderLine line in OrderLines)
             {
