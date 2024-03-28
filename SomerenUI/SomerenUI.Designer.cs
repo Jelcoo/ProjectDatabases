@@ -1086,11 +1086,11 @@ namespace SomerenUI
             revenueDateStart.Format = DateTimePickerFormat.Custom;
             revenueDateStart.Location = new Point(12, 80);
             revenueDateStart.Margin = new Padding(2);
-            revenueDateStart.MaxDate = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateStart.MaxDate = DateTime.Today;
             revenueDateStart.Name = "revenueDateStart";
             revenueDateStart.Size = new Size(161, 27);
             revenueDateStart.TabIndex = 0;
-            revenueDateStart.Value = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateStart.Value = DateTime.Today;
             revenueDateStart.ValueChanged += UpdateRevenueSelector;
             // 
             // revenueDateEnd
@@ -1099,11 +1099,11 @@ namespace SomerenUI
             revenueDateEnd.Format = DateTimePickerFormat.Custom;
             revenueDateEnd.Location = new Point(320, 80);
             revenueDateEnd.Margin = new Padding(2);
-            revenueDateEnd.MaxDate = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateEnd.MaxDate = DateTime.Today;
             revenueDateEnd.Name = "revenueDateEnd";
             revenueDateEnd.Size = new Size(161, 27);
             revenueDateEnd.TabIndex = 0;
-            revenueDateEnd.Value = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            revenueDateEnd.Value = DateTime.Today;
             revenueDateEnd.ValueChanged += UpdateRevenueSelector;
             // 
             // pnlRooms
