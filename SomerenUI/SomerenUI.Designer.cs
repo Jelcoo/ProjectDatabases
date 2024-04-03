@@ -942,6 +942,7 @@ namespace SomerenUI
             productEditStockInput.Name = "productEditStockInput";
             productEditStockInput.Size = new Size(100, 27);
             productEditStockInput.TabIndex = 5;
+            productEditStockInput.Maximum = int.MaxValue;
             // 
             // productEditStockLabel
             // 
