@@ -862,7 +862,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             teacherEditButton.Text = "Edit";
             teacherEditFirstNameInput.Text = teacher.FirstName;
             teacherEditLastNameInput.Text = teacher.LastName;
-            teacherEditPhoneNumberInput.Value = teacher.PhoneNumber;
+            teacherEditPhoneNumberInput.Text = teacher.PhoneNumber.ToString();
             teacherEditDateOfBirthInput.Text = teacher.DateOfBirth.ToString();
             teacherEditRoomSelect.SelectedItem = teacher.Room;
         }
@@ -940,7 +940,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
             studentEditButton.Text = "Edit";
             studentEditFirstNameInput.Text = student.FirstName;
             studentEditLastNameInput.Text = student.LastName;
-            studentEditPhoneNumberInput.Value = student.PhoneNumber;
+            studentEditPhoneNumberInput.Text = student.PhoneNumber.ToString();
             studentEditClassInput.Text = student.Class;
             studentEditVouchersNumerric.Value = student.Vouchers;
             studentEditRoomSelect.SelectedItem = student.Room;
@@ -969,9 +969,14 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
         {
             StudentService studentService = new StudentService();
 
+            string phoneNumberField = studentEditPhoneNumberInput.Text;
+            if (!long.TryParse(phoneNumberField, out long phoneNumber)) {
+                MessageBox.Show("Phone number is not a valid number.");
+                return;
+            }
+
             string firstName = studentEditFirstNameInput.Text;
             string lastName = studentEditLastNameInput.Text;
-            long phoneNumber = (long)studentEditPhoneNumberInput.Value;
             string @class = studentEditClassInput.Text;
             int vouchers = (int)studentEditVouchersNumerric.Value;
             Room room = (Room)studentEditRoomSelect.SelectedItem;
@@ -997,9 +1002,14 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
         {
             TeacherService teacherService = new TeacherService();
 
+            string phoneNumberField = studentEditPhoneNumberInput.Text;
+            if (!long.TryParse(phoneNumberField, out long phoneNumber)) {
+                MessageBox.Show("Phone number is not a valid number.");
+                return;
+            }
+
             string firstName = teacherEditFirstNameInput.Text;
             string lastName = teacherEditLastNameInput.Text;
-            long phoneNumber = (long)teacherEditPhoneNumberInput.Value;
             DateTime dateOfBirth = teacherEditDateOfBirthInput.Value;
             Room room = (Room)teacherEditRoomSelect.SelectedItem;
 
