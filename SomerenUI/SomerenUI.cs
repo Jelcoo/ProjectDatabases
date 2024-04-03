@@ -1002,7 +1002,7 @@ Total Drinks Sold: {revenue.TotalDrinksSold}";
         {
             TeacherService teacherService = new TeacherService();
 
-            string phoneNumberField = studentEditPhoneNumberInput.Text;
+            string phoneNumberField = teacherEditPhoneNumberInput.Text;
             if (!long.TryParse(phoneNumberField, out long phoneNumber)) {
                 MessageBox.Show("Phone number is not a valid number.");
                 return;
