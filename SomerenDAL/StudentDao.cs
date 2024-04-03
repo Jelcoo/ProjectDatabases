@@ -99,7 +99,7 @@ SELECT SCOPE_IDENTITY();";
 
         public void DeleteStudent(Student student)
         {
-            SqlCommand command = new SqlCommand("DELETE FROM Students WHERE StudentId = @Id", OpenConnection());
+            SqlCommand command = new SqlCommand("UPDATE students SET deleted=1 WHERE studentId = @Id", OpenConnection());
             command.Parameters.AddWithValue("@Id", student.StudentId);
 
             command.ExecuteNonQuery();
